@@ -1,7 +1,7 @@
 import time
 from selenium.common import exceptions
 
-class BuyNow():
+class BuyNow(object):
 
     def __init__(self, context):
         self.context = context
@@ -23,10 +23,24 @@ class BuyNow():
         element = self.get_element_by_tag(buy_now_dict, requiredTag)
 
         if (element is not None):
-            element.click()
+            try:
+                element.click()
+            except exceptions.ElementClickInterceptedException:
+                print("---------------->in exception")
+                time.sleep(3)
+                cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
+                time.sleep(3)
+                print("-------cross elements---------> ", cross_element)
+                cross_element.click()
+                time.sleep(self.web.timeout)
+                element.click()
+        else:
+            cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
+            cross_element.click()
+            print("-------cross elements---------> ", cross_element)
 
-        time.sleep(15)
-        print("--------current url---------> ", self.web.get_current_url)
+
+        time.sleep(self.web.timeout)
 
     def fetch_required_elements(self):
         pattern = "//*[contains(text(),'Buy') or contains(text(),'BUY')]"
@@ -96,6 +110,9 @@ class BuyNow():
             size_of_tag_list = len(buy_now_dict[tag])
             return buy_now_dict[tag][(size_of_tag_list - 1)]
 
+    """
+    This function accept cookies overlay before clicking on buy button
+    """
     def fetch_overlay_details(self):
         pattern = "//*[(contains(text(),'Accept') and contains(text(),'Cookies')) or (contains(text(),'Accept') and contains(text(),'cookies')) or (contains(text(),'accept') and contains(text(),'cookies'))]"
         overlay_elements = self.web.find_elements_by_xpath(pattern)

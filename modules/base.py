@@ -24,3 +24,6 @@ class Base:
 
     def get_current_url(self):
         return self.web_driver.current_url
+
+    def find_cross_by_css_selector(self, xpath):
+        return self.web_driver_wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, xpath)))
