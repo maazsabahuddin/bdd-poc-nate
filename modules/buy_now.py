@@ -7,7 +7,7 @@ class BuyNow(object):
         self.context = context
         self.web = context.web
 
-    def check_nuy_now_page(self):
+    def check_buy_now_page(self):
         self.web.open(self.context.url)
 
         try:
@@ -26,22 +26,20 @@ class BuyNow(object):
             try:
                 element.click()
             except exceptions.ElementClickInterceptedException:
-                print("---------------->in exception")
-                time.sleep(3)
                 cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
-                time.sleep(3)
-                print("-------cross elements---------> ", cross_element)
                 cross_element.click()
                 time.sleep(self.web.timeout)
                 element.click()
         else:
             cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
             cross_element.click()
-            print("-------cross elements---------> ", cross_element)
 
 
         time.sleep(self.web.timeout)
 
+    """
+    This function find the all element who has buy text and make a list of it.
+    """
     def fetch_required_elements(self):
         pattern = "//*[contains(text(),'Buy') or contains(text(),'BUY')]"
         buy_web_elements = self.web.finds_by_xpath(pattern)
@@ -86,8 +84,8 @@ class BuyNow(object):
     4- span
     """
     def get_required_tag(self, tags):
-        possible_tags_dict = ["button", "input", "a", "span"]
-        for tag in possible_tags_dict:
+        possible_tags_list = ["button", "input", "a", "span"]
+        for tag in possible_tags_list:
             if tag in tags:
                 return tag
         return None
