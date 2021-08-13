@@ -11,8 +11,3 @@ def step_impl(context):
 def step_impl(context):
     '''logic to detect its a valid login page'''
     print("Login page")
-
-
-
-
-
