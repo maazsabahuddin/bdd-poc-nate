@@ -1,4 +1,5 @@
 import time
+import logging
 from selenium.common import exceptions
 
 class BuyNow(object):
@@ -9,7 +10,6 @@ class BuyNow(object):
 
     def check_buy_now_page(self):
         self.web.open(self.context.url)
-
         try:
             buy_now_dict = self.fetch_required_elements()
         except exceptions.StaleElementReferenceException:
@@ -35,7 +35,7 @@ class BuyNow(object):
             cross_element.click()
 
 
-        time.sleep(self.web.timeout)
+        time.sleep(3)
 
     """
     This function find the all element who has buy text and make a list of it.
@@ -100,10 +100,10 @@ class BuyNow(object):
         elif (tag == "button" or tag == "input"):
             return buy_now_dict[tag][0]
         elif (tag == "span"):
-            element = buy_now_dict[tag]
-            element_id = element.get_attribute("id")
+            element = buy_now_dict[tag]  
+            element_id = element[0].get_attribute("id")
             search_path = f"//*[@aria-labelledby='{element_id}']"
-            return self.web.find_element_by_xpath(search_path)
+            return self.web.find_by_xpath(search_path)
         else:
             size_of_tag_list = len(buy_now_dict[tag])
             return buy_now_dict[tag][(size_of_tag_list - 1)]
