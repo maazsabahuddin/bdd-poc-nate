@@ -1,5 +1,6 @@
 import time
 import logging
+from modules.constants import Tags, Pattern
 from selenium.common import exceptions
 
 class BuyNow(object):
@@ -41,8 +42,7 @@ class BuyNow(object):
     This function find the all element who has buy text and make a list of it.
     """
     def fetch_required_elements(self):
-        pattern = "//*[contains(text(),'Buy') or contains(text(),'BUY')]"
-        buy_web_elements = self.web.finds_by_xpath(pattern)
+        buy_web_elements = self.web.finds_by_xpath(Pattern.BUY_PATTERN)
         buy_now_dict = {}
         for ele in buy_web_elements:
             if (ele.tag_name == "button"):
@@ -84,8 +84,7 @@ class BuyNow(object):
     4- span
     """
     def get_required_tag(self, tags):
-        possible_tags_list = ["button", "input", "a", "span"]
-        for tag in possible_tags_list:
+        for tag in Tags.POSSIBLE_BUY_TAGS_LIST:
             if tag in tags:
                 return tag
         return None
@@ -112,8 +111,7 @@ class BuyNow(object):
     This function accept cookies overlay before clicking on buy button
     """
     def fetch_overlay_details(self):
-        pattern = "//*[(contains(text(),'Accept') and contains(text(),'Cookies')) or (contains(text(),'Accept') and contains(text(),'cookies')) or (contains(text(),'accept') and contains(text(),'cookies'))]"
-        overlay_elements = self.web.find_elements_by_xpath(pattern)
+        overlay_elements = self.web.find_elements_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
         accept_element = None
         for ele in overlay_elements:
             accept_element = ele

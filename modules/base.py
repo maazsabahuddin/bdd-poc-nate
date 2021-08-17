@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from modules.constants import Senarios
 
 class Base:
     
@@ -18,11 +19,11 @@ class Base:
         self.web_driver.quit()
     
     def skip_all_remaining_scenarios(self):
-        self.context._root['skip_all'] = True
+        self.context._root[Senarios.SKIP_ALL] = True
     
     def skip_scenario(self, scenario_name):
-        if(scenario_name == "login"):
-            self.context._root["skip_scenario"].update({"skip_login": True})
+        if(scenario_name == Senarios.LOGIN):
+            self.context._root[Senarios.SKIP_SENARIO].update({Senarios.SKIP_LOGIN: True})
 
     def find_by_xpath(self, xpath):
         return self.web_driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
