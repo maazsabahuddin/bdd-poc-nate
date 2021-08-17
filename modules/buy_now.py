@@ -84,7 +84,7 @@ class BuyNow(object):
     4- span
     """
     def get_required_tag(self, tags):
-        for tag in Tags.POSSIBLE_TAGS_LIST:
+        for tag in Tags.POSSIBLE_BUY_TAGS_LIST:
             if tag in tags:
                 return tag
         return None
