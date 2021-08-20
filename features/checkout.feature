@@ -1,14 +1,20 @@
 Feature: Ecommerce Checkout
 
     Scenario: Find and click buy now button
-        Given url of buy now page
+        Given url of product page
         Then we should land to login page
     
-    # @skip_login
-    # Scenario: Login with credentials
-    #     Given credentials for perfom signin
-    #     Then login performed and moved to next step
+    @skip_add_to_cart
+    Scenario: Find and click "add to cart" button
+        Given url of buy now page
+        Then we should proceed to login page
 
-    # Scenario: Login as guest
-    #     Given page with login as guest option
-    #     Then we should contine with address details
+    Scenario: Perform login as guest
+        Given Is product page has "login as guest" feature
+        When product page support "login as guest" feature
+        Then we should perform "login as guest"
+    
+    @skip_login
+    Scenario: Perform login with credentials
+        Given Is "login" required
+        Then perform "login" with credentials
