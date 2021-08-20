@@ -11,7 +11,7 @@ def before_all(context):
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[Senarios.SKIP_ALL] = False
     # This dict will be used to skip indiviaudal scenarios along the run
-    context._root[Senarios.SKIP_SENARIO] = {Senarios.SKIP_LOGIN: False}
+    context._root[Senarios.SKIP_SENARIO] = {Senarios.SKIP_LOGIN: False, Senarios.SKIP_ADD_TO_CART: False}
     # This context attributes is available throughout all scenarios
     browser = webdriver.Chrome(ChromeDriverManager().install())
     context.url = context.config.userdata['url']
@@ -40,6 +40,9 @@ def before_tag(context, tag):
     if tag == Senarios.SKIP_LOGIN:
         if context._root.get(Senarios.SKIP_SENARIO).get(Senarios.SKIP_LOGIN):
             context.scenario.skip(reason="Skip login, will go with login as guest")
+    if tag == Senarios.SKIP_ADD_TO_CART:
+        if context._root.get(Senarios.SKIP_SENARIO).get(Senarios.SKIP_ADD_TO_CART):
+            context.scenario.skip(reason="Skip add to cart, beacuse we found buy now")
 
 
 
