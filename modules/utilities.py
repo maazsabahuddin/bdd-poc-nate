@@ -3,7 +3,7 @@ from selenium.common import exceptions
 
 class Utils:
     """ 
-    This function get element from the list on the priority basis.
+    This function get element from the provided list on priority basis.
     Priority is: 1-button, 2-input, 3-a, 4-span
     """
     @staticmethod

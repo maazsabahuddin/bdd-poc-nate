@@ -24,7 +24,7 @@ class BuyNow(object):
                 element.click()
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
                 print("-----> finding overlay")
-                is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath)
+                is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if (is_cookies_overlay):
                     buy_now_dict = self.fetch_required_elements()
@@ -34,7 +34,7 @@ class BuyNow(object):
                 else:
                     print("------> finding cross button")
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
-                    cross_element = self.web.find_cross_by_css_selector("button[class='emailReengagement_close_button']")
+                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
                     print(cross_element.get_attribute("outerHTML"))
                     cross_element.click()
@@ -48,7 +48,7 @@ class BuyNow(object):
 
     # This function find the all element who has buy text and make a list of it.
     def fetch_required_elements(self):
-        buy_web_elements = self.web.finds_by_xpath(Pattern.BUY_PATTERN)
+        buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
         buy_now_dict = {}
         for ele in buy_web_elements:
             if (ele.tag_name == "button"):
@@ -94,7 +94,7 @@ class BuyNow(object):
             element = buy_now_dict[tag]  
             element_id = element[0].get_attribute("id")
             search_path = f"//*[@aria-labelledby='{element_id}']"
-            return self.web.find_by_xpath(search_path)
+            return self.web.find_by_xpath_wait(search_path)
         else:
             size_of_tag_list = len(buy_now_dict[tag])
             return buy_now_dict[tag][(size_of_tag_list - 1)]
