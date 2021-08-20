@@ -36,3 +36,6 @@ class Base:
 
     def find_cross_by_css_selector(self, xpath):
         return self.web_driver_wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, xpath)))
+
+    def find_cross_by_xpath(self, xpath):
+        return self.web_driver.find_element_by_xpath(xpath)
