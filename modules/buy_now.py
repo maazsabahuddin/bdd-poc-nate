@@ -1,7 +1,7 @@
 import time
 import logging
 from selenium.common import exceptions
-from modules.constants import Tags, Pattern
+from modules.constants import Tags, Pattern, Scenario
 from modules.utilities import Utils
 
 class BuyNow(object):
@@ -22,7 +22,9 @@ class BuyNow(object):
         if (element is not None):
             try:
                 element.click()
-            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
+                self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+                self.web.context.move_to_login = True
+            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if (is_cookies_overlay):
@@ -30,54 +32,31 @@ class BuyNow(object):
                     requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
                     element.click()
+                    self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+                    self.web.context.move_to_login = True
                 else:
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
-                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
-                    print(cross_element.get_attribute("outerHTML"))
-                    cross_element.click()
+                    try:
+                        cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
+                        cross_element.click()
+                    except:
+                        self.web.context.move_to_login = False
+                        return
                     time.sleep(self.web.timeout)
                     element.click()
+                    self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+                    self.web.context.move_to_login = True
         else:
-            cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
-            cross_element.click()
-
-        time.sleep(self.web.timeout)
+            self.web.context.move_to_login = False
 
     # This function find the all element who has buy text and make a list of it.
     def fetch_required_elements(self):
-        buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
-        buy_now_dict = {}
-        for ele in buy_web_elements:
-            if (ele.tag_name == "button"):
-                if ("button" not in buy_now_dict):
-                    buy_now_dict["button"] = [ele]
-                else:
-                    button_list = buy_now_dict["button"]
-                    button_list.append(ele)
-                    buy_now_dict["button"] = button_list
-            if (ele.tag_name == "input"):
-                if ("input" not in buy_now_dict):
-                    buy_now_dict["input"] = [ele]
-                else:
-                    input_list = buy_now_dict["input"]
-                    input_list.append(ele)
-                    buy_now_dict["input"] = input_list
-            if (ele.tag_name == "a"):
-                if ("a" not in buy_now_dict):
-                    buy_now_dict["a"] = [ele]
-                else:
-                    a_list = buy_now_dict["a"]
-                    a_list.append(ele)
-                    buy_now_dict["a"] = a_list
-            if (ele.tag_name == "span"):
-                if ("span" not in buy_now_dict):
-                    buy_now_dict["span"] = [ele]
-                else:
-                    span_list = buy_now_dict["span"]
-                    span_list.append(ele)
-                    buy_now_dict["span"] = span_list
-        return buy_now_dict
+        try:
+            buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
+            return Utils.create_dict(buy_web_elements)
+        except:
+            return {}
 
     """
     This function return element from the list on the basis of provided tag.

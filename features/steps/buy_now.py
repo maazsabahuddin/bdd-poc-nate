@@ -1,5 +1,6 @@
 from behave import *
 from modules.buy_now import BuyNow
+from modules.constants import Scenario
 
 @given('url of product page')
 def step_impl(context):
@@ -10,4 +11,7 @@ def step_impl(context):
 @then('we should land to login page')
 def step_impl(context):
     '''logic to detect its a valid login page'''
-    print("Login page")
+    if (context.move_to_login):
+        print("Login page")
+    else:
+        print("buy now not found move to next senario to find add to ... button")

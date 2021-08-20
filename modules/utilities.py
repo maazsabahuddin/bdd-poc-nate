@@ -25,3 +25,38 @@ class Utils:
                 return False
         except exceptions.TimeoutException:
             return False
+    
+    # This function takes list of elements extracted from the DOM file then separate element according to it's type
+    @staticmethod
+    def create_dict(list_of_elements):
+        elements_dict = {}
+        for element in list_of_elements:
+            if (element.tag_name == "button"):
+                if ("button" not in elements_dict):
+                    elements_dict["button"] = [element]
+                else:
+                    button_list = elements_dict["button"]
+                    button_list.append(element)
+                    elements_dict["button"] = button_list
+            if (element.tag_name == "input"):
+                if ("input" not in elements_dict):
+                    elements_dict["input"] = [element]
+                else:
+                    input_list = elements_dict["input"]
+                    input_list.append(element)
+                    elements_dict["input"] = input_list
+            if (element.tag_name == "a"):
+                if ("a" not in elements_dict):
+                    elements_dict["a"] = [element]
+                else:
+                    a_list = elements_dict["a"]
+                    a_list.append(element)
+                    elements_dict["a"] = a_list
+            if (element.tag_name == "span"):
+                if ("span" not in elements_dict):
+                    elements_dict["span"] = [element]
+                else:
+                    span_list = elements_dict["span"]
+                    span_list.append(element)
+                    elements_dict["span"] = span_list
+        return elements_dict
