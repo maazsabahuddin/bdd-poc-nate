@@ -10,3 +10,4 @@ class Senarios:
     SKIP_SENARIO = "skip_scenario"
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
+    SKIP_ADD_TO_CART = "skip_add_to_cart"
