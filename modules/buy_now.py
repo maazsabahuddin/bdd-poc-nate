@@ -23,7 +23,6 @@ class BuyNow(object):
             try:
                 element.click()
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
-                print("-----> finding overlay")
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if (is_cookies_overlay):
@@ -32,16 +31,15 @@ class BuyNow(object):
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
                     element.click()
                 else:
-                    print("------> finding cross button")
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
-                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
+                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     print(cross_element.get_attribute("outerHTML"))
                     cross_element.click()
                     time.sleep(self.web.timeout)
                     element.click()
         else:
-            cross_element = self.web.find_by_xpath("//button[@aria-label='Close']")
+            cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
             cross_element.click()
 
         time.sleep(self.web.timeout)
