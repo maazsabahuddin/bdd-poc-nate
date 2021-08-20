@@ -23,7 +23,7 @@ class Base:
     
     def skip_scenario(self, scenario_name):
         if(scenario_name == Senarios.LOGIN):
-            self.context._root[Senarios.SKIP_SENARIO].update({Senarios.SKIP_LOGIN: True})
+            self.context._root[Senarios.SKIP_SENARIO].update({scenario_name: True})
 
     def find_by_xpath_wait(self, xpath):
         return self.web_driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
