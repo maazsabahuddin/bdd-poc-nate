@@ -1,7 +1,7 @@
 from behave import *
 from modules.buy_now import BuyNow
 
-@given('url of buy now page')
+@given('url of product page')
 def step_impl(context):
     # create a object
     buy_now = BuyNow(context)
