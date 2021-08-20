@@ -7,8 +7,8 @@ class Utils:
     Priority is: 1-button, 2-input, 3-a, 4-span
     """
     @staticmethod
-    def get_required_tag(tags):
-        for tag in Tags.POSSIBLE_BUY_TAGS_LIST:
+    def get_required_tag(tags, priorityTagsList):
+        for tag in priorityTagsList:
             if tag in tags:
                 return tag
         return None
