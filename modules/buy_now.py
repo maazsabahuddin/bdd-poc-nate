@@ -1,5 +1,8 @@
 import time
+import logging
 from selenium.common import exceptions
+from modules.constants import Tags, Pattern
+from modules.utilities import Utils
 
 class BuyNow(object):
 
@@ -10,39 +13,42 @@ class BuyNow(object):
     def check_buy_now_page(self):
         self.web.open(self.context.url)
 
-        try:
-            buy_now_dict = self.fetch_required_elements()
-        except exceptions.StaleElementReferenceException:
-            is_overlay_removed = self.fetch_overlay_details()
-            if (is_overlay_removed):
-                buy_now_dict = self.fetch_required_elements()
-            else:
-                buy_now_dict = {}
-
-        requiredTag = self.get_required_tag(buy_now_dict.keys())
+        buy_now_dict = self.fetch_required_elements()
+        requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
         element = self.get_element_by_tag(buy_now_dict, requiredTag)
+
+        time.sleep(self.web.timeout)
 
         if (element is not None):
             try:
                 element.click()
-            except exceptions.ElementClickInterceptedException:
-                cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
-                cross_element.click()
+            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
+                print("-----> finding overlay")
+                is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
-                element.click()
+                if (is_cookies_overlay):
+                    buy_now_dict = self.fetch_required_elements()
+                    requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
+                    element = self.get_element_by_tag(buy_now_dict, requiredTag)
+                    element.click()
+                else:
+                    print("------> finding cross button")
+                    # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
+                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
+                    # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
+                    print(cross_element.get_attribute("outerHTML"))
+                    cross_element.click()
+                    time.sleep(self.web.timeout)
+                    element.click()
         else:
-            cross_element = self.web.find_cross_by_css_selector('button[aria-label="Close panel"]')
+            cross_element = self.web.find_by_xpath("//button[@aria-label='Close']")
             cross_element.click()
-
 
         time.sleep(self.web.timeout)
 
-    """
-    This function find the all element who has buy text and make a list of it.
-    """
+    # This function find the all element who has buy text and make a list of it.
     def fetch_required_elements(self):
-        pattern = "//*[contains(text(),'Buy') or contains(text(),'BUY')]"
-        buy_web_elements = self.web.finds_by_xpath(pattern)
+        buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
         buy_now_dict = {}
         for ele in buy_web_elements:
             if (ele.tag_name == "button"):
@@ -75,21 +81,6 @@ class BuyNow(object):
                     buy_now_dict["span"] = span_list
         return buy_now_dict
 
-    """ 
-    This function get element from the list on the priority basis.
-    Priority is:
-    1- button
-    2- input
-    3- a
-    4- span
-    """
-    def get_required_tag(self, tags):
-        possible_tags_list = ["button", "input", "a", "span"]
-        for tag in possible_tags_list:
-            if tag in tags:
-                return tag
-        return None
-
     """
     This function return element from the list on the basis of provided tag.
     """
@@ -100,26 +91,10 @@ class BuyNow(object):
         elif (tag == "button" or tag == "input"):
             return buy_now_dict[tag][0]
         elif (tag == "span"):
-            element = buy_now_dict[tag]
-            element_id = element.get_attribute("id")
+            element = buy_now_dict[tag]  
+            element_id = element[0].get_attribute("id")
             search_path = f"//*[@aria-labelledby='{element_id}']"
-            return self.web.find_element_by_xpath(search_path)
+            return self.web.find_by_xpath_wait(search_path)
         else:
             size_of_tag_list = len(buy_now_dict[tag])
             return buy_now_dict[tag][(size_of_tag_list - 1)]
-
-    """
-    This function accept cookies overlay before clicking on buy button
-    """
-    def fetch_overlay_details(self):
-        pattern = "//*[(contains(text(),'Accept') and contains(text(),'Cookies')) or (contains(text(),'Accept') and contains(text(),'cookies')) or (contains(text(),'accept') and contains(text(),'cookies'))]"
-        overlay_elements = self.web.find_elements_by_xpath(pattern)
-        accept_element = None
-        for ele in overlay_elements:
-            accept_element = ele
-            break
-        if (accept_element is not None):
-            accept_element.click()
-            return True
-        else:
-            return False
