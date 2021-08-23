@@ -32,7 +32,6 @@ class BuyNow(object):
                     requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
                     element.click()
-                    self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
                     self.web.context.move_to_login = True
                 else:
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")

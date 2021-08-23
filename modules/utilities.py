@@ -60,3 +60,12 @@ class Utils:
                     span_list.append(element)
                     elements_dict["span"] = span_list
         return elements_dict
+    
+    # This function get element from the given list on the basis of given element key
+    @staticmethod
+    def get_required_element_by_key(key, elements_list):
+        if (key is None):
+            print("Cannot find the required tag to complete the flow please contact to provider.")
+            return None
+        else:
+            return elements_list[key][0]
