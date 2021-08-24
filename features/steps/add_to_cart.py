@@ -1,4 +1,3 @@
-from modules import add_to_cart
 from modules.add_to_cart import AddToCart
 from behave import *
 
