@@ -17,8 +17,8 @@ class BuyNow(object):
         self.web.open(self.context.url)
 
         buy_now_dict = self.fetch_required_elements()
-        requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
-        element = self.get_element_by_tag(buy_now_dict, requiredTag)
+        required_tag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
+        element = self.get_element_by_tag(buy_now_dict, required_tag)
 
         time.sleep(self.web.timeout)
 
@@ -31,8 +31,8 @@ class BuyNow(object):
                 time.sleep(self.web.timeout)
                 if is_cookies_overlay:
                     buy_now_dict = self.fetch_required_elements()
-                    requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
-                    element = self.get_element_by_tag(buy_now_dict, requiredTag)
+                    required_tag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
+                    element = self.get_element_by_tag(buy_now_dict, required_tag)
                     element.click()
                 else:
                     print("------> finding cross button")
