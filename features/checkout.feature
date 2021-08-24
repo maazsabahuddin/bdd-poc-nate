@@ -18,3 +18,7 @@ Feature: Ecommerce Checkout
     Scenario: Perform login with credentials
         Given Is "login" required
         Then perform "login" with credentials
+
+    Scenario: Enter shipping details and proceed
+        Given Is shipping address page
+        Then enter details and proceed
