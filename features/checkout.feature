@@ -8,7 +8,7 @@ Feature: Ecommerce Checkout
     @skip_add_to_cart
     Scenario: Find and click "add to cart" button
         Given url of product page to check add to cart
-        When add to cart found
+        When add to cart found or check for overlays
         Then we should proceed to checkout
 
     Scenario: Perform login as guest

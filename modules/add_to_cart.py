@@ -11,14 +11,17 @@ class AddToCart():
         self.web = context.web
     
     def find_add_to_(self):
-        add_to_dict = self.extract_required_elements()
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
+        if (add_to_dict == {}):
+            add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         required_tag = Utils.get_required_tag(add_to_dict.keys(), Tags.POSSIBLE_ADD_TO_TAGS_LIST)
+        print(required_tag)
         self.required_element = Utils.get_required_element_by_key(required_tag, add_to_dict, "AddToCart")
         time.sleep(self.web.process_pause_time)
 
-    def extract_required_elements(self):
+    def extract_required_elements(self, pattern):
         try:
-            add_to_elements = self.web.finds_by_xpath_wait(Pattern.ADD_TO_NEW_PAT)
+            add_to_elements = self.web.finds_by_xpath_wait(pattern)
             return Utils.create_dict(add_to_elements)
         except:
             return {}
