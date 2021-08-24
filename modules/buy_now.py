@@ -1,8 +1,11 @@
+# Local imports
 import time
-import logging
+
+# Framework imports
 from selenium.common import exceptions
 from modules.constants import Tags, Pattern, Scenario
 from modules.utilities import Utils
+
 
 class BuyNow(object):
 
@@ -19,7 +22,7 @@ class BuyNow(object):
 
         time.sleep(self.web.timeout)
 
-        if (element is not None):
+        if element is not None:
             try:
                 element.click()
                 self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
@@ -27,7 +30,7 @@ class BuyNow(object):
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
-                if (is_cookies_overlay):
+                if is_cookies_overlay:
                     buy_now_dict = self.fetch_required_elements()
                     requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
@@ -49,7 +52,6 @@ class BuyNow(object):
         else:
             self.web.context.move_to_login = False
 
-    # This function find the all element who has buy text and make a list of it.
     def fetch_required_elements(self):
         try:
             buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
@@ -57,16 +59,19 @@ class BuyNow(object):
         except:
             return {}
 
-    """
-    This function return element from the list on the basis of provided tag.
-    """
     def get_element_by_tag(self, buy_now_dict, tag):
-        if (tag is None):
+        """
+        This function return element from the list on the basis of provided tag.
+        :param buy_now_dict:
+        :param tag:
+        :return:
+        """
+        if tag is None:
             print("Cannot find the required tag to complete the flow please contact to provider.")
             return None
-        elif (tag == "button" or tag == "input"):
+        elif tag == "button" or tag == "input":
             return buy_now_dict[tag][0]
-        elif (tag == "span"):
+        elif tag == "span":
             element = buy_now_dict[tag]  
             element_id = element[0].get_attribute("id")
             search_path = f"//*[@aria-labelledby='{element_id}']"
