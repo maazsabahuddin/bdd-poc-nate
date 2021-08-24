@@ -2,6 +2,7 @@ class Tags:
     POSSIBLE_BUY_TAGS_LIST = ["button", "input", "a", "span"]
     POSSIBLE_ADD_TO_TAGS_LIST = ["button", "span", "input"]
 
+
 class Pattern:
     BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy')]"
     ACCEPT_COOKIES_PATTERN = "//*[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
