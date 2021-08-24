@@ -10,8 +10,10 @@ def step_impl(context):
 
 @when('add to cart found')
 def step_impl(context):
-    if (context.current_obj.required_element is None):
-        context.scenario.skip(reason="Cannot find add to cart button.")
+    if (not context.current_obj.check_cookies_overlay()):
+        if (not context.current_obj.is_closeable_overlay()):
+            if (context.current_obj.required_element is None):
+                context.scenario.skip(reason="Cannot find add to cart button.")
 
 @then('we should proceed to checkout')
 def step_impl(context):

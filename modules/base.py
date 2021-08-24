@@ -6,6 +6,7 @@ from modules.constants import Scenario
 class Base:
     
     timeout = 10
+    process_pause_time = 5
 
     def __init__(self, web_driver, context):
         self.web_driver_wait = WebDriverWait(web_driver, self.timeout)

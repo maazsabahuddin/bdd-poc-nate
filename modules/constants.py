@@ -3,9 +3,10 @@ class Tags:
     POSSIBLE_ADD_TO_TAGS_LIST = ["button", "span", "input"]
 
 class Pattern:
-    BUY_PATTERN = "//*[contains(text(),'Buy') or contains(text(),'BUY')]"
-    ACCEPT_COOKIES_PATTERN = "//*[(contains(text(),'Accept') and contains(text(),'Cookies')) or (contains(text(),'Accept') and contains(text(),'cookies')) or (contains(text(),'accept') and contains(text(),'cookies'))]"
-    ADD_TO_PATTERN = "//*[contains(text(), 'ADD TO BAG') or contains(text(), 'Add to BAG') or contains(text(), 'Add To BAG') or contains(text(), 'Add to Cart') or contains(text(), 'ADD TO CART') or contains(text(), 'Add to cart') or contains(@value, 'Add to Cart')]"
+    BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy')]"
+    ACCEPT_COOKIES_PATTERN = "//*[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
+    ADD_TO_PATTERN = "//*[contains(translate(text(), 'ABDGOT', 'abdgot'), 'add to bag') or contains(translate(text(), 'ACDORT', 'acdort'), 'add to cart') or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag')]"
+    ADD_TO_NEW_PAT = "//*[contains(translate(., 'ADTOBG', 'adtobg'), 'add to bag') or contains(translate(., 'ACDORT', 'acdort'), 'add to cart') or contains(translate(., 'SHOPNW', 'shopnw'), 'shop now')]"
 
 class Scenario:
     LOGIN = "login"

@@ -25,7 +25,7 @@ class Utils:
                 return False
         except exceptions.TimeoutException:
             return False
-    
+
     # This function takes list of elements extracted from the DOM file then separate element according to it's type
     @staticmethod
     def create_dict(list_of_elements):
@@ -63,9 +63,9 @@ class Utils:
     
     # This function get element from the given list on the basis of given element key
     @staticmethod
-    def get_required_element_by_key(key, elements_list):
+    def get_required_element_by_key(key, elements_list, area):
         if (key is None):
-            print("Cannot find the required tag to complete the flow please contact to provider.")
+            print("Cannot find the required tag in ", area)
             return None
         else:
             return elements_list[key][0]
