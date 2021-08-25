@@ -77,7 +77,7 @@ class BuyNow(object):
         """
         if tag is None:
             print("Cannot find the required tag to complete the flow please contact to provider.")
-            return None
+            return tag
         elif tag == "button" or tag == "input":
             return buy_now_dict[tag][0]
         elif tag == "span":
