@@ -1,6 +1,7 @@
 # Framework Imports
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from behave import capture
 
 # Local Imports
 from modules.base import Base
@@ -24,6 +25,7 @@ def before_all(context):
     context.web = web
 
 
+@capture
 def after_all(context):
     """
     This function run after the whole shooting match
