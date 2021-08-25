@@ -1,9 +1,9 @@
-from modules.proceed_to_checkout_step1 import ProceedToCheckout
+from modules.proceed_to_checkout_step1 import ProceedToCheckoutStep1
 from behave import *
 
 @given('In page, product is added into cart')
 def step_impl(context):
-    view_cart = ProceedToCheckout(context)
+    view_cart = ProceedToCheckoutStep1(context)
     view_cart.find_cart()
     context.current_obj = view_cart
 

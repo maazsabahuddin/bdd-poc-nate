@@ -4,7 +4,7 @@ from modules.constants import Pattern, Tags
 from modules.utilities import Utils
 from selenium.common import exceptions
 
-class ProceedToCheckout():
+class ProceedToCheckoutStep1():
 
     def __init__(self, context) -> None:
         self.context = context
@@ -13,7 +13,7 @@ class ProceedToCheckout():
     def find_cart(self):
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART)
         required_tag = Utils.get_required_tag(view_cart_dict.keys(), Tags.POSSIBLE_VIEW_CART)
-        self.required_element = Utils.get_required_element_by_key(required_tag, view_cart_dict, "ProceedToCheckout")
+        self.required_element = Utils.get_required_element_by_key(required_tag, view_cart_dict, "ProceedToCheckoutStep1")
         # print("------> required tag: ", self.required_element)
         # print("------> tag: ", self.required_element.get_attribute("outerHTML"))
         time.sleep(self.web.process_pause_time)
