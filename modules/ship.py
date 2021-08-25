@@ -9,10 +9,15 @@ class Shipping:
     """
     def __init__(self, context):
         self.context = context
+        self.web = context.web
+
+    def get_required_elements(self):
+        self.web.open(self.context.url)
+        logger.info("get required elements")
+        pass
 
     def identify_shipping_page_type(self):
         logger.info("Identifying shipping address page type")
-        print(self.context)
         pass
 
     @staticmethod

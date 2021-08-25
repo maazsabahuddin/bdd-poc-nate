@@ -2,10 +2,10 @@
 @capture
 Feature: Ecommerce Checkout
 
-    Scenario: Find and click buy now button
-        Given url of product page
-        Then we should land to login page
-    
+#    Scenario: Find and click buy now button
+#        Given url of product page
+#        Then we should land to login page
+#
 #    @skip_add_to_cart
 #    Scenario: Find and click "add to cart" button
 #        Given url of buy now page
@@ -21,6 +21,7 @@ Feature: Ecommerce Checkout
 #        Given Is "login" required
 #        Then perform "login" with credentials
 
-    Scenario: Enter shipping details and proceed
+    Scenario: Identify shipping page type and enter shipping details and proceed
         Given Find type of shipping address page
+        When Shipping page ask about shipping address details
         Then Enter shipping address details and proceed
