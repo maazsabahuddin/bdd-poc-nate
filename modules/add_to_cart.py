@@ -30,10 +30,12 @@ class AddToCart():
         try:
             self.required_element.click()
             time.sleep(self.web.process_pause_time)
-        except exceptions.ElementClickInterceptedException as e:
-            print("exception found ", e)
-        except exceptions.ElementClickInterceptedException:
-            print(self.required_element)
+        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+            print("In exception")
+            parent_element = self.web.find_parent_element_from_child(self.required_element)
+            print(parent_element.get_attribute("outerHTML"))
+            parent_element.click()
+            time.sleep(self.web.process_pause_time)
 
     def check_cookies_overlay(self):
         is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
