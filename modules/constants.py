@@ -16,3 +16,5 @@ class Scenario:
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
     SKIP_ADD_TO_CART = "skip_add_to_cart"
+    SKIP_CHECKOUT_STEP_1 = "skip_checkout_step_1"
+    SKIP_CHECKOUT_STEP_2 = "skip_checkout_step_2"

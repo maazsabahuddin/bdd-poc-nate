@@ -7,7 +7,7 @@ def step_impl(context):
     view_cart.find_cart()
     context.current_obj = view_cart
 
-@when('Checkout button is found')
+@when('cart/check out button found')
 def step_impl(context):
     if (context.current_obj.required_element is not None):
         pass
