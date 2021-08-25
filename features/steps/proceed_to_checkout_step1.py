@@ -1,4 +1,4 @@
-from modules.proceed_to_checkout import ProceedToCheckout
+from modules.proceed_to_checkout_step1 import ProceedToCheckout
 from behave import *
 
 @given('In page, product is added into cart')
