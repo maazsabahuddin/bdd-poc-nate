@@ -2,7 +2,7 @@
 import time
 
 # Framework imports
-from features.steps import logger
+from modules.logger import logger
 from selenium.common import exceptions
 from modules.constants import Tags, Pattern
 from modules.utilities import Utils
@@ -29,7 +29,7 @@ class BuyNow(object):
             try:
                 element.click()
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
-                print("-----> finding overlay")
+                logger.info("-----> finding overlay")
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if is_cookies_overlay:
@@ -38,11 +38,11 @@ class BuyNow(object):
                     element = self.get_element_by_tag(buy_now_dict, required_tag)
                     element.click()
                 else:
-                    print("------> finding cross button")
+                    logger.info("-----> finding cross button")
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
                     cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
-                    print(cross_element.get_attribute("outerHTML"))
+                    logger.info(cross_element.get_attribute("outerHTML"))
                     cross_element.click()
                     time.sleep(self.web.timeout)
                     element.click()
@@ -79,11 +79,11 @@ class BuyNow(object):
         :return:
         """
         if tag is None:
-            print("Cannot find the required tag to complete the flow please contact to provider.")
+            logger.info("Cannot find the required tag to complete the flow please contact to provider.")
             return tag
-        elif tag == "button" or tag == "input":
+        elif tag == Tags.BUTTON or tag == Tags.INPUT:
             return buy_now_dict[tag][0]
-        elif tag == "span":
+        elif tag == Tags.SPAN:
             element = buy_now_dict[tag]  
             element_id = element[0].get_attribute("id")
             search_path = f"//*[@aria-labelledby='{element_id}']"

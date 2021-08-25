@@ -1,5 +1,9 @@
 class Tags:
-    POSSIBLE_BUY_TAGS_LIST = ["button", "input", "a", "span"]
+    BUTTON = "button"
+    INPUT = "input"
+    A = "a"
+    SPAN = "span"
+    POSSIBLE_BUY_TAGS_LIST = [BUTTON, INPUT, A, SPAN]
 
 
 class Pattern:

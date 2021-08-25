@@ -3,6 +3,7 @@ from behave import *
 
 # Local imports
 from modules.buy_now import BuyNow
+from modules.logger import logger
 
 
 @given('url of product page')
@@ -18,4 +19,4 @@ def step_impl(context):
 @then('we should land to login page')
 def step_impl(context):
     """ logic to detect its a valid login page """
-    print("Login page")
+    logger.info("Login page")
