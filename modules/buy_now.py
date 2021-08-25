@@ -2,6 +2,7 @@
 import time
 
 # Framework imports
+from features.steps import logger
 from selenium.common import exceptions
 from modules.constants import Tags, Pattern
 from modules.utilities import Utils
@@ -15,6 +16,8 @@ class BuyNow(object):
 
     def check_buy_now_page(self):
         self.web.open(self.context.url)
+
+        logger.info("Fetching required elements")
 
         buy_now_dict = self.fetch_required_elements()
         required_tag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)

@@ -13,6 +13,7 @@ def before_all(context):
     :param context:
     """
     # This flag will be used to skip all future scenarios, can be set from anywhere
+    context.config.setup_logging()
     context._root[Scenarios.SKIP_ALL] = False
     # This dict will be used to skip individual scenarios along the run
     context._root[Scenarios.SKIP_SCENARIO] = {Scenarios.SKIP_LOGIN: False, Scenarios.SKIP_ADD_TO_CART: False}

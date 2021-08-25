@@ -1,3 +1,5 @@
+@logging
+@capture
 Feature: Ecommerce Checkout
 
     Scenario: Find and click buy now button
