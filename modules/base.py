@@ -1,8 +1,11 @@
+# Framework imports
+from logging import exception
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from modules.constants import Scenario
 from selenium.common import exceptions
+# Local imports
+from modules.constants import SkipScenario
 
 class Base:
     
@@ -21,16 +24,22 @@ class Base:
         self.web_driver.quit()
     
     def skip_all_remaining_scenarios(self):
-        self.context._root[Scenario.SKIP_ALL] = True
+        self.context._root[SkipScenario.SKIP_ALL] = True
     
     def skip_scenario(self, scenario_name):
-        self.context._root[Scenario.SKIP_SCENARIO].update({scenario_name: True})
+        self.context._root[SkipScenario.SKIP_SCENARIO].update({scenario_name: True})
 
     def find_by_xpath_wait(self, xpath):
-        return self.web_driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
+        try:
+            return self.web_driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
+        except exceptions.TimeoutException:
+            return None
 
     def finds_by_xpath_wait(self, xpath):
-        return self.web_driver_wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        try:
+            return self.web_driver_wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        except exceptions.TimeoutException:
+            return []
 
     def get_current_url(self):
         return self.web_driver.current_url

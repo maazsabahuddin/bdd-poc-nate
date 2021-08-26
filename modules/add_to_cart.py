@@ -15,25 +15,19 @@ class AddToCart():
         if (add_to_dict == {}):
             add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         required_tag = Utils.get_required_tag(add_to_dict.keys(), Tags.POSSIBLE_ADD_TO_TAGS_LIST)
-        print(required_tag)
         self.required_element = Utils.get_required_element_by_key(required_tag, add_to_dict, "AddToCart")
         time.sleep(self.web.process_pause_time)
 
     def extract_required_elements(self, pattern):
-        try:
-            add_to_elements = self.web.finds_by_xpath_wait(pattern)
-            return Utils.create_dict(add_to_elements)
-        except:
-            return {}
-    
+        add_to_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.fetch_required_elements(add_to_elements, Tags.POSSIBLE_ADD_TO_TAGS_LIST)
+
     def hit_add_to_cart_element(self):
         try:
             self.required_element.click()
             time.sleep(self.web.process_pause_time)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            print("In exception")
             parent_element = self.web.find_parent_element_from_child(self.required_element)
-            print(parent_element.get_attribute("outerHTML"))
             parent_element.click()
             time.sleep(self.web.process_pause_time)
 
