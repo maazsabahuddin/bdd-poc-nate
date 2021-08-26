@@ -26,7 +26,7 @@ class BuyNow(object):
             try:
                 element.click()
                 self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
-                self.web.context.move_to_login = True
+                self.web.context.buy_now_found = True
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
@@ -35,7 +35,7 @@ class BuyNow(object):
                     requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
                     element.click()
-                    self.web.context.move_to_login = True
+                    self.web.context.buy_now_found = True
                 else:
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
@@ -43,14 +43,14 @@ class BuyNow(object):
                         cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                         cross_element.click()
                     except:
-                        self.web.context.move_to_login = False
+                        self.web.context.buy_now_found = False
                         return
                     time.sleep(self.web.timeout)
                     element.click()
                     self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
-                    self.web.context.move_to_login = True
+                    self.web.context.buy_now_found = True
         else:
-            self.web.context.move_to_login = False
+            self.web.context.buy_now_found = False
 
     def fetch_required_elements(self):
         try:
