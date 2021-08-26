@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from modules.constants import Scenarios
-
+from modules.constants import SkipScenario
 
 class Base:
     
     timeout = 10
+    process_pause_time = 5
 
     def __init__(self, web_driver, context):
         self.web_driver_wait = WebDriverWait(web_driver, self.timeout)
@@ -20,11 +20,10 @@ class Base:
         self.web_driver.quit()
     
     def skip_all_remaining_scenarios(self):
-        self.context._root[Scenarios.SKIP_ALL] = True
+        self.context._root[SkipScenario.SKIP_ALL] = True
     
     def skip_scenario(self, scenario_name):
-        if scenario_name == Scenarios.LOGIN:
-            self.context._root[Scenarios.SKIP_SCENARIO].update({Scenarios.SKIP_LOGIN: True})
+        self.context._root[SkipScenario.SKIP_SCENARIO].update({scenario_name: True})
 
     def find_by_xpath_wait(self, xpath):
         return self.web_driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))

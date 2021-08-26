@@ -3,7 +3,7 @@ import time
 
 # Framework imports
 from selenium.common import exceptions
-from modules.constants import Tags, Pattern
+from modules.constants import Tags, Pattern, SkipScenario
 from modules.utilities import Utils
 
 
@@ -25,8 +25,9 @@ class BuyNow(object):
         if element is not None:
             try:
                 element.click()
-            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
-                print("-----> finding overlay")
+                self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
+                self.web.context.buy_now_found = True
+            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if is_cookies_overlay:
@@ -34,39 +35,29 @@ class BuyNow(object):
                     requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
                     element = self.get_element_by_tag(buy_now_dict, requiredTag)
                     element.click()
+                    self.web.context.buy_now_found = True
                 else:
-                    print("------> finding cross button")
                     # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
-                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
-                    print(cross_element.get_attribute("outerHTML"))
-                    cross_element.click()
+                    try:
+                        cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
+                        cross_element.click()
+                    except:
+                        self.web.context.buy_now_found = False
+                        return
                     time.sleep(self.web.timeout)
                     element.click()
+                    self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
+                    self.web.context.buy_now_found = True
         else:
-            cross_element = self.web.find_by_xpath("//button[@aria-label='Close']")
-            cross_element.click()
-
-        time.sleep(self.web.timeout)
+            self.web.context.buy_now_found = False
 
     def fetch_required_elements(self):
-        """
-        This function find the all element who has buy text and make a list of it.
-        """
-        buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
-        buy_now_dict = {}
-        for ele in buy_web_elements:
-
-            tag_name = ele.tag_name
-            if tag_name in Tags.POSSIBLE_BUY_TAGS_LIST:
-                if buy_now_dict.get(tag_name):
-                    buy_now_dict.get(tag_name).append(ele)
-                else:
-                    buy_now_dict.update({
-                        tag_name: [ele]
-                    })
-
-        return buy_now_dict
+        try:
+            buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
+            return Utils.create_dict(buy_web_elements)
+        except:
+            return {}
 
     def get_element_by_tag(self, buy_now_dict, tag):
         """
