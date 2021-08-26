@@ -14,6 +14,8 @@ def before_all(context):
     context._root[SkipScenario.SKIP_SCENARIO] = {SkipScenario.SKIP_LOGIN: False, SkipScenario.SKIP_ADD_TO_CART: False}
     # This context attributes is available throughout all scenarios
     browser = webdriver.Chrome(ChromeDriverManager().install())
+    # This will maximize the broswer window
+    browser.maximize_window()
     context.url = context.config.userdata['url']
     web = Base(browser, context)
     context.web = web
