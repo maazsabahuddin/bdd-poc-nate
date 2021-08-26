@@ -53,11 +53,9 @@ class BuyNow(object):
             self.web.context.buy_now_found = False
 
     def fetch_required_elements(self):
-        try:
-            buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
-            return Utils.create_dict(buy_web_elements)
-        except:
-            return {}
+        buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
+        return Utils.fetch_required_elements(buy_web_elements, Tags.POSSIBLE_BUY_TAGS_LIST)
+ 
 
     def get_element_by_tag(self, buy_now_dict, tag):
         """
