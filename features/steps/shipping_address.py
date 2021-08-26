@@ -21,8 +21,7 @@ def identify_scenario(context):
     Check which type of page is identified and call that controller accordingly.
     :param context:
     """
-    ship = Shipping(context)
-    page_type = ship.identify_shipping_page_type()
+    pass
 
 
 @then('Enter shipping address details and proceed')

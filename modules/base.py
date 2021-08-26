@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+
+from modules import constants
 from modules.constants import Scenarios
 
 
@@ -31,6 +33,12 @@ class Base:
 
     def finds_by_xpath_wait(self, xpath):
         return self.web_driver_wait.until(ec.presence_of_all_elements_located((By.XPATH, xpath)))
+
+    def finds_by_xpath_wait_until_element_clickable(self, xpath):
+        return self.web_driver_wait.until(ec.element_to_be_clickable((By.XPATH, xpath))).click()
+
+    def finds_by_xpath_and_set_attribute(self, xpath, value):
+        return self.web_driver.find_element_by_xpath(xpath).setAttribute(constants.ETC.VALUE, value)
 
     def get_current_url(self):
         return self.web_driver.current_url
