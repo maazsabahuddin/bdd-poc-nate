@@ -13,7 +13,7 @@ def step_impl(context):
     if (context.buy_now_found):
         context.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
     else:
-        context.scenario.skip(reason='we found the add to cart button')
+        context.scenario.skip(reason='Cannot find buy now button, now finding add to cart button')
 
 @then('click on buy now and proceed to next step')
 def step_impl(context):
