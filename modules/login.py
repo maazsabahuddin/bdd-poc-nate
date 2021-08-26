@@ -53,7 +53,7 @@ class Login():
             return
         else:
             # Serach if login required
-            login_elements = self.fetch_required_elements(Pattern.SIGN_IN_PATTERN, Tags.POSSIBLE_SIGNIN_LIST)
+            login_elements = Utils.fetch_required_elements(Pattern.SIGN_IN_PATTERN, Tags.POSSIBLE_SIGNIN_LIST)
             if login_elements:
                 # Do nothin as of now, because we have intially set context variable to true
                 return

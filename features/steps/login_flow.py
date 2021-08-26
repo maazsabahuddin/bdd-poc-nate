@@ -1,16 +1,13 @@
 from behave import *
 import logging
 from modules.login import Login
-from modules.constants import Scenarios
+from modules.constants import SkipScenario
 
 # remove added for debug
 import time
 
 @given('Is product page has "login as guest" feature')
 def step_impl(context):
-    # for testing code
-    context.web.open(context.url)
-    time.sleep(20)
     # set context variables for this specific scenario
     context.found_login_as_guest = True
     login = Login(context)
@@ -22,7 +19,7 @@ def step_impl(context):
 def step_impl(context):
     if context.found_login_as_guest:
         # skip login scenario
-        context.web.skip_scenario(Scenarios.LOGIN)
+        context.web.skip_scenario(SkipScenario.SKIP_LOGIN)
     else:
         # skip current scenario and proceed to login flow
         context.scenario.skip(reason='Login as Guest not found!! Proceed with login\n')
