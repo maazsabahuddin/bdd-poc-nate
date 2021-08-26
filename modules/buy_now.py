@@ -3,7 +3,7 @@ import time
 
 # Framework imports
 from selenium.common import exceptions
-from modules.constants import Tags, Pattern, Scenario
+from modules.constants import Tags, Pattern, SkipScenario
 from modules.utilities import Utils
 
 
@@ -25,7 +25,7 @@ class BuyNow(object):
         if element is not None:
             try:
                 element.click()
-                self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+                self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
                 self.web.context.move_to_login = True
             except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
@@ -47,7 +47,7 @@ class BuyNow(object):
                         return
                     time.sleep(self.web.timeout)
                     element.click()
-                    self.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+                    self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
                     self.web.context.move_to_login = True
         else:
             self.web.context.move_to_login = False

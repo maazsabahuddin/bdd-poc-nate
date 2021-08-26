@@ -1,6 +1,6 @@
 from behave import *
 from modules.buy_now import BuyNow
-from modules.constants import Scenario
+from modules.constants import SkipScenario
 
 @given('url of product page')
 def step_impl(context):
@@ -11,7 +11,7 @@ def step_impl(context):
 @when('buy now found')
 def step_impl(context):
     if (context.move_to_login):
-        context.web.skip_scenario(Scenario.SKIP_ADD_TO_CART)
+        context.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
     else:
         context.scenario.skip(reason='we found the add to cart button')
 
