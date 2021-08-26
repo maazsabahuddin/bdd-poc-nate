@@ -20,11 +20,9 @@ class AddToCart():
         time.sleep(self.web.process_pause_time)
 
     def extract_required_elements(self, pattern):
-        try:
-            add_to_elements = self.web.finds_by_xpath_wait(pattern)
-            return Utils.create_dict(add_to_elements)
-        except:
-            return {}
+        add_to_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.fetch_required_elements(add_to_elements, Tags.POSSIBLE_ADD_TO_TAGS_LIST)
+
     
     def hit_add_to_cart_element(self):
         try:
