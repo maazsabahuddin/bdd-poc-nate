@@ -39,7 +39,6 @@ This funtion run before a section scenario tagged with name
 '''
 def before_tag(context, tag):
     # add condition for tag on sceanrio and perform the required operation
-    print(context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_ADD_TO_CART))
     if tag == SkipScenario.SKIP_LOGIN:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_LOGIN):
             context.scenario.skip(reason="Skip login, will go with login as guest")
