@@ -68,4 +68,6 @@ class Utils:
             print("Cannot find the required tag in ", area)
             return None
         else:
+            print("---> elements_list: ", elements_list)
+            print("---> elements_list[key]: ", elements_list[key])
             return elements_list[key][0]
