@@ -42,7 +42,8 @@ class AddToCart:
     
     def is_closeable_overlay(self):
         try:
-            cross_element = self.web.find_by_xpath_wait("//*[contains(@aria-label,'Close Menu') or contains(@aria-label,'Close')]")
+            cross_element = \
+                self.web.find_by_xpath_wait("//*[contains(@aria-label,'Close Menu') or contains(@aria-label,'Close')]")
             if cross_element is not None:
                 cross_element.click()
                 time.sleep(self.web.process_pause_time)

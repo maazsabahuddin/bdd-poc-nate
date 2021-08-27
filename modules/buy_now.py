@@ -32,7 +32,8 @@ class BuyNow(object):
                 logger.info("-----> finding overlay")
                 self.web.skip_scenario(SkipScenario.SKIP_ADD_TO_CART)
                 self.web.context.buy_now_found = True
-            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException):
+            except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException,
+                    exceptions.ElementNotInteractableException):
                 is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
                 time.sleep(self.web.timeout)
                 if is_cookies_overlay:
