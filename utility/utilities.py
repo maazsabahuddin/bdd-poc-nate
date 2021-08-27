@@ -1,4 +1,4 @@
-from modules.constants import Tags, Pattern
+from utility.constants import Tags, Pattern
 from selenium.common import exceptions
 
 class Utils:
