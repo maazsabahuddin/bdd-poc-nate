@@ -16,6 +16,8 @@ class BuyNow(object):
     def check_buy_now_page(self):
         self.web.open(self.context.url)
         buy_now_dict = self.fetch_required_elements()
+        if not buy_now_dict:
+            return
         requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
         required_element = Utils.get_required_element(requiredTag, buy_now_dict)
         if (required_element is not None):
