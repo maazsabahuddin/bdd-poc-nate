@@ -34,7 +34,7 @@ class Pattern:
     # STATE = "//input[contains(@name, 'Municipality')]"
     STATE = "//select[contains(@name, 'stateCode')]"
     POSTAL_CODE = "//input[contains(@name, 'PostalCode') or contains(@name, 'zipCode')]"
-    CONTINUE = "//*[contains(text()='Continue') or contains(text(),'CONTINUE')]"
+    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(),'CONTINUE')]"
     # COUNTRY = "//select[contains(@name, 'Country')]"
 
 
