@@ -2,8 +2,10 @@
 import time
 
 # Local Imports
+from modules import constants
 from modules.constants import Pattern
 from modules.logger import logger
+from modules.utilities import Utils
 
 
 class Shipping:
@@ -65,17 +67,39 @@ class Shipping:
             if "LA" in option.get_attribute("value"):
                 option.click()
 
-        continue_element = self.web.find_by_xpath(Pattern.CONTINUE)
-        try:
-            continue_element.click()
-        except Exception as e:
-            logger.info(str(e))
-            print(continue_element)
-            print("Caught exception")
-            print(dir(continue_element.parent))
-            # continue_element.parent.click()
+        continue_elements = self.web.finds_by_xpath_wait(Pattern.CONTINUE)
+        for ele in continue_elements:
+            print(ele.tag_name)
 
-        time.sleep(5)
+        continue_click_element = \
+            Utils.fetch_required_elements(continue_elements, constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+
+        if continue_click_element:
+            print("FOUND")
+            print(continue_click_element)
+            extracted_element_tag = Utils.get_required_tag(continue_click_element.keys(),
+                                                           constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+            # print(continue_click_element[extracted_element_tag][0].get_attribute('outerHTML'))
+            # print(continue_click_element[extracted_element_tag][0].is_enabled())
+            # print(continue_click_element[extracted_element_tag][0].is_displayed())
+            # print(continue_click_element[extracted_element_tag][0].tag_name)
+            print(continue_click_element['span'][0].tag_name)
+            print(continue_click_element['button'][0].tag_name)
+            # continue_click_element['span'][0].click()
+
+        # print(continue_element.tag_name)
+        # print("Length of continue element is =>", len(continue_element))
+        # if continue_element.tag_name == constants.Tags.BUTTON:
+        #     continue_element.click()
+        # else:
+        #     parent_element = \
+        #         Utils.find_parent_element_from_child(continue_element, constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+        #     if parent_element:
+        #         print("FOUND")
+        #         parent_element.click()
+
+        print("DONE CLICKING")
+        time.sleep(15)
 
         return
 

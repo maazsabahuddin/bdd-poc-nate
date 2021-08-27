@@ -59,6 +59,7 @@ class Utils:
             if tag_name == "span":
                 # find its parent element and check its tag
                 parent_element = Utils.find_parent_element_from_child(ele, filter_list)
+                print(parent_element)
                 if parent_element is not None:
                     tag_name = parent_element.tag_name
             if tag_name in filter_list:
@@ -77,12 +78,12 @@ class Utils:
         """
         try:
             current_found_element = child_element
-            for _ in range(2):
+            for _ in range(8):
                 parent_element = current_found_element.find_element_by_xpath("..")
+                print(parent_element.tag_name)
                 if parent_element.tag_name in filter_list:
                     return parent_element
-                else:
-                    current_found_element = parent_element
+                current_found_element = parent_element
             return None
         except exceptions.NoSuchElementException:
             return None

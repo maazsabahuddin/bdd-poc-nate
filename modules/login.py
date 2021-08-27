@@ -29,12 +29,12 @@ class Login:
     
     def click_on_login_as_guest(self):
         """
-        This function peforms click on "Login as Guest" web element
+        This function performs click on "Login as Guest" web element
         """
         try:
             self.selected_login_guest_element.click()
             # remove when run in production
-            time.sleep(5)  
+            time.sleep(5)
         except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
             print("Error in clicking login as guest button")
 
@@ -53,11 +53,11 @@ class Login:
         is_checkout_elements = self.web.finds_by_xpath_wait(Pattern.IS_CHECKOUT_PAGE_PATTERN)
         elements_exist = [ele for ele in is_checkout_elements if ele.tag_name in Tags.POSSIBLE_CHECKOUT_PAGE_LIST]
         if elements_exist:
-            # Then no need to require login, beacuse we are on shipping details page
+            # Then no need to require login, because we are on shipping details page
             self.context.is_login_required = False
             return
         else:
-            # Serach if login required
+            # Search if login required
             login_elements = Utils.fetch_required_elements(Pattern.SIGN_IN_PATTERN, Tags.POSSIBLE_SIGNIN_LIST)
             if login_elements:
                 # Do nothin as of now, because we have intially set context variable to true
