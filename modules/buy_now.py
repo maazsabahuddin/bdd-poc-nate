@@ -55,7 +55,6 @@ class BuyNow(object):
     def fetch_required_elements(self):
         buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
         return Utils.fetch_required_elements(buy_web_elements, Tags.POSSIBLE_BUY_TAGS_LIST)
- 
 
     def get_element_by_tag(self, buy_now_dict, tag):
         """
@@ -65,15 +64,9 @@ class BuyNow(object):
         :return:
         """
         if tag is None:
-            print("Cannot find the required tag to complete the flow please contact to provider.")
             return None
-        elif tag == "button" or tag == "input":
-            return buy_now_dict[tag][0]
-        elif tag == "span":
-            element = buy_now_dict[tag]  
-            element_id = element[0].get_attribute("id")
-            search_path = f"//*[@aria-labelledby='{element_id}']"
-            return self.web.find_by_xpath_wait(search_path)
         else:
-            size_of_tag_list = len(buy_now_dict[tag])
-            return buy_now_dict[tag][(size_of_tag_list - 1)]
+            for element in buy_now_dict[tag]:
+                if (element.is_enabled() and element.is_displayed()):
+                    return element
+            return None

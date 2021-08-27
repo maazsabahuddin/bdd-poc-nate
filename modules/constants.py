@@ -7,7 +7,7 @@ class Tags:
     POSSIBLE_CHECKOUT_PAGE_LIST = ["h1", "h2", "h3", "button"]
 
 class Pattern:
-    BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy')]"
+    BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy') or contains(translate(@value, 'BUY', 'buy'), 'buy')]"
     ACCEPT_COOKIES_PATTERN = "//*[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
     ADD_TO_PATTERN = "//*[contains(translate(text(), 'ABDGOT', 'abdgot'), 'add to bag') or contains(translate(text(), 'ACDORT', 'acdort'), 'add to cart') or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag')]"
     ADD_TO_NEW_PAT = "//*[contains(translate(., 'ADTOBG', 'adtobg'), 'add to bag') or contains(translate(., 'ACDORT', 'acdort'), 'add to cart') or contains(translate(., 'SHOPNW', 'shopnw'), 'shop now') or contains(text(), 'ADD')]"
