@@ -15,12 +15,10 @@ class BuyNow(object):
 
     def check_buy_now_page(self):
         self.web.open(self.context.url)
-
+        
         buy_now_dict = self.fetch_required_elements()
         requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
         element = self.get_element_by_tag(buy_now_dict, requiredTag)
-
-        time.sleep(self.web.timeout)
 
         if element is not None:
             try:

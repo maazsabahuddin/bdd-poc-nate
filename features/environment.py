@@ -20,6 +20,8 @@ def before_all(context):
     browser = webdriver.Chrome(ChromeDriverManager().install(), options= options)
     # This will maximize the broswer window
     browser.maximize_window()
+    # This make the browser to wait for given number of seconds to load page
+    browser.set_page_load_timeout(10)
     context.url = context.config.userdata['url']
     web = Base(browser, context)
     context.web = web
