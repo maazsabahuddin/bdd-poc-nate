@@ -1,5 +1,6 @@
-from modules.add_to_cart import AddToCart
 from behave import *
+# Local imports
+from modules.add_to_cart import AddToCart
 
 @given('url of product page to check add to cart')
 def step_impl(context):

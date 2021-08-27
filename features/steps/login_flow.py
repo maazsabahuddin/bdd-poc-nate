@@ -1,7 +1,7 @@
 from behave import *
-import logging
+# Local imports
 from modules.login import Login
-from modules.constants import SkipScenario
+from utility.constants import SkipScenario
 
 # remove added for debug
 import time

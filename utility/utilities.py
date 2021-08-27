@@ -1,4 +1,4 @@
-from modules.constants import Tags, Pattern
+from utility.constants import Tags, Pattern
 from selenium.common import exceptions
 
 class Utils:
@@ -18,26 +18,25 @@ class Utils:
         """
         This function accept cookies overlay before clicking on buy button
         """
-        try:
-            overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
-            if (overlay_elements is not None):
-                overlay_elements.click()
-                return True
-            else:
-                return False
-        except exceptions.TimeoutException:
+        overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
+        if (overlay_elements is not None):
+            overlay_elements.click()
+            return True
+        else:
             return False
- 
+
     @staticmethod
-    def get_required_element_by_key(key, elements_list, area):
+    def get_required_element(tag, elements_list):
         """
         This function returns element from the elements dict
         """
-        if (key is None):
-            print("Cannot find the required tag in ", area)
+        if tag is None:
             return None
         else:
-            return elements_list[key][0]
+            for element in elements_list[tag]:
+                if (element.is_enabled() and element.is_displayed()):
+                    return element
+            return None
     
     @staticmethod
     def fetch_required_elements(elements, filter_list):
