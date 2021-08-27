@@ -1,8 +1,9 @@
 import time
-
-from modules.constants import Pattern, Tags
-from modules.utilities import Utils
 from selenium.common import exceptions
+# Local imports
+from utility.constants import Pattern, Tags
+from utility.utilities import Utils
+
 
 class ProceedToCheckout():
 

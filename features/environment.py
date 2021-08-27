@@ -1,8 +1,8 @@
-import logging
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+# Local imports
 from modules.base import Base
-from modules.constants import SkipScenario
+from utility.constants import SkipScenario
 
 '''
 This funtion run before the whole shooting match

@@ -1,8 +1,9 @@
 import time
 import logging
 from selenium.common import exceptions
-from modules.constants import Tags, Pattern
-from modules.utilities import Utils
+# Local imports
+from utility.constants import Tags, Pattern
+from utility.utilities import Utils
 
 class Login():
 

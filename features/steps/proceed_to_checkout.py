@@ -1,5 +1,6 @@
-from modules.proceed_to_checkout import ProceedToCheckout
 from behave import *
+# Local imports
+from modules.proceed_to_checkout import ProceedToCheckout
 
 @given('In page, product is added into cart')
 def step_impl(context):

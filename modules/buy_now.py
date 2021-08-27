@@ -1,10 +1,9 @@
-# Local imports
 import time
-
 # Framework imports
 from selenium.common import exceptions
-from modules.constants import Tags, Pattern, SkipScenario
-from modules.utilities import Utils
+# Local imports
+from utility.constants import Tags, Pattern, SkipScenario
+from utility.utilities import Utils
 
 
 class BuyNow(object):

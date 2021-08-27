@@ -1,9 +1,8 @@
-from logging import exception
 import time
-
 from selenium.common import exceptions
-from modules.utilities import Utils
-from modules.constants import Pattern, Tags
+# Local imports
+from utility.utilities import Utils
+from utility.constants import Pattern, Tags
 
 class AddToCart():
     def __init__(self, context):

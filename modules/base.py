@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
 # Local imports
-from modules.constants import SkipScenario
+from utility.constants import SkipScenario
 
 class Base:
     
