@@ -21,3 +21,4 @@ class SkipScenario:
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
     SKIP_ADD_TO_CART = "skip_add_to_cart"
+    SKIP_PROCEED_CHECKOUT = "skip_proceed_checkout"

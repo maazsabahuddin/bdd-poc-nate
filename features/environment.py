@@ -51,6 +51,6 @@ def before_tag(context, tag):
     if tag == SkipScenario.SKIP_ADD_TO_CART:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_ADD_TO_CART):
             context.scenario.skip(reason="Skip add to cart, beacuse we found buy now")
-
-
-
+    if tag == SkipScenario.SKIP_PROCEED_CHECKOUT:
+        if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PROCEED_CHECKOUT):
+            context.scenario.skip(reason="Skip proceed to checkout, beacuse we ran the buy now button successfully")
