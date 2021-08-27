@@ -3,8 +3,15 @@ class Tags:
     INPUT = "input"
     A = "a"
     SPAN = "span"
+    H1 = "h1"
+    H2 = "h2"
+    H3 = "h3"
     POSSIBLE_BUY_TAGS_LIST = [BUTTON, INPUT, A, SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [INPUT]
+    POSSIBLE_ADD_TO_TAGS_LIST = [BUTTON, SPAN, INPUT]
+    POSSIBLE_LOGIN_AS_GUEST_LIST = [BUTTON, A]
+    POSSIBLE_SIGNIN_LIST = [A]
+    POSSIBLE_CHECKOUT_PAGE_LIST = [H1, H2, H3, BUTTON]
 
 
 class Pattern:
@@ -30,12 +37,6 @@ class Pattern:
     CONTINUE = "//*[contains(text()='Continue') or contains(text(),'CONTINUE')]"
     # COUNTRY = "//select[contains(@name, 'Country')]"
 
-    POSSIBLE_BUY_TAGS_LIST = ["button", "input", "a", "span"]
-    POSSIBLE_ADD_TO_TAGS_LIST = ["button", "span", "input"]
-    POSSIBLE_LOGIN_AS_GUEST_LIST = ["button", "a"]
-    POSSIBLE_SIGNIN_LIST = ["a"]
-    POSSIBLE_CHECKOUT_PAGE_LIST = ["h1", "h2", "h3", "button"]
-
 
 class SkipScenario:
     SKIP_SCENARIO = "skip_scenario"
@@ -46,4 +47,3 @@ class SkipScenario:
 
 class ETC:
     VALUE = "value"
-    SKIP_ADD_TO_CART = "skip_add_to_cart"
