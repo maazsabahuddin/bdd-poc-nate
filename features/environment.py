@@ -4,7 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Local Imports
 from modules.base import Base
-from modules.constants import Scenarios
+from modules.constants import SkipScenario
 
 
 def before_all(context):
@@ -14,11 +14,13 @@ def before_all(context):
     """
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context.config.setup_logging()
-    context._root[Scenarios.SKIP_ALL] = False
-    # This dict will be used to skip individual scenarios along the run
-    context._root[Scenarios.SKIP_SCENARIO] = {Scenarios.SKIP_LOGIN: False, Scenarios.SKIP_ADD_TO_CART: False}
+    context._root[SkipScenario.SKIP_ALL] = False
+    # This dict will be used to skip indiviaudal scenarios along the run
+    context._root[SkipScenario.SKIP_SCENARIO] = {SkipScenario.SKIP_LOGIN: False, SkipScenario.SKIP_ADD_TO_CART: False}
     # This context attributes is available throughout all scenarios
     browser = webdriver.Chrome(ChromeDriverManager().install())
+    # This will maximize the broswer window
+    browser.maximize_window()
     context.url = context.config.userdata['url']
     web = Base(browser, context)
     context.web = web
@@ -38,7 +40,7 @@ def before_scenario(context, scenario):
     :param context:
     :param scenario:
     """
-    if context._root.get(Scenarios.SKIP_ALL, True):
+    if context._root.get(SkipScenario.SKIP_ALL, True):
         scenario.skip(reason='Not able to proceed!')
 
 
@@ -48,13 +50,10 @@ def before_tag(context, tag):
     :param context:
     :param tag:
     """
-    # add condition for tag on scenario and perform the required operation
-    if tag == Scenarios.SKIP_LOGIN:
-        if context._root.get(Scenarios.SKIP_SCENARIO).get(Scenarios.SKIP_LOGIN):
-            context.scenario.skip(reason="Skip login, will go with login as guest")
-    if tag == Scenarios.SKIP_ADD_TO_CART:
-        if context._root.get(Scenarios.SKIP_SCENARIO).get(Scenarios.SKIP_ADD_TO_CART):
-            context.scenario.skip(reason="Skip add to cart, because we found buy now")
-
-
-
+    # add condition for tag on sceanrio and perform the required operation
+    if tag == SkipScenario.SKIP_LOGIN:
+        if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_LOGIN):
+            context.scenario.skip(reason="No need to login, will go with login as guest")
+    if tag == SkipScenario.SKIP_ADD_TO_CART:
+        if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_ADD_TO_CART):
+            context.scenario.skip(reason="Skip add to cart, beacuse we found buy now")
