@@ -5,8 +5,8 @@ import time
 from selenium.common import exceptions
 
 # Local imports
-from modules.constants import Tags, Pattern
-from modules.utilities import Utils
+from utility.constants import Tags, Pattern
+from utility.utilities import Utils
 
 
 class Login:
@@ -18,7 +18,7 @@ class Login:
 
     def find_login_as_guest_feature(self):
         """
-        Main funtion which starts the searching process
+        Main function which starts the searching process
         """
         login_as_guest_dict = self.fetch_login_as_guest_elements()
         if not login_as_guest_dict:

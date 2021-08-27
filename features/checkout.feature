@@ -28,3 +28,19 @@ Feature: Ecommerce Checkout
         Given Find type of shipping address page
         When Shipping page ask about shipping address details
         Then Enter shipping address details and proceed
+
+#    @skip_proceed_checkout
+#    Scenario: Find "cart/checkout" button
+#        Given In page, product is added into cart
+#        When Checkout button is found
+#        Then Click to proceed
+#
+#    Scenario: Perform login as guest
+#        Given Is product page has "login as guest" feature
+#        When product page support "login as guest" feature
+#        Then we should perform "login as guest"
+#
+#    @skip_login
+#    Scenario: Perform login with credentials
+#        Given Is "login" required
+#        Then perform "login" with credentials

@@ -2,10 +2,9 @@
 import time
 
 # Local Imports
-from modules import constants
-from modules.constants import Pattern
+from utility import constants
 from modules.logger import logger
-from modules.utilities import Utils
+from utility.utilities import Utils
 
 
 class Shipping:
@@ -43,15 +42,15 @@ class Shipping:
         logger.info("get required elements")
         time.sleep(20)
 
-        first_name_element = self.web.find_by_xpath(Pattern.FIRST_NAME)
-        last_name_element = self.web.find_by_xpath(Pattern.LAST_NAME)
-        email_element = self.web.find_by_xpath(Pattern.EMAIL)
-        phone_element = self.web.find_by_xpath(Pattern.PHONE)
-        address1_element = self.web.find_by_xpath(Pattern.ADDRESS1)
-        address2_element = self.web.find_by_xpath(Pattern.ADDRESS2)
-        city_element = self.web.find_by_xpath(Pattern.CITY)
-        state_element = self.web.find_by_xpath(Pattern.STATE)
-        postal_code_element = self.web.find_by_xpath(Pattern.POSTAL_CODE)
+        first_name_element = self.web.find_by_xpath(constants.Pattern.FIRST_NAME)
+        last_name_element = self.web.find_by_xpath(constants.Pattern.LAST_NAME)
+        email_element = self.web.find_by_xpath(constants.Pattern.EMAIL)
+        phone_element = self.web.find_by_xpath(constants.Pattern.PHONE)
+        address1_element = self.web.find_by_xpath(constants.Pattern.ADDRESS1)
+        address2_element = self.web.find_by_xpath(constants.Pattern.ADDRESS2)
+        city_element = self.web.find_by_xpath(constants.Pattern.CITY)
+        state_element = self.web.find_by_xpath(constants.Pattern.STATE)
+        postal_code_element = self.web.find_by_xpath(constants.Pattern.POSTAL_CODE)
 
         first_name_element.send_keys("some Maaz")
         last_name_element.send_keys("some MaazMaazMaazMaaz")
@@ -67,7 +66,7 @@ class Shipping:
             if "LA" in option.get_attribute("value"):
                 option.click()
 
-        continue_elements = self.web.finds_by_xpath_wait(Pattern.CONTINUE)
+        continue_elements = self.web.finds_by_xpath_wait(constants.Pattern.CONTINUE)
         for ele in continue_elements:
             print(ele.tag_name)
 
