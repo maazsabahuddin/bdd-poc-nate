@@ -10,9 +10,7 @@ def step_impl(context):
 
 @when('cart/check out button found')
 def step_impl(context):
-    if (context.current_obj.required_element is not None):
-        pass
-    else:
+    if not context.current_obj.is_checkout_found:
         context.scenario.skip(reason="Required button not found.")
 
 @then('Click to proceed')

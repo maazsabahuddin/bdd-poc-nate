@@ -14,25 +14,18 @@ class ProceedToCheckoutStep2():
     def find_cart_checkout(self):
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)
         required_tag = Utils.get_required_tag(view_cart_dict.keys(), Tags.POSSIBLE_VIEW_CART)
-        self.required_element = Utils.get_required_element_by_key(required_tag, view_cart_dict, "ProceedToCheckoutStep2")
-        print("-------> checking element is enabled ", self.required_element.is_enabled())
-        print("-------> checking element is displayed ", self.required_element.is_displayed())
-        time.sleep(self.web.process_pause_time)
+        self.required_element = Utils.get_required_element(required_tag, view_cart_dict)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def extract_required_elements(self, pattern):
-        try:
-            add_to_elements = self.web.finds_by_xpath_wait(pattern)
-            return Utils.create_dict(add_to_elements)
-        except:
-            return {}
+        add_to_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.fetch_required_elements(add_to_elements, Tags.POSSIBLE_VIEW_CART)
 
     def hit_button_to_proceed(self):
         try:
-            # print(self.required_element.get_attribute("outerHTML"))
             self.required_element.click()
-            time.sleep(self.web.process_pause_time)
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
             parent_element = self.web.find_parent_element_from_child(self.required_element)
-            # print(parent_element.get_attribute("outerHTML"))
             parent_element.click()
-            time.sleep(self.web.process_pause_time)
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)

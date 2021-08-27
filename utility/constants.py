@@ -1,7 +1,7 @@
 class Tags:
     POSSIBLE_BUY_TAGS_LIST = ["button", "input", "a", "span"]
     POSSIBLE_ADD_TO_TAGS_LIST = ["button", "span", "input"]
-    POSSIBLE_VIEW_CART = ["a", "button", "span"]
+    POSSIBLE_VIEW_CART = ["button", "a", "span"]
     POSSIBLE_LOGIN_AS_GUEST_LIST = ["button", "a"]
     POSSIBLE_SIGNIN_LIST = ["a"]
     POSSIBLE_CHECKOUT_PAGE_LIST = ["h1", "h2", "h3", "button"]
