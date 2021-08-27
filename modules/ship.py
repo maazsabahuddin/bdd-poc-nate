@@ -39,31 +39,43 @@ class Shipping:
     def get_required_elements(self):
         self.web.open(self.context.url)
         logger.info("get required elements")
-        time.sleep(23)
-        # wait = WebDriverWait(browser, 10)
-        # wait.until(EC.element_to_be_clickable((By.XPATH, ".//input[@value='Submit' and @type='submit']"))).click()
+        time.sleep(20)
+
         first_name_element = self.web.find_by_xpath(Pattern.FIRST_NAME)
         last_name_element = self.web.find_by_xpath(Pattern.LAST_NAME)
-        # email_element = self.web.finds_by_xpath_wait(Pattern.EMAIL)
-        # phone_element = self.web.finds_by_xpath_wait(Pattern.PHONE)
-        # address1_element = self.web.finds_by_xpath_wait(Pattern.ADDRESS1)
-        # address2_element = self.web.finds_by_xpath_wait(Pattern.ADDRESS2)
-        # city_element = self.web.finds_by_xpath_wait(Pattern.CITY)
-        # state_element = self.web.finds_by_xpath_wait(Pattern.STATE)
-        # postal_code_element = self.web.finds_by_xpath_wait(Pattern.POSTAL_CODE)
+        email_element = self.web.find_by_xpath(Pattern.EMAIL)
+        phone_element = self.web.find_by_xpath(Pattern.PHONE)
+        address1_element = self.web.find_by_xpath(Pattern.ADDRESS1)
+        address2_element = self.web.find_by_xpath(Pattern.ADDRESS2)
+        city_element = self.web.find_by_xpath(Pattern.CITY)
+        state_element = self.web.find_by_xpath(Pattern.STATE)
+        postal_code_element = self.web.find_by_xpath(Pattern.POSTAL_CODE)
 
-        # self.web.finds_by_xpath_and_set_attribute(Pattern.FIRST_NAME, value="Maaz")
-        print(f"FNE => {first_name_element}")
         first_name_element.send_keys("some Maaz")
         last_name_element.send_keys("some MaazMaazMaazMaaz")
-        # first_name_element.click()
-        # print(email_element)
-        # print(phone_element)
-        # print(address1_element)
-        # print(address2_element)
-        # print(city_element)
-        # print(state_element)
-        # print(postal_code_element)
+        email_element.send_keys("maaz@gmail.com")
+        phone_element.send_keys("17238912739")
+        address1_element.send_keys("Home A1, 0th street, Houston.")
+        address2_element.send_keys("Opposite to Alwa Bridge")
+        city_element.send_keys("City")
+        postal_code_element.send_keys("41015")
+
+        all_options = state_element.find_elements_by_tag_name("option")
+        for option in all_options:
+            if "LA" in option.get_attribute("value"):
+                option.click()
+
+        continue_element = self.web.find_by_xpath(Pattern.CONTINUE)
+        try:
+            continue_element.click()
+        except Exception as e:
+            logger.info(str(e))
+            print(continue_element)
+            print("Caught exception")
+            print(dir(continue_element.parent))
+            # continue_element.parent.click()
+
+        time.sleep(5)
 
         return
 
