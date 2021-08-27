@@ -5,15 +5,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
 # Local imports
-from utility.constants import SkipScenario
+from utility.constants import SkipScenario, Timer
 
 class Base:
     
-    timeout = 10
-    process_pause_time = 5
-
     def __init__(self, web_driver, context):
-        self.web_driver_wait = WebDriverWait(web_driver, self.timeout)
+        self.web_driver_wait = WebDriverWait(web_driver, Timer.ELEMENT_TIMEOUT)
         self.web_driver = web_driver
         self.context = context
 

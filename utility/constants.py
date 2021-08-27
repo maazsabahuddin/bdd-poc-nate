@@ -22,3 +22,8 @@ class SkipScenario:
     SKIP_LOGIN = "skip_login"
     SKIP_ADD_TO_CART = "skip_add_to_cart"
     SKIP_PROCEED_CHECKOUT = "skip_proceed_checkout"
+
+class Timer:
+    PAGE_LOAD_TIMEOUT = 30
+    ELEMENT_TIMEOUT = 10
+    PROCESS_PAUSE_TIMEOUT = 5

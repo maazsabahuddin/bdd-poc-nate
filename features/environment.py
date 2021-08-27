@@ -2,7 +2,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 # Local imports
 from modules.base import Base
-from utility.constants import SkipScenario
+from utility.constants import SkipScenario, Timer
 
 '''
 This funtion run before the whole shooting match
@@ -21,7 +21,7 @@ def before_all(context):
     # This will maximize the broswer window
     browser.maximize_window()
     # This make the browser to wait for given number of seconds to load page
-    browser.set_page_load_timeout(10)
+    browser.set_page_load_timeout(30)
     context.url = context.config.userdata['url']
     web = Base(browser, context)
     context.web = web
