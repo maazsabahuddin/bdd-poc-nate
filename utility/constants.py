@@ -5,6 +5,7 @@ class Tags:
     POSSIBLE_LOGIN_AS_GUEST_LIST = ["button", "a"]
     POSSIBLE_SIGNIN_LIST = ["a"]
     POSSIBLE_CHECKOUT_PAGE_LIST = ["h1", "h2", "h3", "button"]
+    POSSIBLE_EMAIL_ELEMENT_LIST = ["input"]
 
 class Pattern:
     BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy') or contains(translate(@value, 'BUY', 'buy'), 'buy')]"
@@ -16,6 +17,10 @@ class Pattern:
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
     IS_CHECKOUT_PAGE_PATTERN = "//*[contains(translate(text(),'CHEKOUT','chekout'),'checkout') or contains(translate(text(),'ORDESUMAY','ordesumay'),'order summary') or contains(translate(text(),'YOURDE','yourde'),'your order')]"
+    EMAIL = "//*[contains(translate(@name, 'EMAIL', 'email'), 'email') or contains(translate(@type, 'EMAIL', 'email'), 'email')]"
+    FIRST_NAME = "//*[contains(@name, 'firstName')]"
+    LAST_NAME = "//*[contains(@name, 'lastName')]"
+    PHONE = "//*[contains(@name, 'phone')]"
 
 class SkipScenario:
     SKIP_SCENARIO = "skip_scenario"

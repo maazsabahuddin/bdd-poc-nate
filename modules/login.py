@@ -16,6 +16,8 @@ class Login():
         """
         Main funtion which starts the searching process
         """
+        self.web.open(self.context.url)
+        time.sleep(30)
         login_as_guest_dict = self.fetch_login_as_guest_elements()
         if not login_as_guest_dict:
             self.context.found_login_as_guest = False

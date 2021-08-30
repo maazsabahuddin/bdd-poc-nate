@@ -56,6 +56,7 @@ class Utils:
                 parent_element = Utils.find_parent_element_from_child(ele, filter_list)
                 if parent_element is not None:
                     tag_name = parent_element.tag_name
+                    ele = parent_element
             if tag_name in filter_list:
                 if result_dict.get(tag_name):
                     result_dict.get(tag_name).append(ele)
@@ -81,3 +82,15 @@ class Utils:
             return None
         except exceptions.NoSuchElementException:
             return None
+
+    @staticmethod
+    def get_required_element_related_to_guest(elements_list):
+        """
+        This function take a tag name and dictionary of found elements,
+        it will futher filter the dictionary to find the guest related element
+        """
+        for element in elements_list:
+            if 'guest' in element.get_attribute("name"):
+                if element.is_enabled() and element.is_displayed():
+                    return element
+        return None
