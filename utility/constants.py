@@ -48,15 +48,16 @@ class Pattern:
     LAST_NAME = "//input[contains(@name, 'LastName') or contains(@name, 'lastName') " \
                 "or contains(@name, 'shipping-last-name')]"
     EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')]"
-    PREFIX = "//input[contains(@name, 'phones[0].countryCode')]"
-    PHONE = "//input[contains(@name, 'Phone') or contains(@name, 'phones[0].subscriberNumber') " \
-            "or contains(@name, 'phoneNumber')]"
+    PREFIX = "//input[normalize-space(text())='phones[0].countryCode]"
+    PHONE = "//input[normalize-space(text())='Phone' or normalize-space(text())='phone' or " \
+            "contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber')]"
     ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') or " \
-               "contains(@name, 'shipping-street-address')]"
-    ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]')]"
+               "contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne')]"
+    ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
+               "or contains(@name, 'addressLineTwo')]"
     CITY = "//input[contains(@name, 'AdministrativeArea') or contains(@name, 'city')]"
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@id, 'state')]"
-    POSTAL_CODE = "//input[contains(@name, 'PostalCode') or contains(@name, 'zipCode') " \
+    POSTAL_CODE = "//input[contains(@name, 'postal') or contains(@name, 'zip') " \
                   "or contains(@name, 'shipping-zip-code')]"
     CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') " \
                "or contains(text(), 'next') or contains(text(), 'done') " \

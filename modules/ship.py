@@ -16,7 +16,7 @@ class Shipping:
         self.context = context
         self.web = context.web
         self.web.open(self.context.url)
-        time.sleep(20)
+        time.sleep(16)
 
         self.first_name_element = None
         self.last_name_element = None
@@ -37,6 +37,7 @@ class Shipping:
         self.first_name_element[0].send_keys("some Maaz")
         self.last_name_element[0].send_keys("some MaazMaazMaazMaaz")
         self.email_element[0].send_keys("maaz@gmail.com")
+        print(self.phone_element)
         self.phone_element[0].send_keys("17238912739")
         self.address1_element[0].send_keys("Home A1, 0th street, Houston.")
         if self.address2_element:
