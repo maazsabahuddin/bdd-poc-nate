@@ -1,5 +1,9 @@
+# Local imports
 import time
+
+# Framework imports
 from selenium.common import exceptions
+
 # Local imports
 from utility.constants import Pattern, Tags, Timer
 from utility.utilities import Utils

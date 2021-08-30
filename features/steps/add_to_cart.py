@@ -4,9 +4,6 @@ from behave import *
 # Local imports
 from modules.add_to_cart import AddToCart
 
-# Local imports
-from modules.add_to_cart import AddToCart
-
 
 @given('url of buy now page')
 def step_impl(context):

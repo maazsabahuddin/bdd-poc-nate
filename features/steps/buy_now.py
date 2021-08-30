@@ -2,7 +2,6 @@
 from behave import *
 
 # Local imports
-from modules import logger
 from modules.buy_now import BuyNow
 
 
@@ -38,6 +37,6 @@ def step_impl(context):
     if context.buy_now_found:
         print("Login page")
     else:
-        print("buy now not found move to next senario to find add to ... button")
+        print("buy now not found move to next scenario to find add to ... button")
 
     context.current_obj.hit_buy_now_element()
