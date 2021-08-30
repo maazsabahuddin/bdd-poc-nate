@@ -51,15 +51,15 @@ class Shipping:
 
     def click_now(self):
         logger.info("clicking on done/continue button")
-        time.sleep(2)
         continue_elements_dict = \
             Utils.fetch_required_elements(self.continue_elements, constants.Tags.POSSIBLE_CONTINUE_BUTTON)
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
                                                        constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
+        time.sleep(2)
         required_element.click()
-        required_element.click()
-        time.sleep(10)
+        time.sleep(5)
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")

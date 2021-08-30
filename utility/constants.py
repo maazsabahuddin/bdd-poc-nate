@@ -58,8 +58,10 @@ class Pattern:
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@id, 'state')]"
     POSTAL_CODE = "//input[contains(@name, 'PostalCode') or contains(@name, 'zipCode') " \
                   "or contains(@name, 'shipping-zip-code')]"
-    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next')" \
-               " or contains(text(), 'done') or contains(text(), 'Done') or contains(text(), 'proceed')]"
+    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') " \
+               "or contains(text(), 'next') or contains(text(), 'done') " \
+               "or contains(text(), 'proceed')]"
+    # CONTINUE = "//*[contains(text(), 'Go to next step')]"
     COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country')]"
 
 
