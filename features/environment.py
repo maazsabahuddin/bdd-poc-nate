@@ -52,11 +52,11 @@ def before_scenario(context, scenario):
 
 def before_tag(context, tag):
     """
-    This funtion run before a section scenario tagged with name
+    This function run before a section scenario tagged with name
     :param context:
     :param tag:
     """
-    # add condition for tag on sceanrio and perform the required operation
+    # add condition for tag on scenario and perform the required operation
     if tag == SkipScenario.SKIP_LOGIN:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_LOGIN):
             context.scenario.skip(reason="No need to login, will go with login as guest")

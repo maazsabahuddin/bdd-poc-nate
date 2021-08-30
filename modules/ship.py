@@ -53,9 +53,10 @@ class Shipping:
                                                        constants.Tags.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         required_element.click()
+        time.sleep(10)
 
-    def get_required_elements(self):
-        logger.info("get required elements")
+    def fetching_required_elements(self):
+        logger.info("fetching required elements")
         self.first_name_element = self.web.find_by_xpath(constants.Pattern.FIRST_NAME)
         self.last_name_element = self.web.find_by_xpath(constants.Pattern.LAST_NAME)
         self.email_element = self.web.find_by_xpath(constants.Pattern.EMAIL)

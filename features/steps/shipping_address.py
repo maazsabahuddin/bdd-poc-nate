@@ -12,7 +12,9 @@ def shipping_address_step(context):
     :param context:
     """
     ship = Shipping(context)
-    ship.get_required_elements()
+    ship.fetching_required_elements()
+    ship.fill_out_data()
+    ship.click_now()
 
 
 @when('Shipping page ask about shipping address details')
