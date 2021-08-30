@@ -43,7 +43,7 @@ class Pattern:
     STATE = "//select[contains(@name, 'stateCode')  or contains(@name, 'shipping-state')]"
     POSTAL_CODE = "//input[contains(@name, 'PostalCode') or contains(@name, 'zipCode') " \
                   "or contains(@name, 'shipping-zip-code')]"
-    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(),'CONTINUE')]"
+    CONTINUE = "//*[normalize-space(text())='Continue' or normalize-space(text())='CONTINUE']"
     COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country')]"
 
 

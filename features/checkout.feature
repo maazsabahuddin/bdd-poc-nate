@@ -2,8 +2,6 @@
 @capture
 Feature: Ecommerce Checkout
 
-Feature: Ecommerce Checkout
-
 #    Scenario: Find and click buy now button
 #        Given url of product page
 #        When buy now found

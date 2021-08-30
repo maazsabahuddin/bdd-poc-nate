@@ -61,9 +61,10 @@ class Utils:
             if tag_name == "span":
                 # find its parent element and check its tag
                 parent_element = Utils.find_parent_element_from_child(ele, filter_list)
-                print(parent_element)
+                # print(parent_element)
                 if parent_element is not None:
                     tag_name = parent_element.tag_name
+                    ele = parent_element
             if tag_name in filter_list:
                 if result_dict.get(tag_name):
                     result_dict.get(tag_name).append(ele)
@@ -82,7 +83,6 @@ class Utils:
             current_found_element = child_element
             for _ in range(8):
                 parent_element = current_found_element.find_element_by_xpath("..")
-                print(parent_element.tag_name)
                 if parent_element.tag_name in filter_list:
                     return parent_element
                 current_found_element = parent_element
