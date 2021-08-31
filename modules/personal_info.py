@@ -46,7 +46,6 @@ class PersonalInfo:
             else:
                 self.phone = phone_elements_dict['input'][0]
         
-        print(button_elements_dict)
         if button_elements_dict:
             element_key = "a"
             if 'button' in button_elements_dict:
