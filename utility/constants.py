@@ -31,6 +31,7 @@ class SkipScenario:
     SKIP_CHECKOUT_STEP_1 = "skip_checkout_step_1"
     SKIP_CHECKOUT_STEP_2 = "skip_checkout_step_2"
     SKIP_PROCEED_CHECKOUT = "skip_proceed_checkout"
+    SKIP_PERSONAL_INFO = "skip_personal_info"
 
 class Timer:
     PAGE_LOAD_TIMEOUT = 30

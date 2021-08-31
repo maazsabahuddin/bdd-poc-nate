@@ -50,7 +50,10 @@ def before_tag(context, tag):
             context.scenario.skip(reason="No need to login, will go with login as guest")
     if tag == SkipScenario.SKIP_ADD_TO_CART:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_ADD_TO_CART):
-            context.scenario.skip(reason="Skip add to cart, beacuse we found buy now")
+            context.scenario.skip(reason="Skip add to cart, because we found buy now")
     if tag == SkipScenario.SKIP_PROCEED_CHECKOUT:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PROCEED_CHECKOUT):
-            context.scenario.skip(reason="Skip proceed to checkout, beacuse we ran the buy now button successfully")
+            context.scenario.skip(reason="Skip proceed to checkout, because we ran the buy now button successfully")
+    if tag == SkipScenario.SKIP_PERSONAL_INFO:
+        if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PERSONAL_INFO):
+            context.scenario.skip(reason="Skip populate personal information, because website did not support guest feature")

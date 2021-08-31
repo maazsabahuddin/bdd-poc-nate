@@ -23,6 +23,7 @@ def step_impl(context):
     else:
         # skip current scenario and proceed to login flow
         context.scenario.skip(reason='Login as Guest not found!! Proceed with login\n')
+        context.web.skip_scenario(SkipScenario.SKIP_PERSONAL_INFO)
 
 @then('we should perform "login as guest"')
 def step_impl(context):
