@@ -16,7 +16,7 @@ class Shipping:
         self.context = context
         self.web = context.web
         self.web.open(self.context.url)
-        time.sleep(16)
+        time.sleep(10)
 
         self.first_name_element = None
         self.last_name_element = None
@@ -40,7 +40,8 @@ class Shipping:
         self.email_element[0].send_keys("maaz@gmail.com")
         if self.phone_country_code:
             self.phone_country_code[0].send_keys("92")
-        self.phone_element[0].send_keys("17238912739")
+        if self.phone_element:
+            self.phone_element[0].send_keys("17238912739")
         self.address1_element[0].send_keys("Home A1, 0th street, Houston.")
         if self.address2_element:
             self.address2_element[0].send_keys("Opposite to Alwa Bridge")
@@ -49,7 +50,7 @@ class Shipping:
 
         all_options = self.state_element[0].find_elements_by_tag_name("option")
         for option in all_options:
-            if option.get_attribute("value") in ["MA", "USLA", "LA"]:
+            if option.get_attribute("value") in ["MA", "USLA", "LA", "AL"]:
                 option.click()
 
     def click_now(self):

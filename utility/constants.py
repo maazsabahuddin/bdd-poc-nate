@@ -50,10 +50,11 @@ class Pattern:
     EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')]"
     PREFIX = "//input[contains(@name, 'countryCode')]"
     PHONE = "//input[contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber')]"
-    ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') or " \
-               "contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne')]"
+    ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
+               "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
+               "or contains(@name, 'addressLine1')]"
     ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
-               "or contains(@name, 'addressLineTwo')]"
+               "or contains(@name, 'addressLineTwo') or contains(@name, 'addressLine2')]"
     CITY = "//input[contains(@name, 'AdministrativeArea') or contains(@name, 'city')]"
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@id, 'state')]"
     POSTAL_CODE = "//input[contains(@name, 'postal') or contains(@name, 'zip') " \
