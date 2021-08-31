@@ -89,8 +89,11 @@ class Utils:
         This function take a tag name and dictionary of found elements,
         it will futher filter the dictionary to find the guest related element
         """
+        attribute_name = "class"
+        if tag == "input":
+            attribute_name = "name"
         for element in elements_dict[tag]:
-            if 'guest' in element.get_attribute("name"):
+            if 'guest' in element.get_attribute(attribute_name):
                 if element.is_enabled() and element.is_displayed():
                     return element
         return None

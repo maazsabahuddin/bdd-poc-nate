@@ -23,7 +23,7 @@ class Login():
             self.context.found_login_as_guest = False
             return
         extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), Tags.POSSIBLE_LOGIN_AS_GUEST_LIST)
-        self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
+        self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][1]
     
     def click_on_login_as_guest(self):
         """

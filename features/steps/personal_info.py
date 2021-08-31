@@ -36,3 +36,5 @@ def step_impl(context):
     else:
         phone = None
     context.current_obj.fill_required_info(email, first_name, last_name, phone)
+    if context.current_obj.is_data_populated:
+        context.current_obj.hit_to_proceed()
