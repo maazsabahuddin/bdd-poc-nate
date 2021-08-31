@@ -21,6 +21,7 @@ class Shipping:
         self.first_name_element = None
         self.last_name_element = None
         self.email_element = None
+        self.phone_country_code = None
         self.phone_element = None
         self.address1_element = None
         self.address2_element = None
@@ -37,7 +38,8 @@ class Shipping:
         self.first_name_element[0].send_keys("some Maaz")
         self.last_name_element[0].send_keys("some MaazMaazMaazMaaz")
         self.email_element[0].send_keys("maaz@gmail.com")
-        print(self.phone_element)
+        if self.phone_country_code:
+            self.phone_country_code[0].send_keys("92")
         self.phone_element[0].send_keys("17238912739")
         self.address1_element[0].send_keys("Home A1, 0th street, Houston.")
         if self.address2_element:
@@ -67,6 +69,7 @@ class Shipping:
         self.first_name_element = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
         self.last_name_element = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
         self.email_element = self.web.finds_by_xpath_wait(constants.Pattern.EMAIL)
+        self.phone_country_code = self.web.finds_by_xpath_wait(constants.Pattern.PREFIX)
         self.phone_element = self.web.finds_by_xpath_wait(constants.Pattern.PHONE)
         self.address1_element = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS1)
         self.address2_element = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS2)

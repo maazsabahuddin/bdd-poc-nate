@@ -48,9 +48,8 @@ class Pattern:
     LAST_NAME = "//input[contains(@name, 'LastName') or contains(@name, 'lastName') " \
                 "or contains(@name, 'shipping-last-name')]"
     EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')]"
-    PREFIX = "//input[normalize-space(text())='phones[0].countryCode]"
-    PHONE = "//input[normalize-space(text())='Phone' or normalize-space(text())='phone' or " \
-            "contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber')]"
+    PREFIX = "//input[contains(@name, 'countryCode')]"
+    PHONE = "//input[contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber')]"
     ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') or " \
                "contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne')]"
     ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
