@@ -84,12 +84,12 @@ class Utils:
             return None
 
     @staticmethod
-    def get_required_element_related_to_guest(elements_list):
+    def get_required_element_related_to_guest(tag, elements_dict):
         """
         This function take a tag name and dictionary of found elements,
         it will futher filter the dictionary to find the guest related element
         """
-        for element in elements_list:
+        for element in elements_dict[tag]:
             if 'guest' in element.get_attribute("name"):
                 if element.is_enabled() and element.is_displayed():
                     return element

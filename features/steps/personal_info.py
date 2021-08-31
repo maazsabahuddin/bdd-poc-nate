@@ -21,10 +21,18 @@ def step_impl(context):
 def step_impl(context):
     if context.current_obj.email is not None:
         email = UserInfo.EMAIL
+    else:
+        email = None
     if context.current_obj.first_name is not None:
         first_name = UserInfo.FIRST_NAME
+    else:
+        first_name = None
     if context.current_obj.last_name is not None:
         last_name = UserInfo.LAST_NAME
+    else:
+        last_name = None
     if context.current_obj.phone is not None:
         phone = UserInfo.PHONE
+    else:
+        phone = None
     context.current_obj.fill_required_info(email, first_name, last_name, phone)
