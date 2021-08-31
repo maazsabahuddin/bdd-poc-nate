@@ -51,7 +51,6 @@ class PersonalInfo:
                 self.button = Utils.get_required_element_related_to_guest('button', button_elements_dict)
             else:
                 self.button = button_elements_dict['button'][0]
-        print("button element: ", self.button.get_attribute("outerHTML"))
         
         if self.email or self.first_name or self.last_name or self.phone:
             self.is_required_field_found = True
