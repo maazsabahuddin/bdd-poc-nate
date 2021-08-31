@@ -1,6 +1,7 @@
 # Framework Imports
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from modules.logger import logger
 
 # Local imports
 from modules.base import Base
@@ -12,21 +13,37 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
-    # This flag will be used to skip all future scenarios, can be set from anywhere
     context.config.setup_logging()
+    logger.info("Enabling logs")
+
+    # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[SkipScenario.SKIP_ALL] = False
+
     # This dict will be used to skip individual scenarios along the run
     context._root[SkipScenario.SKIP_SCENARIO] = {SkipScenario.SKIP_LOGIN: False, SkipScenario.SKIP_ADD_TO_CART: False}
+
     # This give the options object of chrome browser
-    options = webdriver.ChromeOptions()
+    logger.info("Extending chrome options")
+    chrome_options = webdriver.ChromeOptions()
+
     # This will disable usb driver error log to disable
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+
     # This context attributes is available throughout all scenarios
-    browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    logger.info("Install chrome driver or retrieve from cache.")
+    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+
     # This will maximize the browser window
+    logger.info("Maximizing chrome window.")
     browser.maximize_window()
+
     # This make the browser to wait for given number of seconds to load page
-    browser.set_page_load_timeout(10)
+    logger.info("Page load timeout set to 10 seconds.")
+    browser.set_page_load_timeout(60)
+
+    logger.info("Setting url and web object.")
     context.url = context.config.userdata['url']
     web = Base(browser, context)
     context.web = web

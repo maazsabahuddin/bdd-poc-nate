@@ -9,6 +9,7 @@ python = "^3.9"
 selenium = "^3.141.0"
 behave = "^1.2.6"
 webdriver-manager = "^3.4.2"
+pywin32 = "^301"
 
 [tool.poetry.dev-dependencies]
 

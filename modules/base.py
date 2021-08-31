@@ -6,6 +6,7 @@ from selenium.common import exceptions
 
 # Local imports
 from utility import constants
+from modules.logger import logger
 
 
 class Base:
@@ -17,6 +18,7 @@ class Base:
 
     def open(self, url):
         self.web_driver.get(url)
+        logger.info("URL successfully accessed.")
     
     def close_driver(self):
         self.web_driver.quit()
