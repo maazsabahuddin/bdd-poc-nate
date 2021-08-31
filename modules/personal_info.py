@@ -45,12 +45,16 @@ class PersonalInfo:
                 self.phone = Utils.get_required_element('input', phone_elements_dict)
             else:
                 self.phone = phone_elements_dict['input'][0]
-
+        
+        print(button_elements_dict)
         if button_elements_dict:
-            if (len(button_elements_dict['button']) > 1):
-                self.button = Utils.get_required_element_related_to_guest('button', button_elements_dict)
+            element_key = "a"
+            if 'button' in button_elements_dict:
+                element_key = 'button'
+            if (len(button_elements_dict[element_key]) > 1):
+                self.button = Utils.get_required_element_related_to_guest(element_key, button_elements_dict)
             else:
-                self.button = button_elements_dict['button'][0]
+                self.button = button_elements_dict[element_key][0]
         
         if self.email or self.first_name or self.last_name or self.phone:
             self.is_required_field_found = True

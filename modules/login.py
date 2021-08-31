@@ -16,14 +16,12 @@ class Login():
         """
         Main funtion which starts the searching process
         """
-        self.web.open(self.context.url)
-        time.sleep(30)
         login_as_guest_dict = self.fetch_login_as_guest_elements()
         if not login_as_guest_dict:
             self.context.found_login_as_guest = False
             return
         extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), Tags.POSSIBLE_LOGIN_AS_GUEST_LIST)
-        self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][1]
+        self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
     
     def click_on_login_as_guest(self):
         """
