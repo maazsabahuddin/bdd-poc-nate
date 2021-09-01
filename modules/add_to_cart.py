@@ -4,10 +4,11 @@ from selenium.common import exceptions
 from utility.utilities import Utils
 from utility.constants import Pattern, Tags, Timer
 
-class AddToCart():
+class AddToCart:
     def __init__(self, context):
         self.context = context
         self.web = context.web
+        self.required_element = None
         self.is_add_to_cart_found = False
     
     def find_add_to_(self):

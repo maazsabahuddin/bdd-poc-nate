@@ -5,11 +5,12 @@ from utility.constants import Pattern, Tags, Timer
 from utility.utilities import Utils
 
 
-class ProceedToCheckoutStep1():
+class ProceedToCheckoutStep1:
 
     def __init__(self, context) -> None:
         self.context = context
         self.web = context.web
+        self.required_element = None
         self.is_checkout_found = False
 
     def find_cart(self):
