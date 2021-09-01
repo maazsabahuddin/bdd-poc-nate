@@ -49,19 +49,21 @@ class Pattern:
                  "or contains(@id, 'FirstName') or contains(@id, 'firstName') or contains(@id, 'shipping-first-name')" \
                  "or contains(@id, 'billing_first_name')]"
     LAST_NAME = "//input[contains(@name, 'LastName') or contains(@name, 'lastName') " \
-                "or contains(@name, 'billing_first_name') or contains(@name, 'shipping-last-name') " \
+                "or contains(@name, 'billing_last_name') or contains(@name, 'shipping-last-name') " \
                 "or contains(@name, 'family-name') " \
                 "or contains(@id, 'LastName') or contains(@id, 'lastName') or contains(@id, 'shipping-last-name') " \
-                "or contains(@id, 'billing_first_name')]"
+                "or contains(@id, 'billing_last_name')]"
+    FULL_NAME = "//input[contains(@name, 'fullName') or contains(@id, 'fullName')]"
     EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')" \
             "or contains(@name, 'billing_email')" \
             "or contains(@id, 'Email') or contains(@id, 'email') or contains(@id, 'contact-email')" \
             "or contains(@id, 'billing_email')]"
     COUNTRY_CODE = "//input[contains(@name, 'countryCode')]"
-    PHONE = "//input[contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber')" \
-            "or contains(@name, 'billing_phone')" \
-            "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber')" \
-            "or contains(@id, 'billing_phone')" \
+    PHONE = "//input[contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
+            "or contains(@name, 'billing_phone') or contains(translate(text(), 'Number', 'number'), 'number') " \
+            "or contains(@name, 'primaryVoiceNumber')" \
+            "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
+            "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \
             "or contains(@aria-label, 'Phone Number')]"
     ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
                "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
@@ -76,16 +78,19 @@ class Pattern:
                "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2')]"
     CITY = "//input[contains(@name, 'AdministrativeArea') or contains(@name, 'city')" \
            "or contains(@id, 'AdministrativeArea') or contains(@id, 'city')]"
-    STATE = "//select[cntains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
+    STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
+            "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region')] | " \
+            "//input[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
             "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region')]"
     POSTAL_CODE = "//input[contains(@name, 'postal') or contains(@name, 'zip') " \
                   "or contains(@name, 'shipping-zip-code') or contains(@name, 'postcode') " \
                   "or contains(@id, 'postal') or contains(@id, 'zip') or contains(@id, 'postcode') " \
                   "or contains(@id, 'shipping-zip-code')]"
-    COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country')]"
-    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') " \
-               "or contains(text(), 'next') or contains(text(), 'done') " \
-               "or contains(text(), 'proceed')]"
+    COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country') " \
+              "or contains(@name, 'country')]"
+    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
+               "or contains(text(), 'done') or contains(text(), 'proceed')] | " \
+               "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
     PLACE_ORDER = "//*[contains(@name, 'place')]"
     CONSENT = "//input[contains(@type, 'checkbox')]"
 
@@ -102,6 +107,7 @@ class ETC:
     VALUE = "value"
 
     # SHIPPING INFO CONSTANTS
+    FULL_NAME = "full_name"
     FIRST_NAME = "first_name"
     LAST_NAME = "last_name"
     PHONE = "phone"

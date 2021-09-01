@@ -21,33 +21,65 @@ class Shipping:
 
         logger.info("Initializing shipping address variables.")
         self.shipping_info = {}
-        self.required_elements = [constants.ETC.FIRST_NAME, constants.ETC.LAST_NAME, constants.ETC.EMAIL,
-                                  constants.ETC.PHONE, constants.ETC.ADDRESS1, constants.ETC.STATE,
-                                  constants.ETC.CONTINUE, constants.ETC.POSTAL_CODE, constants.ETC.CITY]
+
+        logger.info("Initializing shipping required elements with respect to the flow.")
+        self.direct_flow_required_elements = [constants.ETC.FIRST_NAME, constants.ETC.LAST_NAME, constants.ETC.EMAIL,
+                                              constants.ETC.PHONE, constants.ETC.ADDRESS1, constants.ETC.STATE,
+                                              constants.ETC.CONTINUE, constants.ETC.POSTAL_CODE, constants.ETC.CITY]
+        self.login_flow_required_elements = [constants.ETC.FULL_NAME, constants.ETC.ADDRESS1, constants.ETC.STATE,
+                                             constants.ETC.CONTINUE, constants.ETC.POSTAL_CODE, constants.ETC.CITY,
+                                             constants.ETC.PHONE]
+        self.personal_information_flow_required_elements = [constants.ETC.FIRST_NAME, constants.ETC.LAST_NAME,
+                                                            constants.ETC.PHONE, constants.ETC.ADDRESS1,
+                                                            constants.ETC.STATE, constants.ETC.CONTINUE,
+                                                            constants.ETC.POSTAL_CODE, constants.ETC.CITY]
+        self.login_flow = False
+        self.personal_information_flow = False
+        self.direct_flow = False
+
+    def fill_state_attribute(self):
+        """
+        Filling state element with respect to its tag that can be [INPUT, SELECT]
+        """
+        state_element = self.shipping_info[constants.ETC.STATE][0]
+        if state_element.tag_name == constants.Tags.INPUT:
+            logger.info("Filling state using input")
+            state_element.send_keys("Ontario")
+        else:
+            logger.info("Filling state using select option")
+            all_options = state_element.find_elements_by_tag_name("option")
+            for option in all_options:
+                if option.get_attribute("value") in ["MA", "USLA", "LA", "AL"]:
+                    option.click()
 
     def fill_out_data(self):
         """
         Taking every element 0 index is because no (input element exist more than 1)
         """
         logger.info("filling shipping data")
-        self.shipping_info[constants.ETC.FIRST_NAME][0].send_keys("Maaz")
-        self.shipping_info[constants.ETC.LAST_NAME][0].send_keys("Sabah Uddin")
-        self.shipping_info[constants.ETC.EMAIL][0].send_keys("maaz@gmail.com")
+        if self.login_flow:
+            self.shipping_info[constants.ETC.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
+
+        if not self.login_flow:
+            self.shipping_info[constants.ETC.FIRST_NAME][0].send_keys("Maaz")
+            self.shipping_info[constants.ETC.LAST_NAME][0].send_keys("Sabah Uddin")
+            self.shipping_info[constants.ETC.EMAIL][0].send_keys("maaz@gmail.com")
+
         if self.shipping_info[constants.ETC.COUNTRY_CODE]:
             self.shipping_info[constants.ETC.COUNTRY_CODE][0].send_keys("92")
             self.shipping_info[constants.ETC.PHONE][0].send_keys("6473479480")
+
         if self.shipping_info[constants.ETC.PHONE] and not self.shipping_info[constants.ETC.COUNTRY_CODE]:
             self.shipping_info[constants.ETC.PHONE][0].send_keys("6473479480")
+
         self.shipping_info[constants.ETC.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
         if self.shipping_info[constants.ETC.ADDRESS2]:
             self.shipping_info[constants.ETC.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
+
         self.shipping_info[constants.ETC.CITY][0].send_keys("City")
         self.shipping_info[constants.ETC.POSTAL_CODE][0].send_keys("a2s2s2")
 
-        all_options = self.shipping_info[constants.ETC.STATE][0].find_elements_by_tag_name("option")
-        for option in all_options:
-            if option.get_attribute("value") in ["MA", "USLA", "LA", "AL"]:
-                option.click()
+        self.fill_state_attribute()
 
         if self.shipping_info[constants.ETC.CONSENT]:
             # TODO Have to click this consent in order to move forwards (NIKE)
@@ -70,27 +102,51 @@ class Shipping:
         required_element.click()
         time.sleep(5)
 
+    def get_validation_keys(self):
+        """
+        This function is responsible to return all the required elements on the basis of flow execution
+        :param self:
+        :return:
+        """
+        if self.direct_flow:
+            logger.info("Direct flow execution")
+            return {key: self.shipping_info.get(key) for key in self.direct_flow_required_elements
+                    if self.shipping_info.get(key) != []}
+        elif self.login_flow:
+            logger.info("Login flow execution")
+            return {key: self.shipping_info.get(key) for key in self.login_flow_required_elements
+                    if self.shipping_info.get(key) != []}
+
+        logger.info("Personal information flow execution")
+        return {key: self.shipping_info.get(key) for key in self.personal_information_flow_required_elements
+                if self.shipping_info.get(key) != []}
+
     def validate_fields(self):
         """
         Validating all the required fields if any of them are not fetched abort the program.
         """
         logger.info("Validating fields..")
-        validated_keys = {key: self.shipping_info.get(key) for key in self.required_elements
-                          if self.shipping_info.get(key) != []}
+        validated_keys = self.get_validation_keys()
+
+        required_element_keys = set(self.direct_flow_required_elements) if self.direct_flow \
+            else set(self.login_flow_required_elements)
 
         logger.info(f"Validated keys: {set(validated_keys)}")
-        logger.info(f"Required keys: {set(self.required_elements)}")
+        logger.info(f"Required keys: {required_element_keys}")
 
-        if set(validated_keys) != set(self.required_elements):
+        if set(validated_keys) != set(required_element_keys):
             logger.info(f"Cannot fetched some of the required elements "
-                        f"{set(self.required_elements) - set(validated_keys)}")
+                        f"{required_element_keys - set(validated_keys)}")
             logger.info("Aborting..")
             os.abort()
+
+        logger.info("Data Validated..")
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")
         self.shipping_info[constants.ETC.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
         self.shipping_info[constants.ETC.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
+        self.shipping_info[constants.ETC.FULL_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FULL_NAME)
         self.shipping_info[constants.ETC.EMAIL] = self.web.finds_by_xpath_wait(constants.Pattern.EMAIL)
         self.shipping_info[constants.ETC.COUNTRY_CODE] = self.web.finds_by_xpath_wait(constants.Pattern.COUNTRY_CODE)
         self.shipping_info[constants.ETC.PHONE] = self.web.finds_by_xpath_wait(constants.Pattern.PHONE)
