@@ -12,7 +12,7 @@ def shipping_address_step(context):
     :param context:
     """
     ship = Shipping(context)
-    ship.login_flow = True
+    ship.personal_information_flow = True
     ship.fetching_required_elements()
     ship.fill_out_data()
     ship.click_now()
