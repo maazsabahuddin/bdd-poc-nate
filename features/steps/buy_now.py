@@ -16,13 +16,6 @@ def step_impl(context):
     context.current_obj = buy_now
 
 
-@then('we should land to login page')
-def step_impl(context):
-    """ logic to detect its a valid login page """
-    # logger.info("Login page")
-    pass
-
-
 @when('buy now found')
 def step_impl(context):
     if context.current_obj.is_buy_now_found:
@@ -33,10 +26,5 @@ def step_impl(context):
 
 @then('click on buy now and proceed to next step')
 def step_impl(context):
-    """logic to detect its a valid login page"""
-    if context.buy_now_found:
-        print("Login page")
-    else:
-        print("buy now not found move to next scenario to find add to ... button")
-
+    """ Click on buy now button and proceed """
     context.current_obj.hit_buy_now_element()
