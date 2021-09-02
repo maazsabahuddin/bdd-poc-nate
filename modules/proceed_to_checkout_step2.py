@@ -1,15 +1,20 @@
+# Python imports
+import time
+
 # Framework imports
 from selenium.common import exceptions
-import time
+
 # Local imports
 from utility.constants import Pattern, Tags, Timer
 from utility.utilities import Utils
 
-class ProceedToCheckoutStep2():
+
+class ProceedToCheckoutStep2:
     
     def __init__(self, context) -> None:
         self.context = context
         self.web = context.web
+        self.required_element = None
 
     def find_cart_checkout(self):
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)

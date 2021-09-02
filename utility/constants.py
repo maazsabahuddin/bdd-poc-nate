@@ -10,6 +10,7 @@ class Tags:
     DIV = "div"
     POSSIBLE_BUY_TAGS_LIST = [BUTTON, INPUT, A, SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [INPUT]
+    POSSIBLE_VIEW_CART = [BUTTON, A, SPAN]
     POSSIBLE_ADD_TO_TAGS_LIST = [BUTTON, SPAN, INPUT]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [BUTTON, A]
     POSSIBLE_SIGNIN_LIST = [A]
@@ -44,6 +45,8 @@ class Pattern:
                                "or contains(translate(text(),'ORDESUMAY','ordesumay'),'order summary') " \
                                "or contains(translate(text(),'YOURDE','yourde'),'your order')]"
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
+    VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
+                         "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
                  "or contains(@name, 'billing_first_name') or contains(@name, 'shipping-first-name') " \
