@@ -94,15 +94,15 @@ class Shipping:
         Taking every element 0 index is because no (input element exist more than 1)
         """
         logger.info("filling shipping data")
-        if self.login_flow:
+        if self.variable_flow:
             logger.info("filling login flow shipping data")
-            self.fill_login_flow_data(self.shipping_info)
+            self.fill_variable_flow_data(self.shipping_info)
         elif self.direct_flow:
             logger.info("filling direct flow shipping data")
             self.fill_direct_flow_data(self.shipping_info)
-        elif self.variable_flow:
+        elif self.login_flow:
             logger.info("filling variable flow shipping data")
-            self.fill_after_personal_flow_data(self.shipping_info)
+            self.fill_login_flow_data(self.shipping_info)
         else:
             logger.info("filling personal flow shipping data")
             self.fill_after_personal_flow_data(self.shipping_info)

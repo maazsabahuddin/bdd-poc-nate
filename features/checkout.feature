@@ -24,22 +24,22 @@ Feature: Ecommerce Checkout
 #        Given product detailed page
 #        When checkout or proceed to checkout button found
 #        Then click to move further
-
-    Scenario: Perform login as guest
-        Given Is product page has "login as guest" feature
-        When product page support "login as guest" feature
-        Then we should perform "login as guest"
-
-    @skip_personal_info
-    Scenario: Fill personal information
-        Given information required page
-        When personal information is required
-        Then fill the information and proceed to next step
-
-    @skip_login
-    Scenario: Perform login with credentials
-        Given Is "login" required
-        Then perform "login" with credentials
+#
+#    Scenario: Perform login as guest
+#        Given Is product page has "login as guest" feature
+#        When product page support "login as guest" feature
+#        Then we should perform "login as guest"
+#
+#    @skip_personal_info
+#    Scenario: Fill personal information
+#        Given information required page
+#        When personal information is required
+#        Then fill the information and proceed to next step
+#
+#    @skip_login
+#    Scenario: Perform login with credentials
+#        Given Is "login" required
+#        Then perform "login" with credentials
 
     Scenario: Identify shipping page type and enter shipping details and proceed
         Given Shipping information required page

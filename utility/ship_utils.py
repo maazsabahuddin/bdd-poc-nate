@@ -1,3 +1,6 @@
+# Framework imports
+from selenium.common.exceptions import StaleElementReferenceException
+
 # Local imports
 from modules.logger import logger
 from utility import constants
@@ -13,14 +16,24 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling name fields")
-        if shipping_info[constants.UserInfo.FULL_NAME]:
-            shipping_info[constants.UserInfo.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
+        if len(shipping_info[constants.UserInfo.FULL_NAME]) > 0:
+            try:
+                shipping_info[constants.UserInfo.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
+            except StaleElementReferenceException as e:
+                pass
 
-        if shipping_info[constants.UserInfo.FIRST_NAME]:
-            shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
+        print(shipping_info[constants.UserInfo.FIRST_NAME])
+        if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
+            try:
+                shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
+            except StaleElementReferenceException as e:
+                pass
 
-        if shipping_info[constants.UserInfo.LAST_NAME]:
-            shipping_info[constants.UserInfo.LAST_NAME][0].send_keys("Sabah Uddin")
+        if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
+            try:
+                shipping_info[constants.UserInfo.LAST_NAME][0].send_keys("Sabah Uddin")
+            except StaleElementReferenceException as e:
+                pass
 
     @staticmethod
     def fill_email_field(shipping_info):
@@ -30,9 +43,17 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling email field")
+        if not shipping_info[constants.UserInfo.EMAIL]:
+            return
+
+        # TODO Need to cross check this try except block as occurred in [gap.com]
         for element in shipping_info[constants.UserInfo.EMAIL]:
-            if element.is_enabled() and element.is_displayed():
-                element.send_keys("maaz@gmail.com")
+            try:
+                if element.is_enabled() and element.is_displayed():
+                    element.send_keys("maaz@gmail.com")
+            except StaleElementReferenceException as e:
+                shipping_info[constants.UserInfo.EMAIL][0].send_keys("maaz@gmail.com")
+                break
 
     @staticmethod
     def fill_phone_related_fields(shipping_info):
