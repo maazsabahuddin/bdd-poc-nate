@@ -30,19 +30,16 @@ class Base:
         self.context._root[constants.SkipScenario.SKIP_SCENARIO].update({scenario_name: True})
 
     def find_by_xpath_wait(self, xpath):
-        return self.web_driver_wait.until(ec.visibility_of_element_located((By.XPATH, xpath)))
+        try:
+            return self.web_driver_wait.until(ec.visibility_of_element_located((By.XPATH, xpath)))
+        except exceptions.TimeoutException:
+            return None
 
     def finds_by_xpath_wait(self, xpath):
         try:
             return self.web_driver_wait.until(ec.presence_of_all_elements_located((By.XPATH, xpath)))
         except exceptions.TimeoutException:
             return []
-
-    def finds_by_xpath_wait_until_element_clickable(self, xpath):
-        return self.web_driver_wait.until(ec.element_to_be_clickable((By.XPATH, xpath))).click()
-
-    def finds_by_xpath_and_set_attribute(self, xpath, value):
-        return self.web_driver.find_element_by_xpath(xpath).setAttribute(constants.ETC.VALUE, value)
 
     def get_current_url(self):
         return self.web_driver.current_url

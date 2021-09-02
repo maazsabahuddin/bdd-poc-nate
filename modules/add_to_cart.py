@@ -33,7 +33,7 @@ class AddToCart:
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
-        return Utils.fetch_required_elements(add_to_elements, Tags.POSSIBLE_BUY_TAGS_LIST)
+        return Utils.fetch_required_elements(add_to_elements, Tags.POSSIBLE_ADD_TO_TAGS_LIST)
 
     def hit_add_to_cart_element(self):
         try:
