@@ -11,11 +11,18 @@ Feature: Ecommerce Checkout
         When add to cart found
         Then click on add to cart and proceed to next step
 
-    @skip_proceed_checkout
+    @skip_checkout_step_1
     Scenario: Find "cart/checkout" button
         Given In page, product is added into cart
-        When Checkout button is found
+        When cart/check out button found
         Then Click to proceed
+
+    @skip_checkout_step_2
+    Scenario: Find "Checkout/Proceed to checkout" button
+        Given product detailed page
+        When checkout or proceed to checkout button found
+        Then click to move futher
+
 
     Scenario: Perform login as guest
         Given Is product page has "login as guest" feature

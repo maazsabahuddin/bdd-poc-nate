@@ -4,18 +4,24 @@ from selenium.common import exceptions
 from utility.utilities import Utils
 from utility.constants import Pattern, Tags, Timer
 
-class AddToCart():
+class AddToCart:
     def __init__(self, context):
         self.context = context
         self.web = context.web
+        self.required_element = None
+        self.is_add_to_cart_found = False
     
     def find_add_to_(self):
-        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
-        if (add_to_dict == {}):
-            add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        # add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
+        # if (add_to_dict == {}):
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        if not add_to_dict:
+            return
         required_tag = Utils.get_required_tag(add_to_dict.keys(), Tags.POSSIBLE_ADD_TO_TAGS_LIST)
-        self.required_element = Utils.get_required_element(required_tag, add_to_dict)
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        required_element = Utils.get_required_element(required_tag, add_to_dict)
+        if required_element is not None:
+            self.is_add_to_cart_found = True
+        self.required_element = required_element
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
