@@ -42,13 +42,12 @@ class AddToCart:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            # handling of overlays and pop-ups
-            logger.info(str(e))
-            return
+            parent_element = self.web.find_parent_element_from_child(self.required_element)
+            parent_element.click()
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def check_cookies_overlay(self):
         is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
-
         if is_cookies_overlay:
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
             self.find_add_to_()
