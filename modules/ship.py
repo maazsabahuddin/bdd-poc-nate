@@ -24,15 +24,18 @@ class Shipping:
         self.shipping_info = {}
 
         logger.info("Initializing shipping required elements with respect to the flow.")
-        self.direct_flow_required_elements = [constants.ETC.FIRST_NAME, constants.ETC.LAST_NAME, constants.ETC.EMAIL,
-                                              constants.ETC.PHONE, constants.ETC.ADDRESS1, constants.ETC.STATE,
-                                              constants.ETC.CONTINUE, constants.ETC.POSTAL_CODE, constants.ETC.CITY]
-        self.login_flow_required_elements = [constants.ETC.FULL_NAME, constants.ETC.ADDRESS1, constants.ETC.STATE,
-                                             constants.ETC.CONTINUE, constants.ETC.POSTAL_CODE, constants.ETC.CITY,
-                                             constants.ETC.PHONE]
-        self.after_personal_information_flow_required_elements = [constants.ETC.ADDRESS1, constants.ETC.STATE,
-                                                                  constants.ETC.POSTAL_CODE, constants.ETC.CITY,
-                                                                  constants.ETC.CONTINUE]
+        self.direct_flow_required_elements = [constants.UserInfo.FIRST_NAME, constants.UserInfo.LAST_NAME,
+                                              constants.UserInfo.EMAIL, constants.UserInfo.PHONE,
+                                              constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
+                                              constants.UserInfo.CONTINUE, constants.UserInfo.POSTAL_CODE,
+                                              constants.UserInfo.CITY]
+        self.login_flow_required_elements = [constants.UserInfo.FULL_NAME, constants.UserInfo.ADDRESS1,
+                                             constants.UserInfo.STATE, constants.UserInfo.CONTINUE,
+                                             constants.UserInfo.POSTAL_CODE, constants.UserInfo.CITY,
+                                             constants.UserInfo.PHONE]
+        self.after_personal_information_flow_required_elements = [constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
+                                                                  constants.UserInfo.POSTAL_CODE,
+                                                                  constants.UserInfo.CITY, constants.UserInfo.CONTINUE]
         self.login_flow = False
         self.personal_information_flow = False
         self.direct_flow = False
@@ -67,6 +70,8 @@ class Shipping:
         :param shipping_info:
         :return:
         """
+        ShipUtils.fill_name_related_fields(shipping_info)
+        ShipUtils.fill_phone_related_fields(shipping_info)
         ShipUtils.fill_address_related_fields(shipping_info)
 
     def fill_out_data(self):
@@ -84,7 +89,7 @@ class Shipping:
             logger.info("filling personal flow shipping data")
             self.fill_after_personal_flow_data(self.shipping_info)
 
-        if self.shipping_info[constants.ETC.CONSENT]:
+        if self.shipping_info[constants.UserInfo.CONSENT]:
             # TODO Have to click this consent in order to move forwards (NIKE)
             pass
 
@@ -92,7 +97,7 @@ class Shipping:
         logger.info("clicking on done/continue button")
         time.sleep(3)
         continue_elements_dict = \
-            Utils.fetch_required_elements(self.shipping_info[constants.ETC.CONTINUE],
+            Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
                                           constants.Tags.POSSIBLE_CONTINUE_BUTTON)
         if not continue_elements_dict:
             logger.info("Button element not found.")
@@ -151,19 +156,20 @@ class Shipping:
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")
-        self.shipping_info[constants.ETC.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
-        self.shipping_info[constants.ETC.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
-        self.shipping_info[constants.ETC.FULL_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FULL_NAME)
-        self.shipping_info[constants.ETC.EMAIL] = self.web.finds_by_xpath_wait(constants.Pattern.EMAIL)
-        self.shipping_info[constants.ETC.COUNTRY_CODE] = self.web.finds_by_xpath_wait(constants.Pattern.COUNTRY_CODE)
-        self.shipping_info[constants.ETC.PHONE] = self.web.finds_by_xpath_wait(constants.Pattern.PHONE)
-        self.shipping_info[constants.ETC.ADDRESS1] = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS1)
-        self.shipping_info[constants.ETC.ADDRESS2] = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS2)
-        self.shipping_info[constants.ETC.CITY] = self.web.finds_by_xpath_wait(constants.Pattern.CITY)
-        self.shipping_info[constants.ETC.STATE] = self.web.finds_by_xpath_wait(constants.Pattern.STATE)
-        self.shipping_info[constants.ETC.POSTAL_CODE] = self.web.finds_by_xpath_wait(constants.Pattern.POSTAL_CODE)
-        self.shipping_info[constants.ETC.CONTINUE] = self.web.finds_by_xpath_wait(constants.Pattern.CONTINUE)
-        self.shipping_info[constants.ETC.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
+        self.shipping_info[constants.UserInfo.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
+        self.shipping_info[constants.UserInfo.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
+        self.shipping_info[constants.UserInfo.FULL_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FULL_NAME)
+        self.shipping_info[constants.UserInfo.EMAIL] = self.web.finds_by_xpath_wait(constants.Pattern.EMAIL)
+        self.shipping_info[constants.UserInfo.COUNTRY_CODE] = \
+            self.web.finds_by_xpath_wait(constants.Pattern.COUNTRY_CODE)
+        self.shipping_info[constants.UserInfo.PHONE] = self.web.finds_by_xpath_wait(constants.Pattern.PHONE)
+        self.shipping_info[constants.UserInfo.ADDRESS1] = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS1)
+        self.shipping_info[constants.UserInfo.ADDRESS2] = self.web.finds_by_xpath_wait(constants.Pattern.ADDRESS2)
+        self.shipping_info[constants.UserInfo.CITY] = self.web.finds_by_xpath_wait(constants.Pattern.CITY)
+        self.shipping_info[constants.UserInfo.STATE] = self.web.finds_by_xpath_wait(constants.Pattern.STATE)
+        self.shipping_info[constants.UserInfo.POSTAL_CODE] = self.web.finds_by_xpath_wait(constants.Pattern.POSTAL_CODE)
+        self.shipping_info[constants.UserInfo.CONTINUE] = self.web.finds_by_xpath_wait(constants.Pattern.CONTINUE)
+        self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
         self.validate_fields()

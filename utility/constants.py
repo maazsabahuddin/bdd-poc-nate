@@ -56,8 +56,8 @@ class Pattern:
                 "or contains(@name, 'family-name') " \
                 "or contains(@id, 'LastName') or contains(@id, 'lastName') or contains(@id, 'shipping-last-name') " \
                 "or contains(@id, 'billing_last_name')]"
-    FULL_NAME = "//input[contains(translate(@name, 'FULLNAME-_', 'fullname-_'), 'fullName') " \
-                "or contains(translate(@id, 'FULLNAME-_', 'fullname-_'), 'fullName')]"
+    FULL_NAME = "//input[contains(translate(@name, 'FULNAME-_', 'fulname-_'), 'fullname') " \
+                "or contains(translate(@id, 'FULNAME-_', 'fulname-_'), 'fullname')]"
     # EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')" \
     #         "or contains(@name, 'billing_email')" \
     #         "or contains(@id, 'Email') or contains(@id, 'email') or contains(@id, 'contact-email')" \
@@ -101,7 +101,7 @@ class Pattern:
               "or contains(@name, 'country')]"
     CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
                "or contains(text(), 'done') " \
-               "or contains(translate(text(), 'PROCEED CHECKOUT', 'proceed checkout'), 'proceed to checkout') " \
+               "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                "or contains(translate(text(), 'SAVE', 'save'), 'save')] | " \
                "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
     # CONTINUE = "//*[contains(translate(text(), 'PROCEED CHECKOUT', 'proceed checkout'), 'proceed to checkout')]"
@@ -120,6 +120,8 @@ class SkipScenario:
 class ETC:
     VALUE = "value"
 
+
+class UserInfo:
     # SHIPPING INFO CONSTANTS
     FULL_NAME = "full_name"
     FIRST_NAME = "first_name"

@@ -1,6 +1,6 @@
+# Local imports
 from modules.logger import logger
 from utility import constants
-from utility.utilities import Utils
 
 
 class ShipUtils:
@@ -13,12 +13,13 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling name fields")
-        full_name = shipping_info[constants.ETC.FULL_NAME]
+        full_name = shipping_info[constants.UserInfo.FULL_NAME]
         if full_name:
-            shipping_info[constants.ETC.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
-        else:
-            shipping_info[constants.ETC.FIRST_NAME][0].send_keys("Maaz")
-            shipping_info[constants.ETC.LAST_NAME][0].send_keys("Sabah Uddin")
+            shipping_info[constants.UserInfo.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
+
+        elif shipping_info[constants.UserInfo.FIRST_NAME] and shipping_info[constants.UserInfo.LAST_NAME]:
+            shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
+            shipping_info[constants.UserInfo.LAST_NAME][0].send_keys("Sabah Uddin")
 
     @staticmethod
     def fill_email_field(shipping_info):
@@ -28,8 +29,8 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling email field")
-        print(shipping_info[constants.ETC.EMAIL])
-        for element in shipping_info[constants.ETC.EMAIL]:
+        print(shipping_info[constants.UserInfo.EMAIL])
+        for element in shipping_info[constants.UserInfo.EMAIL]:
             if element.is_enabled() and element.is_displayed():
                 element.send_keys("maaz@gmail.com")
 
@@ -41,12 +42,12 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling phone related fields")
-        if shipping_info[constants.ETC.COUNTRY_CODE]:
-            shipping_info[constants.ETC.COUNTRY_CODE][0].send_keys("92")
-            shipping_info[constants.ETC.PHONE][0].send_keys("6473479480")
+        if shipping_info[constants.UserInfo.COUNTRY_CODE]:
+            shipping_info[constants.UserInfo.COUNTRY_CODE][0].send_keys("92")
+            shipping_info[constants.UserInfo.PHONE][0].send_keys("6473479480")
 
-        if shipping_info[constants.ETC.PHONE] and not shipping_info[constants.ETC.COUNTRY_CODE]:
-            shipping_info[constants.ETC.PHONE][0].send_keys("+12473479480")
+        if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]:
+            shipping_info[constants.UserInfo.PHONE][0].send_keys("+12473479480")
 
     @staticmethod
     def fill_address_related_fields(shipping_info):
@@ -56,12 +57,12 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling address related fields")
-        shipping_info[constants.ETC.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
-        if shipping_info[constants.ETC.ADDRESS2]:
-            shipping_info[constants.ETC.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
+        shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
+        if shipping_info[constants.UserInfo.ADDRESS2]:
+            shipping_info[constants.UserInfo.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
 
-        shipping_info[constants.ETC.CITY][0].send_keys("City")
-        shipping_info[constants.ETC.POSTAL_CODE][0].send_keys("10710")
+        shipping_info[constants.UserInfo.CITY][0].send_keys("City")
+        shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys("10710")
 
         ShipUtils.fill_state_attribute(shipping_info)
 
@@ -72,7 +73,7 @@ class ShipUtils:
         :param shipping_info:
         :return:
         """
-        state_element = shipping_info[constants.ETC.STATE][0]
+        state_element = shipping_info[constants.UserInfo.STATE][0]
         if state_element.tag_name == constants.Tags.INPUT:
             logger.info("Filling state using input")
             state_element.send_keys("Ontario")
