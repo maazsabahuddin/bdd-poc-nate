@@ -30,7 +30,7 @@ class Utils:
             else:
                 return False
         except exceptions.TimeoutException:
-            pass
+            return True
 
     @staticmethod
     def get_required_element(tag, elements_list):
@@ -81,7 +81,7 @@ class Utils:
         """
         try:
             current_found_element = child_element
-            for _ in range(8):
+            for _ in range(5):
                 parent_element = current_found_element.find_element_by_xpath("..")
                 if parent_element.tag_name in filter_list:
                     return parent_element
