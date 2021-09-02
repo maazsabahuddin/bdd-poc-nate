@@ -42,6 +42,6 @@ Feature: Ecommerce Checkout
         Then perform "login" with credentials
 
     Scenario: Identify shipping page type and enter shipping details and proceed
-        Given Find type of shipping address page
-        When Shipping page ask about shipping address details
+        Given Shipping information required page
+        When Shipping information found or not
         Then Enter shipping address details and proceed

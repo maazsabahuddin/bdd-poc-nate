@@ -5,26 +5,26 @@ from behave import *
 from modules.ship import Shipping
 
 
-@given('Find type of shipping address page')
-def shipping_address_step(context):
+@given('Shipping information required page')
+def shipping_address_required_step(context):
     """
-    Check and verify if it is a shipping address page or not
+    Gather required elements
     :param context:
     """
     ship = Shipping(context)
-    ship.personal_information_flow = True
     ship.fetching_required_elements()
-    ship.fill_out_data()
-    ship.click_now()
+    context.this = ship
 
 
-@when('Shipping page ask about shipping address details')
+@when('Shipping information found or not')
 def identify_scenario(context):
     """
     Check which type of page is identified and call that controller accordingly.
     :param context:
     """
-    pass
+    context.this.personal_information_flow = True
+    if context.this.validate_fields():
+        pass
 
 
 @then('Enter shipping address details and proceed')
@@ -33,4 +33,5 @@ def proceed_shipping_address_page(context):
     Enter details and proceed to checkout
     :param context:
     """
-    pass
+    context.this.fill_out_data()
+    context.this.click_now()

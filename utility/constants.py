@@ -69,7 +69,7 @@ class Pattern:
     PHONE = "//input[contains(translate(@name, 'TELEPHONE-_', 'telephone-_'), 'telephone') " \
             "or contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
             "or contains(@name, 'billing_phone') or contains(translate(@name, 'Number', 'number'), 'number') " \
-            "or contains(translate(@name, 'Phone', 'phone'), 'phone')" \
+            "or contains(translate(@name, 'PHONE', 'phone'), 'phone')" \
             "or contains(@name, 'primaryVoiceNumber')" \
             "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
             "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \

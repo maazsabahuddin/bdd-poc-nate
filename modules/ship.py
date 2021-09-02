@@ -96,7 +96,7 @@ class Shipping:
 
     def click_now(self):
         logger.info("clicking on done/continue button")
-        time.sleep(3)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
                                           constants.Tags.POSSIBLE_CONTINUE_BUTTON)
@@ -111,6 +111,7 @@ class Shipping:
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
             os.abort()
+
         required_element.click()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
@@ -151,9 +152,10 @@ class Shipping:
             logger.info(f"Cannot fetched some of the required elements "
                         f"{required_element_keys - set(validated_keys)}")
             logger.info("Aborting..")
-            os.abort()
+            return False
 
         logger.info("Data Validated..")
+        return True
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")
@@ -173,4 +175,3 @@ class Shipping:
         self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
-        self.validate_fields()

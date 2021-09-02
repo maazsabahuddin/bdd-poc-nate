@@ -1,9 +1,9 @@
 # Framework Imports
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from modules.logger import logger
 
 # Local imports
+from modules.logger import logger
 from modules.base import Base
 from utility.constants import SkipScenario, Timer
 
