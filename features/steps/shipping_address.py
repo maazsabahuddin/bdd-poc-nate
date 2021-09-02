@@ -22,8 +22,9 @@ def identify_scenario(context):
     Check which type of page is identified and call that controller accordingly.
     :param context:
     """
-    context.this.personal_information_flow = True
     if context.this.validate_fields():
+        pass
+    else:
         pass
 
 

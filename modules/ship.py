@@ -23,6 +23,9 @@ class Shipping:
         self.shipping_info = {}
 
         logger.info("Initializing shipping required elements with respect to the flow.")
+        self.variable_flow_required_elements = [constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
+                                                constants.UserInfo.POSTAL_CODE, constants.UserInfo.CITY,
+                                                constants.UserInfo.CONTINUE]
         self.direct_flow_required_elements = [constants.UserInfo.FIRST_NAME, constants.UserInfo.LAST_NAME,
                                               constants.UserInfo.EMAIL, constants.UserInfo.PHONE,
                                               constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
@@ -38,6 +41,19 @@ class Shipping:
         self.login_flow = False
         self.personal_information_flow = False
         self.direct_flow = False
+        self.variable_flow = True
+
+    @staticmethod
+    def fill_variable_flow_data(shipping_info):
+        """
+        This function is responsible to fill out all the related to variable flow
+        :param shipping_info:
+        :return:
+        """
+        ShipUtils.fill_name_related_fields(shipping_info)
+        ShipUtils.fill_email_field(shipping_info)
+        ShipUtils.fill_phone_related_fields(shipping_info)
+        ShipUtils.fill_address_related_fields(shipping_info)
 
     @staticmethod
     def fill_direct_flow_data(shipping_info):
@@ -84,6 +100,9 @@ class Shipping:
         elif self.direct_flow:
             logger.info("filling direct flow shipping data")
             self.fill_direct_flow_data(self.shipping_info)
+        elif self.variable_flow:
+            logger.info("filling variable flow shipping data")
+            self.fill_after_personal_flow_data(self.shipping_info)
         else:
             logger.info("filling personal flow shipping data")
             self.fill_after_personal_flow_data(self.shipping_info)
@@ -119,7 +138,12 @@ class Shipping:
         :param self:
         :return:
         """
-        if self.direct_flow:
+        if self.variable_flow:
+            logger.info("Variable flow execution")
+            return {key: self.shipping_info.get(key) for key in self.variable_flow_required_elements
+                    if self.shipping_info.get(key) != []}
+
+        elif self.direct_flow:
             logger.info("Direct flow execution")
             return {key: self.shipping_info.get(key) for key in self.direct_flow_required_elements
                     if self.shipping_info.get(key) != []}
@@ -149,8 +173,9 @@ class Shipping:
         if set(validated_keys) != set(required_element_keys):
             logger.info(f"Cannot fetched some of the required elements "
                         f"{required_element_keys - set(validated_keys)}")
-            logger.info("Aborting..")
-            return False
+            logger.info("Not Aborting..")
+            logger.info("Continue the flow")
+            return True
 
         logger.info("Data Validated..")
         return True

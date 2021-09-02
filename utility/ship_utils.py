@@ -13,12 +13,13 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling name fields")
-        full_name = shipping_info[constants.UserInfo.FULL_NAME]
-        if full_name:
+        if shipping_info[constants.UserInfo.FULL_NAME]:
             shipping_info[constants.UserInfo.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
 
-        elif shipping_info[constants.UserInfo.FIRST_NAME] and shipping_info[constants.UserInfo.LAST_NAME]:
+        if shipping_info[constants.UserInfo.FIRST_NAME]:
             shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
+
+        if shipping_info[constants.UserInfo.LAST_NAME]:
             shipping_info[constants.UserInfo.LAST_NAME][0].send_keys("Sabah Uddin")
 
     @staticmethod
@@ -29,7 +30,6 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling email field")
-        print(shipping_info[constants.UserInfo.EMAIL])
         for element in shipping_info[constants.UserInfo.EMAIL]:
             if element.is_enabled() and element.is_displayed():
                 element.send_keys("maaz@gmail.com")
@@ -42,7 +42,7 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling phone related fields")
-        if shipping_info[constants.UserInfo.COUNTRY_CODE]:
+        if shipping_info[constants.UserInfo.COUNTRY_CODE] and shipping_info[constants.UserInfo.PHONE]:
             shipping_info[constants.UserInfo.COUNTRY_CODE][0].send_keys("92")
             shipping_info[constants.UserInfo.PHONE][0].send_keys("6473479480")
 
@@ -57,12 +57,17 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling address related fields")
-        shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
+        if shipping_info[constants.UserInfo.ADDRESS1]:
+            shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
+
         if shipping_info[constants.UserInfo.ADDRESS2]:
             shipping_info[constants.UserInfo.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
 
-        shipping_info[constants.UserInfo.CITY][0].send_keys("City")
-        shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys("10710")
+        if shipping_info[constants.UserInfo.CITY]:
+            shipping_info[constants.UserInfo.CITY][0].send_keys("City")
+
+        if shipping_info[constants.UserInfo.POSTAL_CODE]:
+            shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys("10710")
 
         ShipUtils.fill_state_attribute(shipping_info)
 
