@@ -15,12 +15,14 @@ class AddToCart:
     def __init__(self, context):
         self.context = context
         self.web = context.web
+        self.required_element = None
         self.is_add_to_cart_found = False
         self.required_element = None
     
     def find_add_to_(self):
 
-        time.sleep(10)
+        # add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        # if not add_to_dict:
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
             return
