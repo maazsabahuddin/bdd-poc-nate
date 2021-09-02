@@ -18,8 +18,6 @@ class Shipping:
     def __init__(self, context):
         self.context = context
         self.web = context.web
-        self.web.open(self.context.url)
-        time.sleep(3)
 
         logger.info("Initializing shipping address variables.")
         self.shipping_info = {}

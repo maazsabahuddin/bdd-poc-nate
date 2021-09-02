@@ -21,9 +21,9 @@ class AddToCart:
     
     def find_add_to_(self):
 
-        # add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
         # if add_to_dict == {}:
-        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        # add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
             return
 
