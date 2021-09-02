@@ -5,7 +5,7 @@ from modules.logger import logger
 
 # Local imports
 from modules.base import Base
-from utility.constants import SkipScenario
+from utility.constants import SkipScenario, Timer
 
 
 def before_all(context):
@@ -42,8 +42,9 @@ def before_all(context):
     browser.maximize_window()
 
     # This make the browser to wait for given number of seconds to load page
-    logger.info("Page load timeout set to 10 seconds.")
-    browser.set_page_load_timeout(60)
+
+    logger.info(f"Page load timeout set to {Timer.PAGE_LOAD_TIMEOUT} seconds.")
+    browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
     context.url = context.config.userdata['url']
@@ -82,7 +83,10 @@ def before_tag(context, tag):
     if tag == SkipScenario.SKIP_ADD_TO_CART:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_ADD_TO_CART):
             context.scenario.skip(reason="Skip add to cart, because we found buy now")
-
     if tag == SkipScenario.SKIP_PROCEED_CHECKOUT:
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PROCEED_CHECKOUT):
             context.scenario.skip(reason="Skip proceed to checkout, because we ran the buy now button successfully")
+    if tag == SkipScenario.SKIP_PERSONAL_INFO:
+        if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PERSONAL_INFO):
+            context.scenario\
+                .skip(reason="Skip populate personal information, because website did not support guest feature")

@@ -5,6 +5,7 @@ import os
 # Local Imports
 from utility import constants
 from modules.logger import logger
+from utility.constants import Timer
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
 
@@ -111,7 +112,7 @@ class Shipping:
             logger.info(f"{extracted_element_tag} element is not clickable")
             os.abort()
         required_element.click()
-        time.sleep(10)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def get_validation_keys(self):
         """
@@ -173,13 +174,3 @@ class Shipping:
 
         logger.info("Fetched")
         self.validate_fields()
-
-    @staticmethod
-    def identify_shipping_page_type():
-        logger.info("Identifying shipping address page type")
-        pass
-
-    @staticmethod
-    def fill_address_details():
-        logger.info("Entering shipping address details.")
-        pass

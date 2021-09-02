@@ -14,6 +14,7 @@ class Tags:
     POSSIBLE_LOGIN_AS_GUEST_LIST = [BUTTON, A]
     POSSIBLE_SIGNIN_LIST = [A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [H1, H2, H3, BUTTON]
+    POSSIBLE_INPUT_ELEMENT = [INPUT]
     POSSIBLE_CONTINUE_BUTTON = [BUTTON, SPAN]
 
 
@@ -108,13 +109,27 @@ class Pattern:
     PLACE_ORDER = "//*[contains(@name, 'place')]"
     CONSENT = "//input[contains(@type, 'checkbox')]"
 
+    # TODO BY FAIQ BHAI
+    # EMAIL = "//*[contains(translate(@name, 'EMAIL', 'email'), 'email') " \
+    #         "or contains(translate(@type, 'EMAIL', 'email'), 'email')]"
+    # FIRST_NAME = "//*[contains(@name, 'firstName')]"
+    # LAST_NAME = "//*[contains(@name, 'lastName')]"
+    # PHONE = "//*[contains(@name, 'phone')]"
+    GUEST_BUTTON = "//*[contains(translate(text(),'CONTINUE','continue'),'continue') " \
+                   "or contains(translate(text(),'GUEST','guest'),'guest') " \
+                   "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
+                   "or contains(translate(text(), 'ADEILMY', 'adeilmy'), 'add my email')]"
+
 
 class SkipScenario:
     SKIP_SCENARIO = "skip_scenario"
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
     SKIP_ADD_TO_CART = "skip_add_to_cart"
+    SKIP_CHECKOUT_STEP_1 = "skip_checkout_step_1"
+    SKIP_CHECKOUT_STEP_2 = "skip_checkout_step_2"
     SKIP_PROCEED_CHECKOUT = "skip_proceed_checkout"
+    SKIP_PERSONAL_INFO = "skip_personal_info"
 
 
 class ETC:

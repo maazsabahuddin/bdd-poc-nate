@@ -89,3 +89,18 @@ class Utils:
             return None
         except exceptions.NoSuchElementException:
             return None
+
+    @staticmethod
+    def get_required_element_related_to_guest(tag, elements_dict):
+        """
+        This function take a tag name and dictionary of found elements,
+        it will futher filter the dictionary to find the guest related element
+        """
+        attribute_name = "class"
+        if tag == "input":
+            attribute_name = "name"
+        for element in elements_dict[tag]:
+            if 'guest' in element.get_attribute(attribute_name):
+                if element.is_enabled() and element.is_displayed():
+                    return element
+        return None

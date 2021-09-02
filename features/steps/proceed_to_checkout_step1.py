@@ -2,21 +2,19 @@
 from behave import *
 
 # Local imports
-from modules.proceed_to_checkout import ProceedToCheckout
+from modules.proceed_to_checkout_step1 import ProceedToCheckoutStep1
 
 
 @given('In page, product is added into cart')
 def step_impl(context):
-    view_cart = ProceedToCheckout(context)
+    view_cart = ProceedToCheckoutStep1(context)
     view_cart.find_cart()
     context.current_obj = view_cart
 
 
-@when('Checkout button is found')
+@when('cart/check out button found')
 def step_impl(context):
-    if context.current_obj.required_element is not None:
-        pass
-    else:
+    if not context.current_obj.is_checkout_found:
         context.scenario.skip(reason="Required button not found.")
 
 
