@@ -22,7 +22,6 @@ class ShipUtils:
             except StaleElementReferenceException as e:
                 pass
 
-        print(shipping_info[constants.UserInfo.FIRST_NAME])
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
                 shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
@@ -51,6 +50,7 @@ class ShipUtils:
             try:
                 if element.is_enabled() and element.is_displayed():
                     element.send_keys("maaz@gmail.com")
+                    break
             except StaleElementReferenceException as e:
                 shipping_info[constants.UserInfo.EMAIL][0].send_keys("maaz@gmail.com")
                 break
@@ -79,7 +79,14 @@ class ShipUtils:
         """
         logger.info("Filling address related fields")
         if shipping_info[constants.UserInfo.ADDRESS1]:
-            shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
+            # shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
+            for element in shipping_info[constants.UserInfo.ADDRESS1]:
+                try:
+                    if element.is_enabled() and element.is_displayed():
+                        element.send_keys("Home A1, 0th street, Houston.")
+                        break
+                except:
+                    break
 
         if shipping_info[constants.UserInfo.ADDRESS2]:
             shipping_info[constants.UserInfo.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
@@ -99,13 +106,15 @@ class ShipUtils:
         :param shipping_info:
         :return:
         """
-        state_element = shipping_info[constants.UserInfo.STATE][0]
-        if state_element.tag_name == constants.Tags.INPUT:
+        state_element = shipping_info[constants.UserInfo.STATE]
+        if not state_element:
+            return
+        if state_element[0].tag_name == constants.Tags.INPUT:
             logger.info("Filling state using input")
-            state_element.send_keys("Ontario")
+            state_element[0].send_keys("Ontario")
         else:
             logger.info("Filling state using select option")
-            all_options = state_element.find_elements_by_tag_name("option")
+            all_options = state_element[0].find_elements_by_tag_name("option")
             for option in all_options:
                 if option.get_attribute("value") in ["MA", "USLA", "LA", "AL", "California"]:
                     option.click()

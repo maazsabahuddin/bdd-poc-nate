@@ -165,7 +165,8 @@ class Shipping:
 
         required_element_keys = set(self.direct_flow_required_elements) if self.direct_flow \
             else set(self.after_personal_information_flow_required_elements) if self.personal_information_flow \
-            else set(self.login_flow_required_elements)
+            else set(self.login_flow_required_elements) if self.login_flow \
+            else set(self.variable_flow_required_elements)
 
         logger.info(f"Validated keys: {set(validated_keys)}")
         logger.info(f"Required keys: {required_element_keys}")
@@ -198,3 +199,4 @@ class Shipping:
         self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
+        logger.info(f"DATA FOUND: {self.shipping_info}")

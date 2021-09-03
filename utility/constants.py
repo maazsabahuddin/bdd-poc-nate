@@ -95,9 +95,10 @@ class Pattern:
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
             "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region') " \
             "or contains(translate(@name, 'PROVINCE', 'province'), 'province')] | " \
-            "//input[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
-            "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region')]"
-    POSTAL_CODE = "//input[contains(@name, 'postal') or contains(@name, 'zip') " \
+            "//input[contains(@name, 'stateCode') or contains(translate(@name, 'STATE', 'state'), 'state') " \
+            "or contains(@name, 'region') or contains(@id, 'stateCode') or contains(@id, 'state') " \
+            "or contains(@id, 'region')]"
+    POSTAL_CODE = "//input[contains(@name, 'postal') or contains(translate(@name, 'ZIP', 'zip'), 'zip') " \
                   "or contains(@name, 'shipping-zip-code') or contains(@name, 'postcode') " \
                   "or contains(@id, 'postal') or contains(@id, 'zip') or contains(@id, 'postcode') " \
                   "or contains(@id, 'shipping-zip-code')]"
