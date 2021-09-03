@@ -78,13 +78,13 @@ class Pattern:
             "or contains(@aria-label, 'Phone Number')]"
     ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
                "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
-               "or contains(@name, 'addressLine1') or contains(@id, 'StreetLine1') " \
+               "or contains(@name, 'addressLine1') or contains(@name, 'addr1') or contains(@id, 'StreetLine1') " \
                "or contains(translate(@name, 'ADDRESS', 'address'), 'address') " \
                "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
                "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
                "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1')]"
     ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
-               "or contains(@name, 'addressLineTwo') or contains(@name, 'addressLine2') " \
+               "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2) or contains(@name, 'addressLine2') " \
                "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt')" \
                "or contains(@name, 'billing_address_2') or contains(translate(@name, 'LINE2', 'line2'), 'line2') " \
                "or contains(@id, 'StreetLine2') or contains(@id, 'addressLines[1]') " \
@@ -105,7 +105,7 @@ class Pattern:
     COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country') " \
               "or contains(@name, 'country')]"
     CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
-               "or contains(text(), 'done') " \
+               "or contains(translate(text(), 'DONE', 'done'), 'done') " \
                "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                "or contains(translate(text(), 'SAVE', 'save'), 'save')] | " \
                "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
