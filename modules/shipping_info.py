@@ -116,14 +116,14 @@ class Shipping:
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
-                                          constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+                                          constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         if not continue_elements_dict:
             logger.info("Button element not found.")
             logger.info("Aborting..")
             os.abort()
 
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
-                                                       constants.Tags.POSSIBLE_CONTINUE_BUTTON)
+                                                       constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")

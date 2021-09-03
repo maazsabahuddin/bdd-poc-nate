@@ -3,7 +3,7 @@ import time
 
 # Local imports
 from utility.utilities import Utils
-from utility.constants import Tags, Pattern, Timer
+from utility.constants import TagsList, Pattern, Timer
 
 
 class PersonalInfo:
@@ -20,11 +20,11 @@ class PersonalInfo:
         self.is_data_populated = False
 
     def find_personal_info_elements(self):
-        email_elements_dict = self.extract_required_elements(Pattern.EMAIL, Tags.POSSIBLE_INPUT_ELEMENT)
-        first_name_elements_dict = self.extract_required_elements(Pattern.FIRST_NAME, Tags.POSSIBLE_INPUT_ELEMENT)
-        last_name_elements_dict = self.extract_required_elements(Pattern.LAST_NAME, Tags.POSSIBLE_INPUT_ELEMENT)
-        phone_elements_dict = self.extract_required_elements(Pattern.PHONE, Tags.POSSIBLE_INPUT_ELEMENT)
-        button_elements_dict = self.extract_required_elements(Pattern.GUEST_BUTTON, Tags.POSSIBLE_LOGIN_AS_GUEST_LIST)
+        email_elements_dict = self.extract_required_elements(Pattern.EMAIL, TagsList.POSSIBLE_INPUT_ELEMENT)
+        first_name_elements_dict = self.extract_required_elements(Pattern.FIRST_NAME, TagsList.POSSIBLE_INPUT_ELEMENT)
+        last_name_elements_dict = self.extract_required_elements(Pattern.LAST_NAME, TagsList.POSSIBLE_INPUT_ELEMENT)
+        phone_elements_dict = self.extract_required_elements(Pattern.PHONE, TagsList.POSSIBLE_INPUT_ELEMENT)
+        button_elements_dict = self.extract_required_elements(Pattern.GUEST_BUTTON, TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
         
         if email_elements_dict:
             if len(email_elements_dict['input']) > 1:

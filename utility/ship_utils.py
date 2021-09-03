@@ -4,6 +4,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 # Local imports
 from modules.logger import logger
 from utility import constants
+from utility.user_personal_info import UserInfo
 
 
 class ShipUtils:
@@ -18,19 +19,19 @@ class ShipUtils:
         logger.info("Filling name fields")
         if len(shipping_info[constants.UserInfo.FULL_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.FULL_NAME][0].send_keys("Maaz Sabah Uddin")
+                shipping_info[constants.UserInfo.FULL_NAME][0].send_keys(UserInfo.FULL_NAME)
             except StaleElementReferenceException as e:
                 pass
 
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys("Maaz")
+                shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys(UserInfo.FIRST_NAME)
             except StaleElementReferenceException as e:
                 pass
 
         if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.LAST_NAME][0].send_keys("Sabah Uddin")
+                shipping_info[constants.UserInfo.LAST_NAME][0].send_keys(UserInfo.LAST_NAME)
             except StaleElementReferenceException as e:
                 pass
 
@@ -49,10 +50,10 @@ class ShipUtils:
         for element in shipping_info[constants.UserInfo.EMAIL]:
             try:
                 if element.is_enabled() and element.is_displayed():
-                    element.send_keys("maaz@gmail.com")
+                    element.send_keys(UserInfo.EMAIL)
                     break
             except StaleElementReferenceException as e:
-                shipping_info[constants.UserInfo.EMAIL][0].send_keys("maaz@gmail.com")
+                shipping_info[constants.UserInfo.EMAIL][0].send_keys(UserInfo.EMAIL)
                 break
 
     @staticmethod
@@ -64,11 +65,11 @@ class ShipUtils:
         """
         logger.info("Filling phone related fields")
         if shipping_info[constants.UserInfo.COUNTRY_CODE] and shipping_info[constants.UserInfo.PHONE]:
-            shipping_info[constants.UserInfo.COUNTRY_CODE][0].send_keys("92")
-            shipping_info[constants.UserInfo.PHONE][0].send_keys("6473479480")
+            shipping_info[constants.UserInfo.COUNTRY_CODE][0].send_keys(UserInfo.COUNTRY_CODE)
+            shipping_info[constants.UserInfo.PHONE][0].send_keys(UserInfo.PHONE)
 
         if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]:
-            shipping_info[constants.UserInfo.PHONE][0].send_keys("+12473479480")
+            shipping_info[constants.UserInfo.PHONE][0].send_keys("+"+UserInfo.PHONE)
 
     @staticmethod
     def fill_address_related_fields(shipping_info):
@@ -83,19 +84,19 @@ class ShipUtils:
             for element in shipping_info[constants.UserInfo.ADDRESS1]:
                 try:
                     if element.is_enabled() and element.is_displayed():
-                        element.send_keys("Home A1, 0th street, Houston.")
+                        element.send_keys(UserInfo.ADDRESS1)
                         break
                 except:
                     break
 
         if shipping_info[constants.UserInfo.ADDRESS2]:
-            shipping_info[constants.UserInfo.ADDRESS2][0].send_keys("Opposite to Alwa Bridge")
+            shipping_info[constants.UserInfo.ADDRESS2][0].send_keys(UserInfo.ADDRESS2)
 
         if shipping_info[constants.UserInfo.CITY]:
-            shipping_info[constants.UserInfo.CITY][0].send_keys("City")
+            shipping_info[constants.UserInfo.CITY][0].send_keys(UserInfo.CITY)
 
         if shipping_info[constants.UserInfo.POSTAL_CODE]:
-            shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys("10710")
+            shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
 
@@ -109,12 +110,12 @@ class ShipUtils:
         state_element = shipping_info[constants.UserInfo.STATE]
         if not state_element:
             return
-        if state_element[0].tag_name == constants.Tags.INPUT:
+        if state_element[0].tag_name == constants.TagsList.INPUT:
             logger.info("Filling state using input")
-            state_element[0].send_keys("Ontario")
+            state_element[0].send_keys(UserInfo.STATE_INPUT)
         else:
             logger.info("Filling state using select option")
             all_options = state_element[0].find_elements_by_tag_name("option")
             for option in all_options:
-                if option.get_attribute("value") in ["MA", "USLA", "LA", "AL", "California"]:
+                if option.get_attribute("value") in UserInfo.STATE_OPTIONS:
                     option.click()

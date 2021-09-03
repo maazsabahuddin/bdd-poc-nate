@@ -2,7 +2,7 @@
 from behave import *
 
 # Local imports
-from modules.ship import Shipping
+from modules.shipping_info import Shipping
 
 
 @given('Shipping information required page')
