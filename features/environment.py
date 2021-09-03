@@ -27,11 +27,15 @@ def before_all(context):
     chrome_options = webdriver.ChromeOptions()
 
     # This will disable usb driver error log to disable
-    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging', 'enable-automation'])
     # TODO We can make use of this chrome option below of enable-automation as to hide
     #  "Chrome is being controlled by automated test software" when we run script.
-    # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    # chrome_options.add_experimental_option('useAutomationExtension', False)
+
+    # This will disable automation extension to bypass bot detection
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+
+    # This option disable automation controls to bypass bot detection
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
     # This context attributes is available throughout all scenarios
     logger.info("Install chrome driver or retrieve from cache.")

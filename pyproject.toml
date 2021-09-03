@@ -11,6 +11,7 @@ behave = "^1.2.6"
 webdriver-manager = "^3.4.2"
 
 [tool.poetry.dev-dependencies]
+pylint = "^2.10.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

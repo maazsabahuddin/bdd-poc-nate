@@ -20,10 +20,8 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
-
-        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_NEW_PAT)
-        # if add_to_dict == {}:
-        # add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
             return
 
@@ -42,9 +40,9 @@ class AddToCart:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            parent_element = self.web.find_parent_element_from_child(self.required_element)
-            parent_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            # handling of overlays and pop-ups
+            logger.info('hit_add_to_cart_element: ', e)
+            return
 
     def check_cookies_overlay(self):
         is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
@@ -67,4 +65,5 @@ class AddToCart:
                 return False
         except (exceptions.TimeoutException, exceptions.ElementClickInterceptedException) as e:
             logger.info(str(e))
+            logger.info("is_closeable_overlay: ", e)
             return False
