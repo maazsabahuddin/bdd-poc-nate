@@ -112,8 +112,9 @@ class Shipping:
             pass
 
     def click_now(self):
-        logger.info("clicking on done/continue button")
+        logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        logger.info("clicking on done/continue button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
                                           constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
@@ -130,6 +131,7 @@ class Shipping:
             os.abort()
 
         required_element.click()
+        logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def get_validation_keys(self):

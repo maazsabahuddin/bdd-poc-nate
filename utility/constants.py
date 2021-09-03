@@ -64,12 +64,7 @@ class Pattern:
                 "or contains(@name, 'family-name') " \
                 "or contains(@id, 'LastName') or contains(@id, 'lastName') or contains(@id, 'shipping-last-name') " \
                 "or contains(@id, 'billing_last_name')]"
-    FULL_NAME = "//input[contains(translate(@name, 'FULNAME-_', 'fulname-_'), 'fullname') " \
-                "or contains(translate(@id, 'FULNAME-_', 'fulname-_'), 'fullname')]"
-    # EMAIL = "//input[contains(@name, 'Email') or contains(@name, 'email') or contains(@name, 'contact-email')" \
-    #         "or contains(@name, 'billing_email')" \
-    #         "or contains(@id, 'Email') or contains(@id, 'email') or contains(@id, 'contact-email')" \
-    #         "or contains(@id, 'billing_email')]"
+    FULL_NAME = "//input[contains(translate(@name, 'FULNAME-_', 'fulname-_'), 'fullname')]"
     EMAIL = "//input[contains(translate(@name, 'EMAIL-_[]', 'email-_[]'), 'email') " \
             "or contains(translate(@id, 'EMAIL-_[]', 'email-_[]'), 'email')]"
     COUNTRY_CODE = "//input[contains(@name, 'countryCode')]"
@@ -90,10 +85,11 @@ class Pattern:
                "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1')]"
     ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
                "or contains(@name, 'addressLineTwo') or contains(@name, 'addressLine2') " \
+               "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt')" \
                "or contains(@name, 'billing_address_2') or contains(translate(@name, 'LINE2', 'line2'), 'line2') " \
                "or contains(@id, 'StreetLine2') or contains(@id, 'addressLines[1]') " \
                "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2')]"
-    CITY = "//input[contains(@name, 'AdministrativeArea') or contains(@name, 'city')" \
+    CITY = "//input[contains(@name, 'AdministrativeArea') or contains(translate(@name, 'CITY', 'city'), 'city')" \
            "or contains(@id, 'AdministrativeArea') or contains(@id, 'city') " \
            "or contains(translate(@name, 'TOWN', 'town'), 'town')]"
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
@@ -113,7 +109,6 @@ class Pattern:
                "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                "or contains(translate(text(), 'SAVE', 'save'), 'save')] | " \
                "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
-    # CONTINUE = "//*[contains(translate(text(), 'PROCEED CHECKOUT', 'proceed checkout'), 'proceed to checkout')]"
     PLACE_ORDER = "//*[contains(@name, 'place')]"
     CONSENT = "//input[contains(@type, 'checkbox')]"
 
@@ -130,6 +125,7 @@ class Pattern:
 
 
 class SkipScenario:
+
     SKIP_SCENARIO = "skip_scenario"
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
@@ -141,11 +137,15 @@ class SkipScenario:
 
 
 class ETC:
+
     VALUE = "value"
+    NAME = "name"
+    OPTION = "option"
 
 
 class UserInfo:
-    # SHIPPING INFO CONSTANTS
+
+    # USER INFO CONSTANTS
     FULL_NAME = "full_name"
     FIRST_NAME = "first_name"
     LAST_NAME = "last_name"
@@ -166,3 +166,4 @@ class Timer:
     PAGE_LOAD_TIMEOUT = 60
     ELEMENT_TIMEOUT = 10
     PROCESS_PAUSE_TIMEOUT = 15
+    ONE_SECOND_TIMEOUT = 1
