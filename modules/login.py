@@ -5,7 +5,7 @@ import time
 from selenium.common import exceptions
 
 # Local imports
-from utility.constants import Tags, Pattern
+from utility.constants import Tags, Pattern, Timer
 from utility.utilities import Utils
 
 
@@ -34,7 +34,7 @@ class Login:
         try:
             self.selected_login_guest_element.click()
             # remove when run in production
-            time.sleep(5)
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
             print("Error in clicking login as guest button")
 
@@ -60,7 +60,7 @@ class Login:
             # Search if login required
             login_elements = Utils.fetch_required_elements(Pattern.SIGN_IN_PATTERN, Tags.POSSIBLE_SIGNIN_LIST)
             if login_elements:
-                # Do nothin as of now, because we have intially set context variable to true
+                # Do nothing as of now, because we have initially set context variable to true
                 return
             else:
                 # Here it comes means an unexpected page arose
