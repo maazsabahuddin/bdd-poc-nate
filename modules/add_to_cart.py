@@ -11,7 +11,7 @@ class AddToCart():
         self.is_add_to_cart_found = False
     
     def find_add_to_(self):
-        time.sleep(10)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
             return
@@ -30,6 +30,7 @@ class AddToCart():
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+            print('hit_add_to_cart_element: ', e)
             # handling of overlays and pop-ups
             return
 
@@ -51,4 +52,5 @@ class AddToCart():
             else:
                 return False
         except (exceptions.TimeoutException, exceptions.ElementClickInterceptedException) as e:
+            print("is_closeable_overlay: ", e)
             return False
