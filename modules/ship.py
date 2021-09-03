@@ -174,9 +174,7 @@ class Shipping:
         if set(validated_keys) != set(required_element_keys):
             logger.info(f"Cannot fetched some of the required elements "
                         f"{required_element_keys - set(validated_keys)}")
-            logger.info("Not Aborting..")
-            logger.info("Continue the flow")
-            return True
+            return False
 
         logger.info("Data Validated..")
         return True
