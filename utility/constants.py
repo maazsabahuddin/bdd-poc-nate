@@ -34,6 +34,6 @@ class SkipScenario:
     SKIP_PERSONAL_INFO = "skip_personal_info"
 
 class Timer:
-    PAGE_LOAD_TIMEOUT = 30
+    PAGE_LOAD_TIMEOUT = 60
     ELEMENT_TIMEOUT = 10
-    PROCESS_PAUSE_TIMEOUT = 5
+    PROCESS_PAUSE_TIMEOUT = 15

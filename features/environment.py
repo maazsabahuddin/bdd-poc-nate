@@ -16,6 +16,10 @@ def before_all(context):
     options = webdriver.ChromeOptions()
     # This will disable usb driver error log to disable
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    # This will disable automation extension to bypass bot detection
+    options.add_experimental_option('useAutomationExtension', False)
+    # This will disable automation controls
+    options.add_argument('--disable-blink-features=AutomationControlled')
     # This context attributes is available throughout all scenarios
     browser = webdriver.Chrome(ChromeDriverManager().install(), options= options)
     # This will maximize the broswer window
