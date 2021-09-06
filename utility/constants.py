@@ -22,6 +22,7 @@ class TagsList:
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.SPAN]
+    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
 
 
 class Pattern:
@@ -127,6 +128,9 @@ class Pattern:
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
                    "or contains(translate(text(), 'ADEILMY', 'adeilmy'), 'add my email')]"
+    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') or contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase')]"
+    PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
+    REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
 
 class SkipScenario:

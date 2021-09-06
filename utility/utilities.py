@@ -33,14 +33,14 @@ class Utils:
             return True
 
     @staticmethod
-    def get_required_element(tag, elements_list):
+    def get_required_element(tag, elements_dict):
         """
         This function returns element from the elements dict
         """
         if tag is None:
             return None
         else:
-            for element in elements_list[tag]:
+            for element in elements_dict[tag]:
                 if element.is_enabled() and element.is_displayed():
                     return element
             return None
