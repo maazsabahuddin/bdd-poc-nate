@@ -1,14 +1,18 @@
-from utility.constants import Tags, Pattern
+# Framework Imports
 from selenium.common import exceptions
+
+# Local imports
+from utility import constants
+
 
 class Utils:
 
     @staticmethod
-    def get_required_tag(tags, priorityTagsList):
+    def get_required_tag(tags, priority_tags_list):
         """
         This function return element tag from the provided list on priority basis.
         """
-        for tag in priorityTagsList:
+        for tag in priority_tags_list:
             if tag in tags:
                 return tag
         return None
@@ -18,12 +22,15 @@ class Utils:
         """
         This function accept cookies overlay before clicking on buy button
         """
-        overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
-        if (overlay_elements is not None):
-            overlay_elements.click()
+        try:
+            overlay_elements = find_by_xpath(constants.Pattern.ACCEPT_COOKIES_PATTERN)
+            if overlay_elements is not None:
+                overlay_elements.click()
+                return True
+            else:
+                return False
+        except exceptions.TimeoutException:
             return True
-        else:
-            return False
 
     @staticmethod
     def get_required_element(tag, elements_list):
@@ -34,7 +41,7 @@ class Utils:
             return None
         else:
             for element in elements_list[tag]:
-                if (element.is_enabled() and element.is_displayed()):
+                if element.is_enabled() and element.is_displayed():
                     return element
             return None
     
@@ -52,10 +59,11 @@ class Utils:
             tag_name = ele.tag_name
             # handling case of span - here we find the parent element of span and check in list
             if tag_name == "span":
-                 # find its parent element and check its tag
+                # find its parent element and check its tag
                 parent_element = Utils.find_parent_element_from_child(ele, filter_list)
                 if parent_element is not None:
                     tag_name = parent_element.tag_name
+                    ele = parent_element
             if tag_name in filter_list:
                 if result_dict.get(tag_name):
                     result_dict.get(tag_name).append(ele)
@@ -72,12 +80,26 @@ class Utils:
         """
         try:
             current_found_element = child_element
-            for _ in range(2):
+            for _ in range(5):
                 parent_element = current_found_element.find_element_by_xpath("..")
-                if (parent_element.tag_name in filter_list):
+                if parent_element.tag_name in filter_list:
                     return parent_element
-                else:
-                    current_found_element = parent_element
+                current_found_element = parent_element
             return None
         except exceptions.NoSuchElementException:
             return None
+
+    @staticmethod
+    def get_required_element_related_to_guest(tag, elements_dict):
+        """
+        This function take a tag name and dictionary of found elements,
+        it will futher filter the dictionary to find the guest related element
+        """
+        attribute_name = "class"
+        if tag == "input":
+            attribute_name = "name"
+        for element in elements_dict[tag]:
+            if 'guest' in element.get_attribute(attribute_name):
+                if element.is_enabled() and element.is_displayed():
+                    return element
+        return None

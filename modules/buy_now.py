@@ -1,8 +1,12 @@
+# Python imports
 import time
+
 # Framework imports
+from modules.logger import logger
 from selenium.common import exceptions
+
 # Local imports
-from utility.constants import Tags, Pattern, SkipScenario, Timer
+from utility.constants import TagsList, Pattern, SkipScenario, Timer
 from utility.utilities import Utils
 
 
@@ -15,10 +19,11 @@ class BuyNow(object):
 
     def check_buy_now_page(self):
         self.web.open(self.context.url)
+
         buy_now_dict = self.fetch_required_elements()
         if not buy_now_dict:
             return
-        requiredTag = Utils.get_required_tag(buy_now_dict.keys(), Tags.POSSIBLE_BUY_TAGS_LIST)
+        requiredTag = Utils.get_required_tag(buy_now_dict.keys(), TagsList.POSSIBLE_BUY_TAGS_LIST)
         required_element = Utils.get_required_element(requiredTag, buy_now_dict)
         if (required_element is not None):
             self.is_buy_now_found = True
@@ -26,7 +31,7 @@ class BuyNow(object):
 
     def fetch_required_elements(self):
         buy_web_elements = self.web.finds_by_xpath_wait(Pattern.BUY_PATTERN)
-        return Utils.fetch_required_elements(buy_web_elements, Tags.POSSIBLE_BUY_TAGS_LIST)
+        return Utils.fetch_required_elements(buy_web_elements, TagsList.POSSIBLE_BUY_TAGS_LIST)
 
     def skip_non_required_scenarios(self):
         """
@@ -52,10 +57,10 @@ class BuyNow(object):
                 # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
                 # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
                 try:
-                    cross_element = self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
+                    cross_element = \
+                        self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
                     cross_element.click()
                 except:
                     return
                 time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-                self.required_element.click()            
-        
+                self.required_element.click()
