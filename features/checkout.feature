@@ -46,6 +46,11 @@ Feature: Ecommerce Checkout
         When Shipping information found or not
         Then Enter shipping address details and proceed
 
+    Scenario: Fill card details
+        Given order card details page
+        When card details found
+        Then fill the details and proceed to next step
+
     Scenario: Review order
         Given order page
         When review order button found

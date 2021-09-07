@@ -132,6 +132,15 @@ class Pattern:
     PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
+    # Card details
+    EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
+                       "or contains(translate(@name, 'EXPDAT', 'expdat'), 'expdate') " \
+                       "or contains(translate(@name, 'EXPDAT', 'expdat'), 'exp-date') " \
+                       "or contains(translate(@placeholder, 'MY', 'my'), 'mm/yy') " \
+                       "or contains(translate(@id, 'EXPIRATON', 'expiraton'), 'expiration') " \
+                       "or contains(translate(@id, 'MONTH', 'month'), 'month') " \
+                       "or contains(translate(@name, 'MONTH', 'month'), 'month') " \
+                       "or contains(translate(@id, 'EXP', 'exp'), 'exp')]"
 
 class SkipScenario:
     SKIP_SCENARIO = "skip_scenario"
