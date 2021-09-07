@@ -84,7 +84,8 @@ class Pattern:
                "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
                "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
                "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1') " \
-               "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1')]"
+               "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
+               "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1')]"
     ADDRESS2 = "//input[contains(@name, '2') or contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
                "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2') or contains(@name, 'addressLine2') " \
                "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt') " \
