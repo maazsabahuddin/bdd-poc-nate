@@ -1,7 +1,7 @@
 # Framework imports
 import time
 
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
 from modules.logger import logger
@@ -19,7 +19,7 @@ class ShipUtils:
         :return:
         """
         for element in country_elements:
-            if "country" in element.get_attribute(constants.ETC.NAME):
+            if constants.UserInfo.COUNTRY in element.get_attribute(constants.ETC.NAME):
                 return element
 
         return country_elements[0]
@@ -49,22 +49,22 @@ class ShipUtils:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 shipping_info[constants.UserInfo.FULL_NAME][0].send_keys(UserInfo.FULL_NAME)
-            except StaleElementReferenceException as e:
-                logger.info(f"Exception Email: {str(e)}")
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception Full Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys(UserInfo.FIRST_NAME)
-            except StaleElementReferenceException as e:
-                logger.info(f"Exception Email: {str(e)}")
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception First Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 shipping_info[constants.UserInfo.LAST_NAME][0].send_keys(UserInfo.LAST_NAME)
-            except StaleElementReferenceException as e:
-                logger.info(f"Exception Email: {str(e)}")
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception Last Name: {str(e)}")
 
     @staticmethod
     def fill_email_field(shipping_info):
@@ -84,7 +84,7 @@ class ShipUtils:
                     time.sleep(Timer.ONE_SECOND_TIMEOUT)
                     element.send_keys(UserInfo.EMAIL)
                     break
-            except StaleElementReferenceException as e:
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception Email: {str(e)}")
                 break
 
