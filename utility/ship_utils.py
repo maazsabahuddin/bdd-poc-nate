@@ -114,10 +114,15 @@ class ShipUtils:
             if not phone_element.get_attribute(constants.ETC.VALUE):
                 phone_element.send_keys(UserInfo.PHONE)
 
-        if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE] \
+        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE] \
                 and not shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE):
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.PHONE][0].send_keys("+"+UserInfo.PHONE)
+
+        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]\
+                and shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE)[0] == "+":
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            shipping_info[constants.UserInfo.PHONE][0].send_keys(UserInfo.PHONE)
 
     @staticmethod
     def fill_address_related_fields(shipping_info):
