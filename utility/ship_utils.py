@@ -162,3 +162,4 @@ class ShipUtils:
             for option in all_options:
                 if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
                     option.click()
+                    break

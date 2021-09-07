@@ -11,4 +11,4 @@ class UserInfo:
     POSTAL_CODE = "10710"
     CITY = "city"
     STATE_INPUT = "Ontario"
-    STATE_OPTIONS = ["MA", "USLA", "LA", "AL", "California"]
+    STATE_OPTIONS = ["MA", "USLA", "LA", "AL", "California", "IS"]
