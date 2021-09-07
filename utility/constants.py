@@ -71,8 +71,8 @@ class Pattern:
     PHONE = "//input[contains(translate(@name, 'TELEPHONE-_', 'telephone-_'), 'telephone') " \
             "or contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
             "or contains(@name, 'billing_phone') or contains(translate(@name, 'Number', 'number'), 'number') " \
-            "or contains(translate(@name, 'PHONE', 'phone'), 'phone')" \
-            "or contains(@name, 'primaryVoiceNumber')" \
+            "or contains(translate(@name, 'PHONE', 'phone'), 'phone') " \
+            "or contains(@name, 'primaryVoiceNumber') " \
             "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
             "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \
             "or contains(@aria-label, 'Phone Number')]"
@@ -85,14 +85,14 @@ class Pattern:
                "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1')]"
     ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
                "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2) or contains(@name, 'addressLine2') " \
-               "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt')" \
+               "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt') " \
                "or contains(@name, 'billing_address_2') or contains(translate(@name, 'LINE2', 'line2'), 'line2') " \
                "or contains(@id, 'StreetLine2') or contains(@id, 'addressLines[1]') " \
                "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2')]"
-    CITY = "//input[contains(@name, 'AdministrativeArea') or contains(translate(@name, 'CITY', 'city'), 'city')" \
+    CITY = "//input[contains(@name, 'AdministrativeArea') or contains(translate(@name, 'CITY', 'city'), 'city') " \
            "or contains(@id, 'AdministrativeArea') or contains(@id, 'city') " \
            "or contains(translate(@name, 'TOWN', 'town'), 'town')]"
-    STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region')" \
+    STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region') " \
             "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region') " \
             "or contains(translate(@name, 'PROVINCE', 'province'), 'province')] | " \
             "//input[contains(@name, 'stateCode') or contains(translate(@name, 'STATE', 'state'), 'state') " \
