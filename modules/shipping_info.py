@@ -23,7 +23,7 @@ class Shipping:
         self.shipping_info = {}
 
         logger.info("Initializing shipping required elements with respect to the flow.")
-        self.variable_flow_required_elements = [constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
+        self.variable_flow_required_elements = [constants.UserInfo.ADDRESS1,
                                                 constants.UserInfo.POSTAL_CODE, constants.UserInfo.CITY,
                                                 constants.UserInfo.CONTINUE]
         self.direct_flow_required_elements = [constants.UserInfo.FIRST_NAME, constants.UserInfo.LAST_NAME,

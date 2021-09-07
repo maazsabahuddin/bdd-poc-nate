@@ -79,18 +79,21 @@ class Pattern:
     ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
                "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
                "or contains(@name, 'addressLine1') or contains(@name, 'addr1') or contains(@id, 'StreetLine1') " \
-               "or contains(translate(@name, 'ADDRESS', 'address'), 'address') " \
+               "or contains(translate(@name, 'ADDRESS1', 'address1'), 'address') " \
                "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
                "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
-               "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1')]"
-    ADDRESS2 = "//input[contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
-               "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2) or contains(@name, 'addressLine2') " \
+               "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1') " \
+               "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1')]"
+    ADDRESS2 = "//input[contains(@name, '2') or contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
+               "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2') or contains(@name, 'addressLine2') " \
                "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt') " \
                "or contains(@name, 'billing_address_2') or contains(translate(@name, 'LINE2', 'line2'), 'line2') " \
                "or contains(@id, 'StreetLine2') or contains(@id, 'addressLines[1]') " \
-               "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2')]"
+               "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2') " \
+               "or contains(translate(@id, 'ADRES2', 'adres2'), 'address2')]"
     CITY = "//input[contains(@name, 'AdministrativeArea') or contains(translate(@name, 'CITY', 'city'), 'city') " \
-           "or contains(@id, 'AdministrativeArea') or contains(@id, 'city') " \
+           "or contains(@id, 'AdministrativeArea') or contains(translate(@id, 'CITY', 'city'), 'city') " \
+           "or contains(translate(@name, 'LOCALITY', 'locality'), 'locality') " \
            "or contains(translate(@name, 'TOWN', 'town'), 'town')]"
     STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region') " \
             "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region') " \
