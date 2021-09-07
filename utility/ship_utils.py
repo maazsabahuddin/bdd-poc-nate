@@ -89,7 +89,7 @@ class ShipUtils:
         # TODO Need to cross check this try except block as occurred in [gap.com]
         for element in shipping_info[constants.UserInfo.EMAIL]:
             try:
-                if element.is_enabled() and element.is_displayed():
+                if element.is_enabled() and element.is_displayed() and not element.get_attribute(constants.ETC.VALUE):
                     time.sleep(Timer.ONE_SECOND_TIMEOUT)
                     element.send_keys(UserInfo.EMAIL)
                     break
@@ -110,10 +110,12 @@ class ShipUtils:
             ShipUtils.get_country_code_element(shipping_info[constants.UserInfo.COUNTRY_CODE])\
                 .send_keys(UserInfo.COUNTRY_CODE)
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            ShipUtils.get_phone_element(shipping_info[constants.UserInfo.PHONE])\
-                .send_keys(UserInfo.PHONE)
+            phone_element = ShipUtils.get_phone_element(shipping_info[constants.UserInfo.PHONE])
+            if not phone_element.get_attribute(constants.ETC.VALUE):
+                phone_element.send_keys(UserInfo.PHONE)
 
-        if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]:
+        if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE] \
+                and not shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE):
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.PHONE][0].send_keys("+"+UserInfo.PHONE)
 
