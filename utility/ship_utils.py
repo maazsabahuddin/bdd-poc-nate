@@ -48,21 +48,30 @@ class ShipUtils:
         if len(shipping_info[constants.UserInfo.FULL_NAME]) > 0:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                shipping_info[constants.UserInfo.FULL_NAME][0].send_keys(UserInfo.FULL_NAME)
+                for element in shipping_info[constants.UserInfo.FULL_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.FULL_NAME)
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception Full Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys(UserInfo.FIRST_NAME)
+                for element in shipping_info[constants.UserInfo.FIRST_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.FIRST_NAME)
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception First Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
             try:
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                shipping_info[constants.UserInfo.LAST_NAME][0].send_keys(UserInfo.LAST_NAME)
+                for element in shipping_info[constants.UserInfo.LAST_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.LAST_NAME)
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception Last Name: {str(e)}")
 

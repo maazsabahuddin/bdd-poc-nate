@@ -112,8 +112,8 @@ class Shipping:
             pass
 
     def click_now(self):
-        logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         logger.info("clicking on done/continue button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
@@ -128,6 +128,7 @@ class Shipping:
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
+            logger.info("Aborting..")
             os.abort()
 
         required_element.click()
@@ -183,6 +184,12 @@ class Shipping:
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")
+        button = self.web.finds_by_xpath_wait(constants.Pattern.ENTER_ADDRESS)
+        if button:
+            logger.info("Address button found. Clicking now")
+            button[0].click()
+            logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         self.shipping_info[constants.UserInfo.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
         self.shipping_info[constants.UserInfo.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
         self.shipping_info[constants.UserInfo.FULL_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FULL_NAME)

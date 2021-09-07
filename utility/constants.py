@@ -21,7 +21,7 @@ class TagsList:
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
-    POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.SPAN]
+    POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
 
 
 class Pattern:
@@ -51,6 +51,7 @@ class Pattern:
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue')]"
+    ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
                  "or contains(@name, 'billing_first_name') or contains(@name, 'shipping-first-name') " \
@@ -170,3 +171,4 @@ class Timer:
     ELEMENT_TIMEOUT = 10
     PROCESS_PAUSE_TIMEOUT = 15
     ONE_SECOND_TIMEOUT = 1
+    FIVE_SECOND_TIMEOUT = 5
