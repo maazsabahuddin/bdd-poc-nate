@@ -128,9 +128,13 @@ class Pattern:
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
                    "or contains(translate(text(), 'ADEILMY', 'adeilmy'), 'add my email')]"
-    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') or contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase')]"
+    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') or " \
+                      "contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') or " \
+                      "contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') or " \
+                      "contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase')]"
     PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
-    REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
+    REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
+                   "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
 
 class SkipScenario:
