@@ -1,9 +1,6 @@
 # Python imports
 import time
 
-# Framework imports
-from selenium.common import exceptions
-
 # Local imports
 from utility.constants import Pattern, TagsList, Timer
 from utility.utilities import Utils
