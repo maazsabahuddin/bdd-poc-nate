@@ -35,3 +35,4 @@ class ConfirmAndPay:
     def hit_confirm_and_pay(self):
         self.required_element.click()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        
