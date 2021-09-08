@@ -107,8 +107,7 @@ class Pattern:
                   "or contains(@name, 'shipping-zip-code') or contains(@name, 'postcode') " \
                   "or contains(@id, 'postal') or contains(@id, 'zip') or contains(@id, 'postcode') " \
                   "or contains(@id, 'shipping-zip-code')]"
-    COUNTRY = "//select[contains(@name, 'Country') or contains(@name, 'shipping-country') " \
-              "or contains(@name, 'country')]"
+    COUNTRY = "//select[contains(translate(@name, 'COUNTRY', 'country'), 'country')]"
     CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
                "or contains(translate(text(), 'DONE', 'done'), 'done') " \
                "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
@@ -117,12 +116,6 @@ class Pattern:
     PLACE_ORDER = "//*[contains(@name, 'place')]"
     CONSENT = "//input[contains(@type, 'checkbox')]"
 
-    # TODO BY FAIQ BHAI
-    # EMAIL = "//*[contains(translate(@name, 'EMAIL', 'email'), 'email') " \
-    #         "or contains(translate(@type, 'EMAIL', 'email'), 'email')]"
-    # FIRST_NAME = "//*[contains(@name, 'firstName')]"
-    # LAST_NAME = "//*[contains(@name, 'lastName')]"
-    # PHONE = "//*[contains(@name, 'phone')]"
     GUEST_BUTTON = "//*[contains(translate(text(),'CONTINUE','continue'),'continue') " \
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \

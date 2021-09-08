@@ -12,3 +12,4 @@ class UserInfo:
     CITY = "city"
     STATE_INPUT = "Ontario"
     STATE_OPTIONS = ["MA", "USLA", "LA", "AL", "California", "IS"]
+    COUNTRY_OPTIONS = ["US", "PK"]

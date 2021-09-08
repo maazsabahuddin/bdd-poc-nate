@@ -38,6 +38,18 @@ class ShipUtils:
         return phone_elements[0]
 
     @staticmethod
+    def fill_country_field(shipping_info):
+        logger.info("Filling country field")
+        country_element = shipping_info[constants.UserInfo.COUNTRY]
+        if not country_element:
+            return
+        all_options = country_element[0].find_elements_by_tag_name(constants.ETC.OPTION)
+        for option in all_options:
+            if option.get_attribute(constants.ETC.VALUE) in UserInfo.COUNTRY_OPTIONS:
+                option.click()
+                break
+
+    @staticmethod
     def fill_name_related_fields(shipping_info):
         """
         This function is responsible to fill out all the related fields with address
@@ -157,6 +169,7 @@ class ShipUtils:
             shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
+        ShipUtils.fill_country_field(shipping_info)
 
     @staticmethod
     def fill_state_attribute(shipping_info):
