@@ -1,9 +1,6 @@
 # Python imports
 import time
 
-# Framework imports
-from selenium.common import exceptions
-
 # Local imports
 from utility.constants import Pattern, TagsList, Timer
 from utility.utilities import Utils
@@ -35,3 +32,4 @@ class ConfirmAndPay:
     def hit_confirm_and_pay(self):
         self.required_element.click()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        

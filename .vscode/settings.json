@@ -1,7 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "naik_poc",
-    ],
-    "python.linting.enabled": false,
-    "python.linting.pylintEnabled": true
-}
