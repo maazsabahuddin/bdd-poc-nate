@@ -130,6 +130,11 @@ class Pattern:
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
     # Card details
+    CARD_NUMBER = "//*[contains(translate(@name, 'CARD', 'card'), 'card') " \
+                  "and contains(translate(@name, 'NUM', 'num'), 'num') " \
+                  "or contains(translate(@id, 'CARD', 'card'), 'card') and " \
+                  "contains(translate(@id, 'NUM', 'num'), 'num') " \
+                  "or contains(translate(@name, 'CREDITAD', 'creditad'), 'creditcard')]"
     EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'expdate') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'exp-date') " \
@@ -138,6 +143,22 @@ class Pattern:
                        "or contains(translate(@id, 'MONTH', 'month'), 'month') " \
                        "or contains(translate(@name, 'MONTH', 'month'), 'month') " \
                        "or contains(translate(@id, 'EXP', 'exp'), 'exp')]"
+    EXPIRATION_YEAR = "//*[contains(translate(@id, 'EXPYAR', 'expyar'), 'expyear') " \
+                      "or contains(translate(@name, 'EXPYAR', 'expyar'), 'expyear') " \
+                      "or contains(translate(@name, 'EXPYAR', 'expyar'), 'exp-year') " \
+                      "or contains(translate(@id, 'YEAR', 'year'), 'year') " \
+                      "or contains(translate(@name, 'YEAR', 'year'), 'year')]"
+    CVV = "//*[contains(translate(@name, 'SECURITYOD', 'securityod'), 'securitycode') " \
+          "or contains(translate(@name, 'CV', 'cv'), 'cv') " \
+          "or contains(translate(@id, 'CVN', 'cvn'), 'cvn') " \
+          "or contains(translate(@id, 'CV', 'cvv'), 'cvv') " \
+          "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
+          "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode')]"
+    CARD_HOLDER_NAME = "//*[contains(translate(@id, 'NAME', 'name'), 'name') " \
+                       "and contains(translate(@id, 'CARD', 'card'), 'card') " \
+                       "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
+                       "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
+                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')]"
 
 class SkipScenario:
 
