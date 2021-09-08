@@ -211,4 +211,3 @@ class Shipping:
         self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
-        logger.info(f"DATA FOUND: {self.shipping_info}")
