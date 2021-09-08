@@ -4,6 +4,7 @@ import time
 # Local imports
 from utility.constants import Pattern, TagsList, Timer
 from utility.utilities import Utils
+from modules.logger import logger
 
 
 class ReviewOrder:
@@ -17,10 +18,12 @@ class ReviewOrder:
     def find_review_order(self):
         review_order_elements_dict = self.__extract_required_elements(Pattern.REVIEW_ORDER)
         if not review_order_elements_dict:
+            logger.info("review order element not found.")
             return
         required_tag = Utils.get_required_tag(review_order_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
         required_element = Utils.get_required_element(required_tag, review_order_elements_dict)
         if required_element is not None:
+            logger.info("Review order required element found.")
             self.is_review_order_found = True
         self.required_element = required_element
 
