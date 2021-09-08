@@ -40,10 +40,10 @@ class Pattern:
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(text(), 'ADD') " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag')]"
-    VIEW_CART = "//*[contains(translate(text(), 'VIEWBAG', 'viewbag'), 'view bag') " \
+    VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
-                "or text()='Cart' or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
+                "or text()='Cart' or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                 "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
@@ -53,7 +53,8 @@ class Pattern:
                                "or contains(translate(text(),'YOURDE','yourde'),'your order')]"
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
-                         "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue')]"
+                         "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
+                         "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
