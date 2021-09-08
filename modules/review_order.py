@@ -14,8 +14,6 @@ class ReviewOrder:
 
 
     def find_review_order(self):
-        self.web.open(self.context.url)
-        time.sleep(150)
         reivew_order_elements_dict = self.__extract_required_elements(Pattern.REVIEW_ORDER)
         if not reivew_order_elements_dict:
             return
