@@ -7,6 +7,7 @@ from utility.utilities import Utils
 
 
 class ConfirmAndPay:
+
     def __init__(self, context) -> None:
         self.context = context
         self.web = context.web
@@ -19,7 +20,8 @@ class ConfirmAndPay:
             confirm_pay_elements_dict = self.__extract_required_elements(Pattern.PLACE_ORDER)
         if not confirm_pay_elements_dict:
             return
-        required_tag = Utils.get_required_tag(confirm_pay_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
+        required_tag = \
+            Utils.get_required_tag(confirm_pay_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
         required_element = Utils.get_required_element(required_tag, confirm_pay_elements_dict)
         if required_element is not None:
             self.is_confirm_and_pay_found = True
