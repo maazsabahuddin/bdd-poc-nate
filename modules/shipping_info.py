@@ -23,7 +23,7 @@ class Shipping:
         self.shipping_info = {}
 
         logger.info("Initializing shipping required elements with respect to the flow.")
-        self.variable_flow_required_elements = [constants.UserInfo.ADDRESS1, constants.UserInfo.STATE,
+        self.variable_flow_required_elements = [constants.UserInfo.ADDRESS1,
                                                 constants.UserInfo.POSTAL_CODE, constants.UserInfo.CITY,
                                                 constants.UserInfo.CONTINUE]
         self.direct_flow_required_elements = [constants.UserInfo.FIRST_NAME, constants.UserInfo.LAST_NAME,
@@ -112,8 +112,10 @@ class Shipping:
             pass
 
     def click_now(self):
+        logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        logger.info("TIMEOUT OVER")
         logger.info("clicking on done/continue button")
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
                                           constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
@@ -127,10 +129,13 @@ class Shipping:
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
+            logger.info("Aborting..")
             os.abort()
 
         required_element.click()
+        logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        logger.info("TIMEOUT OVER")
 
     def get_validation_keys(self):
         """
@@ -181,6 +186,14 @@ class Shipping:
 
     def fetching_required_elements(self):
         logger.info("fetching required elements")
+        manual_address_button = self.web.finds_by_xpath_wait(constants.Pattern.ENTER_ADDRESS)
+        logger.info(f"Address button: {manual_address_button}")
+        if manual_address_button:
+            logger.info("Address button found. Clicking now")
+            manual_address_button[0].click()
+            logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds TIMEOUT")
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+            logger.info("TIMEOUT OVER")
         self.shipping_info[constants.UserInfo.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
         self.shipping_info[constants.UserInfo.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)
         self.shipping_info[constants.UserInfo.FULL_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FULL_NAME)
@@ -194,6 +207,7 @@ class Shipping:
         self.shipping_info[constants.UserInfo.STATE] = self.web.finds_by_xpath_wait(constants.Pattern.STATE)
         self.shipping_info[constants.UserInfo.POSTAL_CODE] = self.web.finds_by_xpath_wait(constants.Pattern.POSTAL_CODE)
         self.shipping_info[constants.UserInfo.CONTINUE] = self.web.finds_by_xpath_wait(constants.Pattern.CONTINUE)
+        self.shipping_info[constants.UserInfo.COUNTRY] = self.web.finds_by_xpath_wait(constants.Pattern.COUNTRY)
         self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
