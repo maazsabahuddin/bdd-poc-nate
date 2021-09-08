@@ -5,6 +5,7 @@ import time
 from utility.constants import Pattern, TagsList, Timer
 from utility.utilities import Utils
 
+
 class ReviewOrder:
     def __init__(self, context) -> None:
         self.context = context
@@ -14,11 +15,11 @@ class ReviewOrder:
 
 
     def find_review_order(self):
-        reivew_order_elements_dict = self.__extract_required_elements(Pattern.REVIEW_ORDER)
-        if not reivew_order_elements_dict:
+        review_order_elements_dict = self.__extract_required_elements(Pattern.REVIEW_ORDER)
+        if not review_order_elements_dict:
             return
-        required_tag = Utils.get_required_tag(reivew_order_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
-        required_element = Utils.get_required_element(required_tag, reivew_order_elements_dict)
+        required_tag = Utils.get_required_tag(review_order_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
+        required_element = Utils.get_required_element(required_tag, review_order_elements_dict)
         if required_element is not None:
             self.is_review_order_found = True
         self.required_element = required_element
