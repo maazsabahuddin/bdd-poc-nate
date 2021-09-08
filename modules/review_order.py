@@ -12,6 +12,7 @@ class ReviewOrder:
         self.is_review_order_found = False
         self.required_element = None
 
+
     def find_review_order(self):
         self.web.open(self.context.url)
         time.sleep(150)
@@ -24,10 +25,13 @@ class ReviewOrder:
             self.is_review_order_found = True
         self.required_element = required_element
 
+
     def __extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
         return Utils.fetch_required_elements(add_to_elements, TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
 
+
     def hit_review_order(self):
         self.required_element.click()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        
