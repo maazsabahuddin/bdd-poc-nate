@@ -98,7 +98,11 @@ class Utils:
         if tag == "input":
             attribute_name = "name"
         for element in elements_dict[tag]:
-            if 'guest' in element.get_attribute(attribute_name):
+            attribute = element.get_attribute(attribute_name)
+            if attribute == None or attribute == "":
+                attribute = element.get_attribute("outerText")
+                attribute = attribute.lower()
+            if 'guest' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
         return None
