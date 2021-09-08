@@ -9,6 +9,7 @@ class Tags:
     H2 = "h2"
     H3 = "h3"
     DIV = "div"
+    SELECT = "select"
 
 
 class TagsList:
@@ -23,6 +24,7 @@ class TagsList:
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
 
 
 class Pattern:
