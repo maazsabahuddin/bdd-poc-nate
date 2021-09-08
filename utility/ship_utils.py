@@ -1,13 +1,53 @@
 # Framework imports
-from selenium.common.exceptions import StaleElementReferenceException
+import time
+
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
 from modules.logger import logger
 from utility import constants
+from utility.constants import Timer
 from utility.user_personal_info import UserInfo
 
 
 class ShipUtils:
+
+    @staticmethod
+    def get_country_code_element(country_elements):
+        """ This function will return accurate element by matching country in 'name' attribute
+        :param country_elements:
+        :return:
+        """
+        for element in country_elements:
+            if constants.UserInfo.COUNTRY in element.get_attribute(constants.ETC.NAME):
+                return element
+
+        return country_elements[0]
+
+    @staticmethod
+    def get_phone_element(phone_elements):
+        """ This function will return accurate element by matching phone in the 'name' attribute
+        :param phone_elements:
+        :return:
+        """
+        for element in phone_elements:
+            for val in ["number", "Number"]:
+                if val in element.get_attribute(constants.ETC.NAME):
+                    return element
+
+        return phone_elements[0]
+
+    @staticmethod
+    def fill_country_field(shipping_info):
+        logger.info("Filling country field")
+        country_element = shipping_info[constants.UserInfo.COUNTRY]
+        if not country_element:
+            return
+        all_options = country_element[0].find_elements_by_tag_name(constants.ETC.OPTION)
+        for option in all_options:
+            if option.get_attribute(constants.ETC.VALUE) in UserInfo.COUNTRY_OPTIONS:
+                option.click()
+                break
 
     @staticmethod
     def fill_name_related_fields(shipping_info):
@@ -16,24 +56,36 @@ class ShipUtils:
         :param shipping_info:
         :return:
         """
-        logger.info("Filling name fields")
+        logger.info("Filling name field")
         if len(shipping_info[constants.UserInfo.FULL_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.FULL_NAME][0].send_keys(UserInfo.FULL_NAME)
-            except StaleElementReferenceException as e:
-                pass
+                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                for element in shipping_info[constants.UserInfo.FULL_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.FULL_NAME)
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception Full Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.FIRST_NAME][0].send_keys(UserInfo.FIRST_NAME)
-            except StaleElementReferenceException as e:
-                pass
+                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                for element in shipping_info[constants.UserInfo.FIRST_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.FIRST_NAME)
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception First Name: {str(e)}")
 
         if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
             try:
-                shipping_info[constants.UserInfo.LAST_NAME][0].send_keys(UserInfo.LAST_NAME)
-            except StaleElementReferenceException as e:
-                pass
+                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                for element in shipping_info[constants.UserInfo.LAST_NAME]:
+                    if element.is_enabled() and element.is_displayed() \
+                            and not element.get_attribute(constants.ETC.VALUE):
+                        element.send_keys(UserInfo.LAST_NAME)
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception Last Name: {str(e)}")
 
     @staticmethod
     def fill_email_field(shipping_info):
@@ -49,11 +101,12 @@ class ShipUtils:
         # TODO Need to cross check this try except block as occurred in [gap.com]
         for element in shipping_info[constants.UserInfo.EMAIL]:
             try:
-                if element.is_enabled() and element.is_displayed():
+                if element.is_enabled() and element.is_displayed() and not element.get_attribute(constants.ETC.VALUE):
+                    time.sleep(Timer.ONE_SECOND_TIMEOUT)
                     element.send_keys(UserInfo.EMAIL)
                     break
-            except StaleElementReferenceException as e:
-                shipping_info[constants.UserInfo.EMAIL][0].send_keys(UserInfo.EMAIL)
+            except (StaleElementReferenceException, ElementNotInteractableException) as e:
+                logger.info(f"Exception Email: {str(e)}")
                 break
 
     @staticmethod
@@ -65,11 +118,23 @@ class ShipUtils:
         """
         logger.info("Filling phone related fields")
         if shipping_info[constants.UserInfo.COUNTRY_CODE] and shipping_info[constants.UserInfo.PHONE]:
-            shipping_info[constants.UserInfo.COUNTRY_CODE][0].send_keys(UserInfo.COUNTRY_CODE)
-            shipping_info[constants.UserInfo.PHONE][0].send_keys(UserInfo.PHONE)
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            ShipUtils.get_country_code_element(shipping_info[constants.UserInfo.COUNTRY_CODE])\
+                .send_keys(UserInfo.COUNTRY_CODE)
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            phone_element = ShipUtils.get_phone_element(shipping_info[constants.UserInfo.PHONE])
+            if not phone_element.get_attribute(constants.ETC.VALUE):
+                phone_element.send_keys(UserInfo.PHONE)
 
-        if shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]:
+        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE] \
+                and not shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE):
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.PHONE][0].send_keys("+"+UserInfo.PHONE)
+
+        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]\
+                and shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE)[0] == "+":
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            shipping_info[constants.UserInfo.PHONE][0].send_keys(UserInfo.PHONE)
 
     @staticmethod
     def fill_address_related_fields(shipping_info):
@@ -84,21 +149,27 @@ class ShipUtils:
             for element in shipping_info[constants.UserInfo.ADDRESS1]:
                 try:
                     if element.is_enabled() and element.is_displayed():
+                        time.sleep(Timer.ONE_SECOND_TIMEOUT)
                         element.send_keys(UserInfo.ADDRESS1)
                         break
-                except:
+                except Exception as e:
+                    logger.info(f"Exception Address1: {str(e)}")
                     break
 
         if shipping_info[constants.UserInfo.ADDRESS2]:
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.ADDRESS2][0].send_keys(UserInfo.ADDRESS2)
 
         if shipping_info[constants.UserInfo.CITY]:
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.CITY][0].send_keys(UserInfo.CITY)
 
         if shipping_info[constants.UserInfo.POSTAL_CODE]:
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
+        ShipUtils.fill_country_field(shipping_info)
 
     @staticmethod
     def fill_state_attribute(shipping_info):
@@ -110,12 +181,14 @@ class ShipUtils:
         state_element = shipping_info[constants.UserInfo.STATE]
         if not state_element:
             return
-        if state_element[0].tag_name == constants.TagsList.INPUT:
+        if state_element[0].tag_name == constants.Tags.INPUT:
             logger.info("Filling state using input")
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             state_element[0].send_keys(UserInfo.STATE_INPUT)
         else:
             logger.info("Filling state using select option")
-            all_options = state_element[0].find_elements_by_tag_name("option")
+            all_options = state_element[0].find_elements_by_tag_name(constants.ETC.OPTION)
             for option in all_options:
-                if option.get_attribute("value") in UserInfo.STATE_OPTIONS:
+                if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
                     option.click()
+                    break

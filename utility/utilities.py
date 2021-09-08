@@ -27,8 +27,7 @@ class Utils:
             if overlay_elements is not None:
                 overlay_elements.click()
                 return True
-            else:
-                return False
+            return False
         except exceptions.TimeoutException:
             return True
 
@@ -38,12 +37,12 @@ class Utils:
         This function returns element from the elements dict
         """
         if tag is None:
-            return None
-        else:
-            for element in elements_dict[tag]:
-                if element.is_enabled() and element.is_displayed():
-                    return element
-            return None
+            return tag
+
+        for element in elements_dict[tag]:
+            if element.is_enabled() and element.is_displayed():
+                return element
+        return None
     
     @staticmethod
     def fetch_required_elements(elements, filter_list):
