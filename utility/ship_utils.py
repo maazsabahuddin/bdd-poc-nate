@@ -163,17 +163,16 @@ class ShipUtils:
 
         city_element = shipping_info[constants.UserInfo.CITY]
         if city_element:
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            print(city_element[0].get_attribute(constants.ETC.VALUE))
             if city_element[0].get_attribute(constants.ETC.VALUE):
                 city_element[0].clear()
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             city_element[0].send_keys(UserInfo.CITY)
 
         postal_code_element = shipping_info[constants.UserInfo.POSTAL_CODE]
         if postal_code_element:
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             if postal_code_element[0].get_attribute(constants.ETC.VALUE):
                 postal_code_element[0].clear()
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
             postal_code_element[0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
