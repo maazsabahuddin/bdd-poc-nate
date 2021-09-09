@@ -21,6 +21,13 @@ class ShipUtils:
         return True
 
     @staticmethod
+    def validate_phone_element(element):
+        for val in ["card", "Card", "credit", "Credit"]:
+            if val in element.get_attribute(constants.ETC.NAME):
+                return False
+        return True
+
+    @staticmethod
     def get_country_code_element(country_elements):
         """ This function will return accurate element by matching country in 'name' attribute
         :param country_elements:
@@ -40,7 +47,7 @@ class ShipUtils:
         for element in phone_elements:
             for val in ["number", "Number", "phone", "Phone"]:
                 if val in element.get_attribute(constants.ETC.NAME) and \
-                        element.is_enabled() and element.is_displayed():
+                        element.is_enabled() and element.is_displayed() and ShipUtils.validate_phone_element(element):
                     return element
 
     @staticmethod

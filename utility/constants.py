@@ -117,6 +117,7 @@ class Pattern:
     CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
                "or contains(translate(text(), 'DONE', 'done'), 'done') " \
                "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
+               "or contains(translate(text(), 'SUBMIT', 'submit'), 'submit') " \
                "or contains(translate(text(), 'SAVE', 'save'), 'save')] | " \
                "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
     PLACE_ORDER = "//*[contains(@name, 'place')]"

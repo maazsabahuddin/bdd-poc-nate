@@ -31,7 +31,6 @@ class Utils:
         except exceptions.TimeoutException:
             return True
 
-
     @staticmethod
     def get_required_element(tag, elements_dict):
         """
