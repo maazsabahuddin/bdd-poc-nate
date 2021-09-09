@@ -164,34 +164,41 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling address related fields")
-        if shipping_info[constants.UserInfo.ADDRESS1]:
-            for element in shipping_info[constants.UserInfo.ADDRESS1]:
-                try:
-                    if element.is_enabled() and element.is_displayed() and ShipUtils.validate_address_element(element):
-                        # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                        element.send_keys(UserInfo.ADDRESS1)
-                        break
-                except Exception as e:
-                    logger.info(f"Exception Address1: {str(e)}")
+        for element in shipping_info[constants.UserInfo.ADDRESS1]:
+            try:
+                if element.is_enabled() and element.is_displayed() and ShipUtils.validate_address_element(element):
+                    # time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                    element.send_keys(UserInfo.ADDRESS1)
                     break
+            except Exception as e:
+                logger.info(f"Exception Address1: {str(e)}")
+                break
 
-        if shipping_info[constants.UserInfo.ADDRESS2]:
+        address2_elements = shipping_info[constants.UserInfo.ADDRESS2]
+        if address2_elements:
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            shipping_info[constants.UserInfo.ADDRESS2][0].send_keys(UserInfo.ADDRESS2)
+            for element in address2_elements:
+                if not element.is_enabled() or not element.is_displayed():
+                    continue
+                element.send_keys(UserInfo.ADDRESS2)
 
-        city_element = shipping_info[constants.UserInfo.CITY]
-        if city_element:
-            if city_element[0].get_attribute(constants.ETC.VALUE):
-                city_element[0].clear()
+        city_elements = shipping_info[constants.UserInfo.CITY]
+        for element in city_elements:
+            if not element.is_enabled() or not element.is_displayed():
+                continue
+            if element.get_attribute(constants.ETC.VALUE):
+                element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            city_element[0].send_keys(UserInfo.CITY)
+            element.send_keys(UserInfo.CITY)
 
-        postal_code_element = shipping_info[constants.UserInfo.POSTAL_CODE]
-        if postal_code_element:
-            if postal_code_element[0].get_attribute(constants.ETC.VALUE):
-                postal_code_element[0].clear()
+        postal_code_elements = shipping_info[constants.UserInfo.POSTAL_CODE]
+        for element in postal_code_elements:
+            if not element.is_enabled() or not element.is_displayed():
+                continue
+            if element.get_attribute(constants.ETC.VALUE):
+                element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            postal_code_element[0].send_keys(UserInfo.POSTAL_CODE)
+            element.send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
         ShipUtils.fill_country_field(shipping_info)
@@ -213,7 +220,7 @@ class ShipUtils:
             if element.tag_name == constants.Tags.INPUT:
                 logger.info("Filling state using input")
                 # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                state_element[0].send_keys(UserInfo.STATE_INPUT)
+                element.send_keys(UserInfo.STATE_INPUT)
             else:
                 logger.info("Filling state using select option")
                 all_options = element.find_elements_by_tag_name(constants.ETC.OPTION)
