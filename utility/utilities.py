@@ -31,6 +31,7 @@ class Utils:
         except exceptions.TimeoutException:
             return True
 
+
     @staticmethod
     def get_required_element(tag, elements_dict):
         """
@@ -105,4 +106,16 @@ class Utils:
             if 'guest' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
+        return None
+
+    
+    @staticmethod
+    def get_required_element_2(element_dict, tag_priority_list):
+        for tag in tag_priority_list:
+            if tag in element_dict.keys():
+                element = Utils.get_required_element(tag, element_dict)
+                if element != None:
+                    return element
+                else:
+                    continue
         return None
