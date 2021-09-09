@@ -1,5 +1,5 @@
 # Python imports
-import time
+# import time
 
 # Framework imports
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
@@ -7,11 +7,18 @@ from selenium.common.exceptions import StaleElementReferenceException, ElementNo
 # Local imports
 from modules.logger import logger
 from utility import constants
-from utility.constants import Timer
+# from utility.constants import Timer
 from utility.user_personal_info import UserInfo
 
 
 class ShipUtils:
+
+    @staticmethod
+    def validate_address_element(element):
+        for val in ["firstName", "firstname", "lastName", "lastname", "state", "city", "postalCode"]:
+            if val in element.get_attribute(constants.ETC.NAME):
+                return False
+        return True
 
     @staticmethod
     def get_country_code_element(country_elements):
@@ -20,10 +27,9 @@ class ShipUtils:
         :return:
         """
         for element in country_elements:
-            if constants.UserInfo.COUNTRY in element.get_attribute(constants.ETC.NAME):
+            if constants.UserInfo.COUNTRY in element.get_attribute(constants.ETC.NAME) and \
+                    element.is_enabled() and element.is_displayed():
                 return element
-
-        return country_elements[0]
 
     @staticmethod
     def get_phone_element(phone_elements):
@@ -33,10 +39,9 @@ class ShipUtils:
         """
         for element in phone_elements:
             for val in ["number", "Number"]:
-                if val in element.get_attribute(constants.ETC.NAME):
+                if val in element.get_attribute(constants.ETC.NAME) and \
+                        element.is_enabled() and element.is_displayed():
                     return element
-
-        return phone_elements[0]
 
     @staticmethod
     def fill_country_field(shipping_info):
@@ -44,11 +49,15 @@ class ShipUtils:
         country_element = shipping_info[constants.UserInfo.COUNTRY]
         if not country_element:
             return
-        all_options = country_element[0].find_elements_by_tag_name(constants.ETC.OPTION)
-        for option in all_options:
-            if option.get_attribute(constants.ETC.VALUE) in UserInfo.COUNTRY_OPTIONS:
-                option.click()
-                break
+
+        for element in country_element:
+            if not element.is_enabled() or not element.is_displayed():
+                continue
+            all_options = element.find_elements_by_tag_name(constants.ETC.OPTION)
+            for option in all_options:
+                if option.get_attribute(constants.ETC.VALUE) in UserInfo.COUNTRY_OPTIONS:
+                    option.click()
+                    break
 
     @staticmethod
     def fill_name_related_fields(shipping_info):
@@ -60,7 +69,7 @@ class ShipUtils:
         logger.info("Filling name field")
         if len(shipping_info[constants.UserInfo.FULL_NAME]) > 0:
             try:
-                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 for element in shipping_info[constants.UserInfo.FULL_NAME]:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
@@ -70,7 +79,7 @@ class ShipUtils:
 
         if len(shipping_info[constants.UserInfo.FIRST_NAME]) > 0:
             try:
-                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 for element in shipping_info[constants.UserInfo.FIRST_NAME]:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
@@ -80,7 +89,7 @@ class ShipUtils:
 
         if len(shipping_info[constants.UserInfo.LAST_NAME]) > 0:
             try:
-                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 for element in shipping_info[constants.UserInfo.LAST_NAME]:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
@@ -103,7 +112,7 @@ class ShipUtils:
         for element in shipping_info[constants.UserInfo.EMAIL]:
             try:
                 if element.is_enabled() and element.is_displayed() and not element.get_attribute(constants.ETC.VALUE):
-                    time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                    # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                     element.send_keys(UserInfo.EMAIL)
                     break
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
@@ -118,24 +127,34 @@ class ShipUtils:
         :return:
         """
         logger.info("Filling phone related fields")
+        # If Phone number and country code both are present then this condition will be true.
         if shipping_info[constants.UserInfo.COUNTRY_CODE] and shipping_info[constants.UserInfo.PHONE]:
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            ShipUtils.get_country_code_element(shipping_info[constants.UserInfo.COUNTRY_CODE])\
-                .send_keys(UserInfo.COUNTRY_CODE)
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+
+            country_element = ShipUtils.get_country_code_element(shipping_info[constants.UserInfo.COUNTRY_CODE])
+            if country_element:
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                country_element.send_keys(UserInfo.COUNTRY_CODE)
+
             phone_element = ShipUtils.get_phone_element(shipping_info[constants.UserInfo.PHONE])
-            if not phone_element.get_attribute(constants.ETC.VALUE):
+            if phone_element and not phone_element.get_attribute(constants.ETC.VALUE):
                 phone_element.send_keys(UserInfo.PHONE)
 
-        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE] \
-                and not shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE):
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            shipping_info[constants.UserInfo.PHONE][0].send_keys("+"+UserInfo.PHONE)
+        # If Phone number is present but country code is not present then this condition will be true.
+        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]:
 
-        elif shipping_info[constants.UserInfo.PHONE] and not shipping_info[constants.UserInfo.COUNTRY_CODE]\
-                and shipping_info[constants.UserInfo.PHONE][0].get_attribute(constants.ETC.VALUE)[0] == "+":
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            shipping_info[constants.UserInfo.PHONE][0].send_keys(UserInfo.PHONE)
+            phone_element = ShipUtils.get_phone_element(shipping_info[constants.UserInfo.PHONE])
+            if not phone_element:
+                return
+
+            # If the phone element is not prefilled then this condition will be true
+            if phone_element.get_attribute(constants.ETC.VALUE):
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                phone_element.send_keys(f"+{UserInfo.PHONE}")
+
+            # If the phone element is prefilled with + sign then this condition will be true
+            elif phone_element.get_attribute(constants.ETC.VALUE)[0] == "+":
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                phone_element.send_keys(UserInfo.PHONE)
 
     @staticmethod
     def fill_address_related_fields(shipping_info):
@@ -146,11 +165,10 @@ class ShipUtils:
         """
         logger.info("Filling address related fields")
         if shipping_info[constants.UserInfo.ADDRESS1]:
-            # shipping_info[constants.UserInfo.ADDRESS1][0].send_keys("Home A1, 0th street, Houston.")
             for element in shipping_info[constants.UserInfo.ADDRESS1]:
                 try:
-                    if element.is_enabled() and element.is_displayed():
-                        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                    if element.is_enabled() and element.is_displayed() and ShipUtils.validate_address_element(element):
+                        # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                         element.send_keys(UserInfo.ADDRESS1)
                         break
                 except Exception as e:
@@ -158,21 +176,21 @@ class ShipUtils:
                     break
 
         if shipping_info[constants.UserInfo.ADDRESS2]:
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.ADDRESS2][0].send_keys(UserInfo.ADDRESS2)
 
         city_element = shipping_info[constants.UserInfo.CITY]
         if city_element:
             if city_element[0].get_attribute(constants.ETC.VALUE):
                 city_element[0].clear()
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             city_element[0].send_keys(UserInfo.CITY)
 
         postal_code_element = shipping_info[constants.UserInfo.POSTAL_CODE]
         if postal_code_element:
             if postal_code_element[0].get_attribute(constants.ETC.VALUE):
                 postal_code_element[0].clear()
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             postal_code_element[0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
@@ -188,14 +206,18 @@ class ShipUtils:
         state_element = shipping_info[constants.UserInfo.STATE]
         if not state_element:
             return
-        if state_element[0].tag_name == constants.Tags.INPUT:
-            logger.info("Filling state using input")
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            state_element[0].send_keys(UserInfo.STATE_INPUT)
-        else:
-            logger.info("Filling state using select option")
-            all_options = state_element[0].find_elements_by_tag_name(constants.ETC.OPTION)
-            for option in all_options:
-                if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
-                    option.click()
-                    break
+
+        for element in state_element:
+            if not element.is_enabled() or not element.is_displayed():
+                continue
+            if element.tag_name == constants.Tags.INPUT:
+                logger.info("Filling state using input")
+                # time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                state_element[0].send_keys(UserInfo.STATE_INPUT)
+            else:
+                logger.info("Filling state using select option")
+                all_options = element.find_elements_by_tag_name(constants.ETC.OPTION)
+                for option in all_options:
+                    if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
+                        option.click()
+                        break
