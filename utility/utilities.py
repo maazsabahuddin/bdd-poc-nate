@@ -111,6 +111,12 @@ class Utils:
     
     @staticmethod
     def get_required_element_2(element_dict, tag_priority_list):
+        """
+        This function take element dictionary and priority list of elements.
+        This will loop over the list and find the tag in dictionary if found,
+        then fetch element and test if it's enabled and displayed then return either
+        search for the next element in list.
+        """
         for tag in tag_priority_list:
             if tag in element_dict.keys():
                 element = Utils.get_required_element(tag, element_dict)
