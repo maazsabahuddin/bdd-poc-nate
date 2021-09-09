@@ -1,17 +1,18 @@
 
 class UserInfo:
-    FULL_NAME = "Maaz Sabah Uddin"
-    FIRST_NAME = "Faiq"
-    LAST_NAME = "Khan"
-    COUNTRY_CODE = "92"
-    PHONE = "3002817485"
+    FULL_NAME = "Sean Abbott"
+    FIRST_NAME = "Sean"
+    LAST_NAME = "Abbott"
+    COUNTRY_CODE = "1"
+    PHONE = "3024346356"
     EMAIL = "faiqkhan@techwards.co"
-    ADDRESS1 = "16 WEST MAIN ST, CHRISTIANA, DE 19702"
+    # ADDRESS1 = "16 WEST MAIN ST, CHRISTIANA, DE 19702"
+    ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
     POSTAL_CODE = "19702-3355"
     CITY = "Newark"
     STATE_INPUT = "Delaware"
-    STATE_OPTIONS = ["DE", "MA", "USLA", "LA", "AL", "California", "IS"]
+    STATE_OPTIONS = ["DE", "MA", "USLA", "LA", "AL", "California", "IS", "NY"]
     COUNTRY_OPTIONS = ["US", "PK"]
 
     # Card details
