@@ -38,7 +38,7 @@ class ShipUtils:
         :return:
         """
         for element in phone_elements:
-            for val in ["number", "Number"]:
+            for val in ["number", "Number", "phone", "Phone"]:
                 if val in element.get_attribute(constants.ETC.NAME) and \
                         element.is_enabled() and element.is_displayed():
                     return element
@@ -147,7 +147,7 @@ class ShipUtils:
                 return
 
             # If the phone element is not prefilled then this condition will be true
-            if phone_element.get_attribute(constants.ETC.VALUE):
+            if not phone_element.get_attribute(constants.ETC.VALUE):
                 # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 phone_element.send_keys(f"+{UserInfo.PHONE}")
 
