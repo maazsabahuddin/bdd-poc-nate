@@ -27,23 +27,23 @@ class Utils:
             if overlay_elements is not None:
                 overlay_elements.click()
                 return True
-            else:
-                return False
+            return False
         except exceptions.TimeoutException:
             return True
 
+
     @staticmethod
-    def get_required_element(tag, elements_list):
+    def get_required_element(tag, elements_dict):
         """
         This function returns element from the elements dict
         """
         if tag is None:
-            return None
-        else:
-            for element in elements_list[tag]:
-                if element.is_enabled() and element.is_displayed():
-                    return element
-            return None
+            return tag
+
+        for element in elements_dict[tag]:
+            if element.is_enabled() and element.is_displayed():
+                return element
+        return None
     
     @staticmethod
     def fetch_required_elements(elements, filter_list):
@@ -99,7 +99,29 @@ class Utils:
         if tag == "input":
             attribute_name = "name"
         for element in elements_dict[tag]:
-            if 'guest' in element.get_attribute(attribute_name):
+            attribute = element.get_attribute(attribute_name)
+            if attribute == None or attribute == "":
+                attribute = element.get_attribute("outerText")
+                attribute = attribute.lower()
+            if 'guest' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
+        return None
+
+    
+    @staticmethod
+    def get_required_element_2(element_dict, tag_priority_list):
+        """
+        This function take element dictionary and priority list of elements.
+        This will loop over the list and find the tag in dictionary if found,
+        then fetch element and test if it's enabled and displayed then return either
+        search for the next element in list.
+        """
+        for tag in tag_priority_list:
+            if tag in element_dict.keys():
+                element = Utils.get_required_element(tag, element_dict)
+                if element != None:
+                    return element
+                else:
+                    continue
         return None

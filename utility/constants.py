@@ -9,6 +9,7 @@ class Tags:
     H2 = "h2"
     H3 = "h3"
     DIV = "div"
+    SELECT = "select"
 
 
 class TagsList:
@@ -22,6 +23,8 @@ class TagsList:
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
 
 
 class Pattern:
@@ -37,11 +40,13 @@ class Pattern:
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(text(), 'ADD') " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag')]"
-    VIEW_CART = "//*[contains(translate(text(), 'VIEWBAG', 'viewbag'), 'view bag') " \
+    VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
-                "or text()='Cart' or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
-                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag')]"
+                "or text()='Cart' " \
+                "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
+                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag') " \
+                "or contains(@class, 'shopping-bag')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -50,7 +55,8 @@ class Pattern:
                                "or contains(translate(text(),'YOURDE','yourde'),'your order')]"
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
-                         "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue')]"
+                         "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
+                         "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
@@ -120,7 +126,44 @@ class Pattern:
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
                    "or contains(translate(text(), 'ADEILMY', 'adeilmy'), 'add my email')]"
+    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') or " \
+                      "contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') or " \
+                      "contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') or " \
+                      "contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase')]"
+    PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
+    REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
+                   "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
+    # Card details
+    CARD_NUMBER = "//*[contains(translate(@name, 'CARD', 'card'), 'card') " \
+                  "and contains(translate(@name, 'NUM', 'num'), 'num') " \
+                  "or contains(translate(@id, 'CARD', 'card'), 'card') and " \
+                  "contains(translate(@id, 'NUM', 'num'), 'num') " \
+                  "or contains(translate(@name, 'CREDITAD', 'creditad'), 'creditcard')]"
+    EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
+                       "or contains(translate(@name, 'EXPDAT', 'expdat'), 'expdate') " \
+                       "or contains(translate(@name, 'EXPDAT', 'expdat'), 'exp-date') " \
+                       "or contains(translate(@placeholder, 'MY', 'my'), 'mm/yy') " \
+                       "or contains(translate(@id, 'EXPIRATON', 'expiraton'), 'expiration') " \
+                       "or contains(translate(@id, 'MONTH', 'month'), 'month') " \
+                       "or contains(translate(@name, 'MONTH', 'month'), 'month') " \
+                       "or contains(translate(@id, 'EXP', 'exp'), 'exp')]"
+    EXPIRATION_YEAR = "//*[contains(translate(@id, 'EXPYAR', 'expyar'), 'expyear') " \
+                      "or contains(translate(@name, 'EXPYAR', 'expyar'), 'expyear') " \
+                      "or contains(translate(@name, 'EXPYAR', 'expyar'), 'exp-year') " \
+                      "or contains(translate(@id, 'YEAR', 'year'), 'year') " \
+                      "or contains(translate(@name, 'YEAR', 'year'), 'year')]"
+    CVV = "//*[contains(translate(@name, 'SECURITYOD', 'securityod'), 'securitycode') " \
+          "or contains(translate(@name, 'CV', 'cv'), 'cv') " \
+          "or contains(translate(@id, 'CVN', 'cvn'), 'cvn') " \
+          "or contains(translate(@id, 'CV', 'cvv'), 'cvv') " \
+          "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
+          "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode')]"
+    CARD_HOLDER_NAME = "//*[contains(translate(@id, 'NAME', 'name'), 'name') " \
+                       "and contains(translate(@id, 'CARD', 'card'), 'card') " \
+                       "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
+                       "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
+                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')]"
 
 class SkipScenario:
 
