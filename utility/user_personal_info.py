@@ -7,6 +7,8 @@ class UserInfo:
     PHONE = "3024346356"
     EMAIL = "faiqkhan@techwards.co"
     # ADDRESS1 = "16 WEST MAIN ST, CHRISTIANA, DE 19702"
+    # ADDRESS2 = "16 W Main St"
+    # POSTAL_CODE = "19716"
     ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
     POSTAL_CODE = "19702-3355"
