@@ -6,7 +6,6 @@ class UserInfo:
     COUNTRY_CODE = "1"
     PHONE = "3024346356"
     EMAIL = "faiqkhan@techwards.co"
-    # ADDRESS1 = "16 WEST MAIN ST, CHRISTIANA, DE 19702"
     ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
     POSTAL_CODE = "19716"

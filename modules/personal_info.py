@@ -2,6 +2,7 @@
 import time
 
 # Local imports
+from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
 from utility.constants import TagsList, Pattern, Timer
 
@@ -46,9 +47,11 @@ class PersonalInfo:
         
         if phone_elements_dict:
             if len(phone_elements_dict['input']) > 1:
-                self.phone = Utils.get_required_element('input', phone_elements_dict)
+                phone_element = Utils.get_required_element('input', phone_elements_dict)
+                self.phone = phone_element if ShipUtils.validate_phone_element(phone_element) else None
             else:
-                self.phone = phone_elements_dict['input'][0]
+                self.phone = phone_elements_dict['input'][0] \
+                    if ShipUtils.validate_phone_element(phone_elements_dict['input'][0]) else None
         
         if button_elements_dict:
             element_key = "a"
