@@ -28,11 +28,12 @@ class CardDetails:
         card_year_expiry_dict = self.__extract_required_elements(Pattern.EXPIRATION_YEAR)
         card_cvv_dict = self.__extract_required_elements(Pattern.CVV)
 
-        card_holder_name_tag = \
-            Utils.get_required_tag(card_holder_name_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
-        self.card_holder_name_element = Utils.get_required_element(card_holder_name_tag, card_holder_name_dict)
-        if self.card_holder_name_element:
-            element_count = element_count + 1
+        if card_holder_name_dict:
+            card_holder_name_tag = \
+                Utils.get_required_tag(card_holder_name_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
+            self.card_holder_name_element = Utils.get_required_element(card_holder_name_tag, card_holder_name_dict)
+            if self.card_holder_name_element:
+                element_count = element_count + 1
 
         card_number_tag = \
             Utils.get_required_tag(card_number_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
@@ -46,11 +47,12 @@ class CardDetails:
         if self.card_month_expiry_element:
             element_count = element_count + 1
 
-        card_year_expiry_tag = \
-            Utils.get_required_tag(card_year_expiry_dict.keys, TagsList.POSSIBLE_CARD_ELEMENTS)
-        self.card_year_expiry_element = Utils.get_required_element(card_year_expiry_tag, card_year_expiry_dict)
-        if self.card_year_expiry_element:
-            element_count = element_count + 1
+        if card_year_expiry_dict:
+            card_year_expiry_tag = \
+                Utils.get_required_tag(card_year_expiry_dict.keys, TagsList.POSSIBLE_CARD_ELEMENTS)
+            self.card_year_expiry_element = Utils.get_required_element(card_year_expiry_tag, card_year_expiry_dict)
+            if self.card_year_expiry_element:
+                element_count = element_count + 1
 
         card_cvv_tag = \
             Utils.get_required_tag(card_cvv_dict.keys, TagsList.POSSIBLE_CARD_ELEMENTS)
