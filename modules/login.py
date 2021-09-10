@@ -15,7 +15,7 @@ class Login:
         self.context = context
         self.web = context.web
         self.context.found_login_as_guest = False
-        self.selected_login_guest_element = ""
+        self.selected_login_guest_element = None
 
     def find_login_as_guest_feature(self):
         """
@@ -26,7 +26,8 @@ class Login:
             extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
             if len(login_as_guest_dict[extracted_element_tag]) > 1:
                 self.selected_login_guest_element = Utils.get_required_element_related_to_guest(extracted_element_tag, login_as_guest_dict)
-                self.context.found_login_as_guest = True
+                if self.selected_login_guest_element is not None:
+                    self.context.found_login_as_guest = True
             else:
                 self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
                 self.context.found_login_as_guest = True

@@ -45,8 +45,7 @@ class Pattern:
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
                 "or text()='Cart' " \
                 "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
-                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag') " \
-                "or contains(@class, 'shopping-bag')]"
+                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"

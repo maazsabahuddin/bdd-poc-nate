@@ -103,7 +103,7 @@ class Utils:
             if attribute == None or attribute == "":
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
-            if 'guest' in attribute:
+            if 'guest' in attribute or 'Guest' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
         return None
