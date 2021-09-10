@@ -1,6 +1,7 @@
-# Framework imports
+# Python imports
 import time
 
+# Framework imports
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
@@ -160,13 +161,19 @@ class ShipUtils:
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
             shipping_info[constants.UserInfo.ADDRESS2][0].send_keys(UserInfo.ADDRESS2)
 
-        if shipping_info[constants.UserInfo.CITY]:
+        city_element = shipping_info[constants.UserInfo.CITY]
+        if city_element:
+            if city_element[0].get_attribute(constants.ETC.VALUE):
+                city_element[0].clear()
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            shipping_info[constants.UserInfo.CITY][0].send_keys(UserInfo.CITY)
+            city_element[0].send_keys(UserInfo.CITY)
 
-        if shipping_info[constants.UserInfo.POSTAL_CODE]:
+        postal_code_element = shipping_info[constants.UserInfo.POSTAL_CODE]
+        if postal_code_element:
+            if postal_code_element[0].get_attribute(constants.ETC.VALUE):
+                postal_code_element[0].clear()
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            shipping_info[constants.UserInfo.POSTAL_CODE][0].send_keys(UserInfo.POSTAL_CODE)
+            postal_code_element[0].send_keys(UserInfo.POSTAL_CODE)
 
         ShipUtils.fill_state_attribute(shipping_info)
         ShipUtils.fill_country_field(shipping_info)

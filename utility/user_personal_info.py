@@ -9,7 +9,7 @@ class UserInfo:
     # ADDRESS1 = "16 WEST MAIN ST, CHRISTIANA, DE 19702"
     ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
-    POSTAL_CODE = "19702-3355"
+    POSTAL_CODE = "19716"
     CITY = "Newark"
     STATE_INPUT = "Delaware"
     STATE_OPTIONS = ["DE", "MA", "USLA", "LA", "AL", "California", "IS", "NY"]
