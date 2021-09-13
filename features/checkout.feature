@@ -45,3 +45,18 @@ Feature: Ecommerce Checkout
         Given Shipping information required page
         When Shipping information found or not
         Then Enter shipping address details and proceed
+
+    Scenario: Fill card details
+        Given order card details page
+        When card details found
+        Then fill the details and proceed to next step
+
+    Scenario: Review order
+        Given order page
+        When review order button found
+        Then review order and proceed to next step
+        
+    Scenario: Confirm and Pay
+        Given order confirmation page
+        When confirm and pay found and interactable
+        Then confirm order and pay

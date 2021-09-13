@@ -14,18 +14,24 @@ class Login:
     def __init__(self, context):
         self.context = context
         self.web = context.web
-        self.selected_login_guest_element = ""
+        self.context.found_login_as_guest = False
+        self.selected_login_guest_element = None
 
     def find_login_as_guest_feature(self):
         """
         Main function which starts the searching process
         """
         login_as_guest_dict = self.fetch_login_as_guest_elements()
-        if not login_as_guest_dict:
-            self.context.found_login_as_guest = False
-            return
-        extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
-        self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
+        if login_as_guest_dict:
+            extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
+            if len(login_as_guest_dict[extracted_element_tag]) > 1:
+                self.selected_login_guest_element = Utils.get_required_element_related_to_guest(extracted_element_tag, login_as_guest_dict)
+                if self.selected_login_guest_element is not None:
+                    self.context.found_login_as_guest = True
+            else:
+                self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
+                self.context.found_login_as_guest = True
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
     
     def click_on_login_as_guest(self):
         """
