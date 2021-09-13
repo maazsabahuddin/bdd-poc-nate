@@ -1,4 +1,5 @@
 # Python imports
+from modules.cookies_pop_up import CookiesPopUp
 import time
 
 # Framework imports
@@ -25,11 +26,16 @@ class AddToCart:
         if not add_to_dict:
             return
 
-        required_tag = Utils.get_required_tag(add_to_dict.keys(), TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-        required_element = Utils.get_required_element(required_tag, add_to_dict)
-        if required_element is not None:
+        # required_tag = Utils.get_required_tag(add_to_dict.keys(), TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+        self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+        if self.required_element is not None:
             self.is_add_to_cart_found = True
-        self.required_element = required_element
+        else:
+            is_overlay_found_and_close = self.__check_for_overlay(self.context)
+            if is_overlay_found_and_close:
+                self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+                if self.required_element is not None:
+                    self.is_add_to_cart_found = True
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
@@ -41,8 +47,16 @@ class AddToCart:
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
             # handling of overlays and pop-ups
-            logger.info('hit_add_to_cart_element: ', e)
+            self.__check_for_overlay(self.context)
             return
+
+    def __check_for_overlay(self, context):
+        logger.info("In cookies overlay function")
+        cookies_pop_up = CookiesPopUp(context)
+        logger.info("finding for cookies element")
+        cookies_pop_up.find_accept_cookies()
+        logger.info("trying to click on cookies element")
+        cookies_pop_up.accept_cookies()
 
     def check_cookies_overlay(self):
         is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)

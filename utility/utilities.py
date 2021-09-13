@@ -124,3 +124,13 @@ class Utils:
                 else:
                     continue
         return None
+
+    @staticmethod
+    def is_element_belong_to_required_element(element, list_of_element):
+        if element is None:
+            return None
+        tag_name = element.tag_name
+        if tag_name in list_of_element:
+            return element
+        else:
+            return None
