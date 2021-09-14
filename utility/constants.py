@@ -172,7 +172,8 @@ class Pattern:
                              "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
-    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close')]"
+    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') or " \
+                                "contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm')]"
 
 class SkipScenario:
 
