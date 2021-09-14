@@ -14,8 +14,7 @@ class PromotionPopUp:
 
     def find_promotion_elements(self):
         self.__promotion_elements = self.__extract_required_elements(Pattern.PROMOTION_OVERLAY_PATTERN)
-        print(self.__promotion_elements)
-
+        
     def __extract_required_elements(self, pattern):
         active_promotion_elements = []
         promotion_elements = self.web.finds_by_xpath(pattern)
