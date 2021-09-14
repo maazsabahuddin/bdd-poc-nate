@@ -171,6 +171,9 @@ class Pattern:
     ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
                              "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
 
+    # Promotion overlay
+    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close')]"
+
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"

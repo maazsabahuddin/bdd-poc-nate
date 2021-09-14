@@ -1,4 +1,5 @@
 # Framework Imports
+from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
 # Local imports
@@ -146,3 +147,10 @@ class Utils:
         cookies_pop_up = CookiesPopUp(context)
         cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
         return cookies_pop_up.accept_cookies()
+
+    
+    @staticmethod
+    def check_promotional_overlay(context):
+        promotions = PromotionPopUp(context)
+        promotions.find_promotion_elements()
+        promotions.close_promotion_dialog()
