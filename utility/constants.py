@@ -168,8 +168,8 @@ class Pattern:
                              "and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') " \
                              "or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
     '''
-    ACCEPT_COOKIES_PATTERN = "//button[text()='Accept' or text()='accept' or text()='Accept All' " \
-                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
+                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
 
 class SkipScenario:
 

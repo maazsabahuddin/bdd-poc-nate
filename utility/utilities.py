@@ -2,8 +2,8 @@
 from selenium.common import exceptions
 
 # Local imports
-from utility import constants
-
+from utility.constants import Pattern
+from modules.cookies_pop_up import CookiesPopUp
 
 class Utils:
 
@@ -23,7 +23,7 @@ class Utils:
         This function accept cookies overlay before clicking on buy button
         """
         try:
-            overlay_elements = find_by_xpath(constants.Pattern.ACCEPT_COOKIES_PATTERN)
+            overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
             if overlay_elements is not None:
                 overlay_elements.click()
                 return True
@@ -125,12 +125,24 @@ class Utils:
                     continue
         return None
 
+    
     @staticmethod
-    def is_element_belong_to_required_element(element, list_of_element):
-        if element is None:
-            return None
-        tag_name = element.tag_name
-        if tag_name in list_of_element:
-            return element
-        else:
-            return None
+    def is_element_belong_to_required_element(elements, list_of_element):
+        """
+        This function takes list of elements and priority list, to extract
+        required element from the given elements list.
+        """
+        if elements is not None:
+            for element in elements:
+                tag_name = element.tag_name
+                if tag_name in list_of_element:
+                    if element.is_enabled() and element.is_displayed():
+                        return element
+        return None
+    
+
+    @staticmethod
+    def check_cookies_overlay(context):
+        cookies_pop_up = CookiesPopUp(context)
+        cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
+        return cookies_pop_up.accept_cookies()
