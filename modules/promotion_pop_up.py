@@ -11,6 +11,7 @@ class PromotionPopUp:
         self.context = context
         self.web = context.web
         self.__promotion_elements = None
+        self.is_promo_overlay_closed = False
 
     def find_promotion_elements(self):
         self.__promotion_elements = self.__extract_required_elements(Pattern.PROMOTION_OVERLAY_PATTERN)
@@ -30,6 +31,9 @@ class PromotionPopUp:
             for element in self.__promotion_elements:
                 try:
                     element.click()
+                    self.is_promo_overlay_closed = True
                     time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
                 except Exception as e:
-                    logger.info(f"Exception on element: {element.get_attribute('outerHTML')} of {str(e)}")
+                    print(e)
+                    continue
+        return self.is_promo_overlay_closed

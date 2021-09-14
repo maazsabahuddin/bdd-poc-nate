@@ -1,4 +1,7 @@
-# Framework Imports
+# Python imports
+import multiprocessing
+
+# Framework imports
 from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
@@ -143,14 +146,35 @@ class Utils:
     
 
     @staticmethod
-    def check_cookies_overlay(context):
+    def check_cookies_overlay(context, overlay_dict):
         cookies_pop_up = CookiesPopUp(context)
         cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
-        return cookies_pop_up.accept_cookies()
+        overlay_dict['cookies'] = cookies_pop_up.accept_cookies()
 
     
     @staticmethod
-    def check_promotional_overlay(context):
+    def check_promotional_overlay(context, overlay_dict):
         promotions = PromotionPopUp(context)
         promotions.find_promotion_elements()
-        promotions.close_promotion_dialog()
+        overlay_dict['promotion'] = promotions.close_promotion_dialog()
+
+    
+    @staticmethod
+    def check_overlays(context):
+        manager = multiprocessing.Manager()
+        overlay_dict = manager.dict()
+
+        process1 = multiprocessing.Process(target=Utils.check_cookies_overlay(context, overlay_dict))
+        process2 = multiprocessing.Process(target=Utils.check_promotional_overlay(context, overlay_dict))
+        
+        process1.start()
+        process2.start()
+        
+        process1.join()
+        process2.join()
+
+        if True in overlay_dict.values():
+            return True
+        else:
+            return False
+            

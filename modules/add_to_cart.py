@@ -1,5 +1,6 @@
 # Python imports
 import time
+import multiprocessing
 
 # Framework imports
 from selenium.common import exceptions
@@ -28,8 +29,8 @@ class AddToCart:
         if self.required_element is not None:
             self.is_add_to_cart_found = True
         else:
-            is_overlay_found_and_close = Utils.check_cookies_overlay(self.context)
-            if is_overlay_found_and_close:
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            if is_overlays_found_and_close:
                 self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
                 if self.required_element is not None:
                     self.is_add_to_cart_found = True
@@ -42,8 +43,10 @@ class AddToCart:
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            is_overlay_found_and_close = Utils.check_cookies_overlay(self.context)
-            if is_overlay_found_and_close:
+            print("In exception of add to cart button")
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            print(is_overlays_found_and_close)
+            if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
     
     def __click_and_wait_for(self, timer):
