@@ -18,7 +18,7 @@ class PromotionPopUp:
         
     def __extract_required_elements(self, pattern):
         active_promotion_elements = []
-        promotion_elements = self.web.finds_by_xpath(pattern)
+        promotion_elements = self.web.find_by_xpath(pattern)
         if promotion_elements is not None:
             for promotion_element in promotion_elements:
                 if promotion_element.is_enabled() and promotion_element.is_displayed():
