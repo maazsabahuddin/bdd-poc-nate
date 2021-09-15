@@ -9,6 +9,7 @@ from selenium.common import exceptions
 from utility.constants import Pattern
 from modules.cookies_pop_up import CookiesPopUp
 
+
 class Utils:
 
     @staticmethod
@@ -103,7 +104,7 @@ class Utils:
             attribute_name = "name"
         for element in elements_dict[tag]:
             attribute = element.get_attribute(attribute_name)
-            if attribute == None or attribute == "":
+            if not attribute:
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
             if 'guest' in attribute or 'Guest' in attribute:
@@ -111,7 +112,6 @@ class Utils:
                     return element
         return None
 
-    
     @staticmethod
     def get_required_element_2(element_dict, tag_priority_list):
         """
@@ -123,13 +123,11 @@ class Utils:
         for tag in tag_priority_list:
             if tag in element_dict.keys():
                 element = Utils.get_required_element(tag, element_dict)
-                if element != None:
+                if element:
                     return element
-                else:
-                    continue
+                continue
         return None
 
-    
     @staticmethod
     def is_element_belong_to_required_element(elements, list_of_element):
         """
@@ -143,7 +141,6 @@ class Utils:
                     if element.is_enabled() and element.is_displayed():
                         return element
         return None
-    
 
     @staticmethod
     def check_cookies_overlay(context, overlay_dict):
@@ -151,13 +148,11 @@ class Utils:
         cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
         overlay_dict['cookies'] = cookies_pop_up.accept_cookies()
 
-    
     @staticmethod
     def check_promotional_overlay(context, overlay_dict):
         promotions = PromotionPopUp(context)
         promotions.find_promotion_elements()
         overlay_dict['promotion'] = promotions.close_promotion_dialog()
-
     
     @staticmethod
     def check_overlays(context):
@@ -175,6 +170,5 @@ class Utils:
 
         if True in overlay_dict.values():
             return True
-        else:
-            return False
+        return False
             
