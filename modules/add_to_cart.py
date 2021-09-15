@@ -1,11 +1,11 @@
 # Python imports
 import time
-import multiprocessing
 
 # Framework imports
 from selenium.common import exceptions
 
 # Local imports
+from modules.logger import logger
 from utility.utilities import Utils
 from utility.constants import Pattern, TagsList, Timer
 
@@ -45,9 +45,9 @@ class AddToCart:
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            print("In exception of add to cart button")
+            logger.info(f"In exception of add to cart button.. {str(e)}")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
-            print(is_overlays_found_and_close)
+            logger.info(is_overlays_found_and_close)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
     
