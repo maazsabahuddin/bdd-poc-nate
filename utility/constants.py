@@ -16,7 +16,7 @@ class TagsList:
 
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
-    POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.A, Tags.DIV]
     POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
@@ -25,15 +25,13 @@ class TagsList:
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
+    POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON]
 
 
 class Pattern:
 
     BUY_PATTERN = "//*[contains(translate(text(), 'BUY', 'buy'), 'buy') " \
                   "or contains(translate(@value, 'BUY', 'buy'), 'buy')]"
-    ACCEPT_COOKIES_PATTERN = "//*[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
-                             "and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') " \
-                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
     ADD_TO_PATTERN = "//*[contains(translate(text(), 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(translate(text(), 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
@@ -164,6 +162,18 @@ class Pattern:
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
                        "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')]"
+    # Cookies overlay
+    '''
+    ACCEPT_COOKIES_PATTERN = "//button[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
+                             "and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') " \
+                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
+    '''
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
+                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
+
+    # Promotion overlay
+    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') or " \
+                                "contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm')]"
 
 class SkipScenario:
 

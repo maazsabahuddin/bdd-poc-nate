@@ -5,9 +5,9 @@ import time
 from selenium.common import exceptions
 
 # Local imports
+from modules.logger import logger
 from utility.utilities import Utils
 from utility.constants import Pattern, TagsList, Timer
-from modules.logger import logger
 
 
 class AddToCart:
@@ -20,16 +20,22 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+        self.web.scroll_page(0, 30)
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
             return
 
-        required_tag = Utils.get_required_tag(add_to_dict.keys(), TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-        required_element = Utils.get_required_element(required_tag, add_to_dict)
-        if required_element is not None:
+        self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+        if self.required_element is not None:
             self.is_add_to_cart_found = True
-        self.required_element = required_element
+        else:
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            if is_overlays_found_and_close:
+                self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+                if self.required_element is not None:
+                    self.is_add_to_cart_found = True
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
@@ -37,33 +43,14 @@ class AddToCart:
 
     def hit_add_to_cart_element(self):
         try:
-            self.required_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            # handling of overlays and pop-ups
-            logger.info('hit_add_to_cart_element: ', e)
-            return
-
-    def check_cookies_overlay(self):
-        is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
-        if is_cookies_overlay:
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-            self.find_add_to_()
-
-        return is_cookies_overlay
+            logger.info(f"In exception of add to cart button.. {str(e)}")
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            logger.info(is_overlays_found_and_close)
+            if is_overlays_found_and_close:
+                self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
     
-    def is_closeable_overlay(self):
-        try:
-            cross_element = \
-                self.web.find_by_xpath_wait("//*[contains(@aria-label,'Close Menu') or contains(@aria-label,'Close')]")
-            if cross_element is not None:
-                cross_element.click()
-                time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-                self.find_add_to_()
-                return True
-            else:
-                return False
-        except (exceptions.TimeoutException, exceptions.ElementClickInterceptedException) as e:
-            logger.info(str(e))
-            logger.info("is_closeable_overlay: ", e)
-            return False
+    def __click_and_wait_for(self, timer):
+        self.required_element.click()
+        time.sleep(timer)
