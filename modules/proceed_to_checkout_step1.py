@@ -36,6 +36,3 @@ class ProceedToCheckoutStep1:
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
             print("In exception")
-            parent_element = self.web.find_parent_element_from_child(self.required_element)
-            parent_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
