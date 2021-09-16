@@ -156,6 +156,11 @@ class Utils:
     
     @staticmethod
     def check_overlays(context):
+        """
+        This function open two processes to run the given tasks parallel.
+        manager.dict return multiprocess shared dictionary.
+        Shared dict is used to keep track on pop-up windows.
+        """
         manager = multiprocessing.Manager()
         overlay_dict = manager.dict()
 
