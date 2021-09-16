@@ -13,13 +13,15 @@ class CardDetails:
         self.web = context.web
         self.is_card_details_found = False
         self.card_holder_name_element = None
-        self.card_number = None
+        self.card_number_element = None
         self.card_month_expiry_element = None
         self.card_year_expiry_element = None
         self.card_cvv_element = None
         
     def find_card_details_elements(self):
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        time.sleep(50)
+        # time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        print("start extracting elements")
         element_count = 0
         
         card_holder_name_dict = self.__extract_required_elements(Pattern.CARD_HOLDER_NAME)
@@ -29,36 +31,34 @@ class CardDetails:
         card_cvv_dict = self.__extract_required_elements(Pattern.CVV)
 
         if card_holder_name_dict:
-            card_holder_name_tag = \
-                Utils.get_required_tag(card_holder_name_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
-            self.card_holder_name_element = Utils.get_required_element(card_holder_name_tag, card_holder_name_dict)
-            if self.card_holder_name_element:
+            self.card_holder_name_element = Utils.get_required_element_2(card_holder_name_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
+            print("card holder name: ", self.card_holder_name_element)
+            if not self.card_holder_name_element:
                 element_count = element_count + 1
 
-        card_number_tag = \
-            Utils.get_required_tag(card_number_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
-        self.card_number_element = Utils.get_required_element(card_number_tag, card_number_dict)
-        if self.card_number_element:
-            element_count = element_count + 1
+        if card_number_dict:
+            self.card_number_element = Utils.get_required_element_2(card_number_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
+            print("card number: ", self.card_number_element)
+            if not self.card_number_element:
+                element_count = element_count + 1
         
-        card_month_expiry_tag = \
-            Utils.get_required_tag(card_month_expiry_dict.keys(), TagsList.POSSIBLE_CARD_ELEMENTS)
-        self.card_month_expiry_element = Utils.get_required_element(card_month_expiry_tag, card_month_expiry_dict)
-        if self.card_month_expiry_element:
-            element_count = element_count + 1
+        if card_month_expiry_dict:
+            self.card_month_expiry_element = Utils.get_required_element_2(card_month_expiry_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
+            print("card month: ", self.card_month_expiry_element)
+            if not self.card_month_expiry_element:
+                element_count = element_count + 1
 
         if card_year_expiry_dict:
-            card_year_expiry_tag = \
-                Utils.get_required_tag(card_year_expiry_dict.keys, TagsList.POSSIBLE_CARD_ELEMENTS)
-            self.card_year_expiry_element = Utils.get_required_element(card_year_expiry_tag, card_year_expiry_dict)
-            if self.card_year_expiry_element:
+            self.card_year_expiry_element = Utils.get_required_element_2(card_year_expiry_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
+            print("card year: ", self.card_year_expiry_element)
+            if not self.card_year_expiry_element:
                 element_count = element_count + 1
 
-        card_cvv_tag = \
-            Utils.get_required_tag(card_cvv_dict.keys, TagsList.POSSIBLE_CARD_ELEMENTS)
-        self.card_cvv_element = Utils.get_required_element(card_cvv_tag, card_cvv_dict)
-        if self.card_cvv_element:
-            element_count = element_count + 1
+        if card_cvv_dict:
+            self.card_cvv_element = Utils.get_required_element_2(card_cvv_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
+            print("card cvv: ", self.card_cvv_element)
+            if not self.card_cvv_element:
+                element_count = element_count + 1
 
         if element_count >= 3:
             self.is_card_details_found = True

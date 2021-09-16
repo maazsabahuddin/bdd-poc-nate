@@ -123,7 +123,7 @@ class Utils:
         for tag in tag_priority_list:
             if tag in element_dict.keys():
                 element = Utils.get_required_element(tag, element_dict)
-                if element != None:
+                if not element:
                     return element
                 else:
                     continue
