@@ -24,8 +24,7 @@ class CookiesPopUp:
                 self.__accept_cookies_element.click()
                 time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
                 return True
-            else:
-                return False
+            return False
         except Exception as e:
             print("cookies pop up  exception: ", str(e))
             return False

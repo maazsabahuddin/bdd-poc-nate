@@ -29,7 +29,7 @@ class Utils:
         """
         try:
             overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
-            if overlay_elements is not None:
+            if overlay_elements:
                 overlay_elements.click()
                 return True
             return False
@@ -134,10 +134,9 @@ class Utils:
         This function takes list of elements and priority list, to extract
         required element from the given elements list.
         """
-        if elements is not None:
+        if elements:
             for element in elements:
-                tag_name = element.tag_name
-                if tag_name in list_of_element:
+                if element.tag_name in list_of_element:
                     if element.is_enabled() and element.is_displayed():
                         return element
         return None
