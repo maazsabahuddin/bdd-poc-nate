@@ -21,8 +21,9 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
-    context.config.setup_logging()
     setup_debug_on_error(context.config.userdata)
+    if not context.config.log_capture:
+        context.config.setup_logging()
     logger.info("Enabling logs")
 
     # This flag will be used to skip all future scenarios, can be set from anywhere
