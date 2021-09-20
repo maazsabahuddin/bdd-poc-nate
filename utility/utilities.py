@@ -6,7 +6,7 @@ from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
 # Local imports
-from utility.constants import Pattern
+from utility.constants import Pattern, Tags
 from modules.cookies_pop_up import CookiesPopUp
 
 class Utils:
@@ -40,14 +40,14 @@ class Utils:
         """
         This function returns element from the elements dict
         """
-        if tag is None:
-            return tag
-
         for element in elements_dict[tag]:
             if element.is_enabled() and element.is_displayed():
                 return element
+            elif element.is_enabled() and element.get_attribute("type") == "radio" and element.tag_name == Tags.INPUT:
+                return element
         return None
     
+
     @staticmethod
     def fetch_required_elements(elements, filter_list):
         """
@@ -76,6 +76,7 @@ class Utils:
                     })
         return result_dict
     
+
     @staticmethod
     def find_parent_element_from_child(child_element, filter_list):
         """
@@ -91,6 +92,7 @@ class Utils:
             return None
         except exceptions.NoSuchElementException:
             return None
+
 
     @staticmethod
     def get_required_element_related_to_guest(tag, elements_dict):
@@ -123,7 +125,7 @@ class Utils:
         for tag in tag_priority_list:
             if tag in element_dict.keys():
                 element = Utils.get_required_element(tag, element_dict)
-                if not element:
+                if element:
                     return element
                 else:
                     continue
@@ -177,4 +179,37 @@ class Utils:
             return True
         else:
             return False
-            
+    
+
+    @staticmethod
+    def extract_required_element_2(list_of_elements):
+        if list_of_elements:
+            for element in list_of_elements:
+                if element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT:
+                    if element.is_enabled() and element.is_displayed():
+                        return element
+                else:
+                    continue
+        return None
+    
+
+    @staticmethod
+    def fetch_required_elements3(elements, filter_list):
+        """
+        This function returns filter dict from extracted elements
+        """
+        result_dict = {}
+        # if no elements found, return empty dict
+        if len(elements) == 0:
+            return result_dict
+
+        for ele in elements:
+            tag_name = ele.tag_name
+            if tag_name in filter_list:
+                if result_dict.get(tag_name):
+                    result_dict.get(tag_name).append(ele)
+                else:
+                    result_dict.update({
+                        tag_name: [ele]
+                    })
+        return result_dict

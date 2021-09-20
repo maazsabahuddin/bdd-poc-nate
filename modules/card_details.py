@@ -2,8 +2,11 @@
 import time
 
 # Local imports
-from utility.constants import Pattern, TagsList, Timer
+from utility.constants import Pattern, Tags, TagsList, Timer, ETC, UserInfo
 from utility.utilities import Utils
+
+# Framework imports
+from selenium.common import exceptions
 
 
 class CardDetails:
@@ -19,70 +22,125 @@ class CardDetails:
         self.card_cvv_element = None
         
     def find_card_details_elements(self):
-        time.sleep(50)
+        time.sleep(120)
         # time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         print("start extracting elements")
         element_count = 0
         
-        card_holder_name_dict = self.__extract_required_elements(Pattern.CARD_HOLDER_NAME)
-        card_number_dict = self.__extract_required_elements(Pattern.CARD_NUMBER)
-        card_month_expiry_dict = self.__extract_required_elements(Pattern.EXPIRATION_MONTH)
-        card_year_expiry_dict = self.__extract_required_elements(Pattern.EXPIRATION_YEAR)
-        card_cvv_dict = self.__extract_required_elements(Pattern.CVV)
+        self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
+        self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
+        self.card_number_element = self.__get_required_element(Pattern.CARD_NUMBER)
+        self.card_month_expiry_element = self.__get_required_element(Pattern.EXPIRATION_MONTH)
+        self.card_year_expiry_element = self.__get_required_element(Pattern.EXPIRATION_YEAR)
+        self.card_cvv_element = self.__get_required_element(Pattern.CVV)
 
-        if card_holder_name_dict:
-            self.card_holder_name_element = Utils.get_required_element_2(card_holder_name_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
-            print("card holder name: ", self.card_holder_name_element)
-            if not self.card_holder_name_element:
-                element_count = element_count + 1
+        if self.card_holder_name_element:
+            element_count = element_count + 1
 
-        if card_number_dict:
-            self.card_number_element = Utils.get_required_element_2(card_number_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
-            print("card number: ", self.card_number_element)
-            if not self.card_number_element:
-                element_count = element_count + 1
+        if self.card_number_element:
+            element_count = element_count + 1
         
-        if card_month_expiry_dict:
-            self.card_month_expiry_element = Utils.get_required_element_2(card_month_expiry_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
-            print("card month: ", self.card_month_expiry_element)
-            if not self.card_month_expiry_element:
-                element_count = element_count + 1
+        if self.card_month_expiry_element:
+            element_count = element_count + 1
 
-        if card_year_expiry_dict:
-            self.card_year_expiry_element = Utils.get_required_element_2(card_year_expiry_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
-            print("card year: ", self.card_year_expiry_element)
-            if not self.card_year_expiry_element:
-                element_count = element_count + 1
+        if self.card_year_expiry_element:
+            element_count = element_count + 1
 
-        if card_cvv_dict:
-            self.card_cvv_element = Utils.get_required_element_2(card_cvv_dict, TagsList.POSSIBLE_CARD_ELEMENTS)
-            print("card cvv: ", self.card_cvv_element)
-            if not self.card_cvv_element:
-                element_count = element_count + 1
+        if self.card_cvv_element:
+            element_count = element_count + 1
 
         if element_count >= 3:
             self.is_card_details_found = True
 
-
-    def __extract_required_elements(self, pattern):
-        add_to_elements = self.web.finds_by_xpath_wait(pattern)
-        return Utils.fetch_required_elements(add_to_elements, TagsList.POSSIBLE_CARD_ELEMENTS)
-
+    def __get_required_element(self, pattern):
+        extracted_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.extract_required_element_2(list_of_elements=extracted_elements)
     
-    def select_and_populate_card_details(self, card_number, card_holder_name, card_month_expiry, card_year_expiry, card_cvv, card_expiry):
-        self.card_number_element.send_keys(card_number)
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
-        if not self.card_year_expiry_element is None:
-            self.card_month_expiry_element.send_keys(card_month_expiry)
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            self.card_year_expiry_element.send_keys(card_year_expiry)
+    def select_and_populate_card_details(self, card_number, card_holder_name, 
+                                        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
+        self.__populate_card_number(number=card_number)
+        self.__populate_card_expiration_details(month=card_month_expiry, year=card_year_expiry, m_y=card_expiry)
+        self.__populate_card_holder_name(name=card_holder_name)
+        self.__populate_card_security_code(cvv=card_cvv)
+        time.sleep(15)
+
+    def __populate_month(self, month):
+        if self.card_month_expiry_element.tag_name == Tags.SELECT:
+            all_options = self.card_month_expiry_element.find_elements_by_tag_name(ETC.OPTION)
+            for option in all_options:
+                if option.get_attribute(ETC.VALUE) == UserInfo.CARD_EXPIRATION_MONTH:
+                    option.click()
+                    break
         else:
-            self.card_month_expiry_element.send_keys(card_expiry)
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-        self.card_cvv_element.send_keys(card_cvv)
+            self.card_month_expiry_element.send_keys(month)
         time.sleep(Timer.ONE_SECOND_TIMEOUT)
+
+    def __populate_year(self, year):
+        if self.card_year_expiry_element.tag_name == Tags.SELECT:
+            all_options = self.card_year_expiry_element.find_elements_by_tag_name(ETC.OPTION)
+            for option in all_options:
+                if option.get_attribute(ETC.VALUE) == UserInfo.CARD_EXPIRATION_YEAR:
+                    option.click()
+                    break
+        else:
+            self.card_month_expiry_element.send_keys(year)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+
+    def __populate_card_holder_name(self, name):
         if self.card_holder_name_element != None:
-            self.card_holder_name_element.send_keys(card_holder_name)
+            self.card_holder_name_element.send_keys(name)
             time.sleep(Timer.ONE_SECOND_TIMEOUT)
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        
+
+    def __populate_card_expiration_details(self, month, year, m_y):
+        if self.card_year_expiry_element:
+            self.__populate_month(month=month)
+            self.__populate_year(year=year)
+        else:
+            self.__populate_month(month=m_y)
+
+    def __populate_card_number(self, number):
+        self.card_number_element.send_keys(number)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+
+    def __populate_card_security_code(self, cvv):
+        self.card_cvv_element.send_keys(cvv)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+
+    def __update_card_type_details_if_any(self, pattern):
+        extracted_elements = self.web.finds_by_xpath_wait(pattern)
+        print("extracted elements: ", extracted_elements)
+        card_type_dict = Utils.fetch_required_elements3(extracted_elements, TagsList.POSSIBLE_CARD_TYPE_ELEMENTS)
+        print("card type dictionary: ", card_type_dict)
+        card_type_element = Utils.get_required_element_2(card_type_dict, TagsList.POSSIBLE_CARD_TYPE_ELEMENTS)
+        self.__select_card_type(element=card_type_element)
+
+    def __select_card_type(self, element):
+        if element:
+            if element.tag_name == Tags.SELECT:
+                all_options = element.find_elements_by_tag_name(ETC.OPTION)
+                for option in all_options:
+                    if option.get_attribute(ETC.TEXT) in UserInfo.CARD_TYPE:
+                        option.click()
+                        break
+            else:
+                print("trying to click on different element")
+                print(element.get_attribute("outerHTML"))
+                try:
+                    element.click()
+                except exceptions.ElementNotInteractableException:
+                    print("In exception")
+                    parent_element = Utils.find_parent_element_from_child(child_element=element, filter_list=["label"])
+                    if parent_element:
+                        print("parent clicked")
+                        parent_element.click()
+                    else:
+                        print("finding label using for attribute")
+                        element_id = element.get_attribute("id")
+                        print("element id: ", element_id)
+                        sibling_elements = self.web.find_by_xpath(f"//label[@for={element_id}]")
+                        if sibling_elements:
+                            print("clicking on sibling")
+                            sibling_elements.click()
+                        else:
+                            return
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
