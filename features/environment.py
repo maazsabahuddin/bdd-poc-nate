@@ -21,10 +21,12 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
+    # A “debug on error/failure” functionality can easily be provided, by using the after_step() hook.
+    # The debugger is started when a step fails.
     setup_debug_on_error(context.config.userdata)
     if not context.config.log_capture:
         context.config.setup_logging()
-    logger.info("Enabling logs")
+    logger.info("Logs enabled..")
 
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[SkipScenario.SKIP_ALL] = False
@@ -108,7 +110,5 @@ def before_tag(context, tag):
 
 def after_step(context, step):
     if BEHAVE_DEBUG_ON_ERROR and step.status == "failed":
-        # -- ENTER DEBUGGER: Zoom in on failure location.
-        # NOTE: Use IPython debugger, same for pdb (basic python debugger).
         import ipdb
         ipdb.post_mortem(step.exc_traceback)
