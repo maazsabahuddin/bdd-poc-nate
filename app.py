@@ -21,13 +21,13 @@ sites = {"macys":
              "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867"}
 
 _result = open("result.txt", "a")
-print("\n>>>>>>>>>>>>>>>>>>>>>>>> File opened to write results >>>>>>>>>>>>>>>>>>>>>>>>>")
-
+log = True
 
 if __name__ == '__main__':
+
     for site, url in sites.items():
         print("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         print(f">                                running {site}                                      >")
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-        os.system(f'cmd /c "behave -D url={url}"')
-        _result.close()
+        os.system(f'cmd /c "behave -D url={url} -D name={site}"')
+    _result.close()
