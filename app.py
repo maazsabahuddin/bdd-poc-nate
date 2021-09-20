@@ -20,11 +20,14 @@ sites = {"macys":
          "walmart":
              "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867"}
 
+_result = open("result.txt", "a")
+print("\n>>>>>>>>>>>>>>>>>>>>>>>> File opened to write results >>>>>>>>>>>>>>>>>>>>>>>>>")
+
 
 if __name__ == '__main__':
-    # behave_main()
     for site, url in sites.items():
         print("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         print(f">                                running {site}                                      >")
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
         os.system(f'cmd /c "behave -D url={url}"')
+        _result.close()
