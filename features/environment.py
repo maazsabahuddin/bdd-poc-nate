@@ -64,7 +64,8 @@ def before_all(context):
 
     logger.info("Setting url and web object.")
     context.url = context.config.userdata['url']
-    context.name = context.config.userdata['name']
+    context.name = context.config.userdata.get('name')
+    context.log = context.config.userdata.get('log')
     web = Base(browser, context)
     context.web = web
 

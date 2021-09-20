@@ -1,4 +1,5 @@
 # Python imports
+import datetime
 import os
 
 # Framework imports
@@ -15,19 +16,29 @@ def _execute():
 sites = {"macys":
              "https://www.macys.com/shop/product/diesel-caged-three-hand-black-leather-watch?ID=12122328",
          "gap":
-             "https://www.gap.com/browse/product.do?pid=619568022&cid=15043&pcid=15043&vid=6&cpos=3&cexp=1567&kcid="
-             "CategoryIDs%3D15043&cvar=11754&ctype=Listing&cpid=res21081601211129801446166#pdp-page-content",
+             "https://www.gap.com/browse/product.do?pid=619568022&cid=15043",
          "walmart":
              "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867"}
 
 _result = open("result.txt", "a")
-log = True
+log_flag = True
+
+
+def log_site(_site):
+    print("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    print(f">                                running {_site}                                      >")
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
+
 
 if __name__ == '__main__':
 
+    current_datetime = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+    _result.write(f"Date and Time: {current_datetime} \n") if log_flag else None
+    _result.close()
+
+    _result = open("result.txt", "a")
     for site, url in sites.items():
-        print("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        print(f">                                running {site}                                      >")
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
-        os.system(f'cmd /c "behave -D url={url} -D name={site}"')
+        log_site(site)
+        os.system(f'cmd /c "behave -D name={site} -D log={log_flag} -D url={url}"')
+        _result.write("\n") if list(sites.keys())[-1] == site and log_flag else None
     _result.close()
