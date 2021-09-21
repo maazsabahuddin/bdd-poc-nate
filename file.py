@@ -52,10 +52,17 @@ def read_file_and_append_result():
         _result_sites.update({_site: "FAILED"})
 
     success_ratio = get_success_ratio(passed_sites)
-    automation_result_file.write(f"\nSuccess rate: {success_ratio}\n\n") if log_flag else None
+    automation_result_file.write(f"\nPassed sites: {len(passed_sites)}\n") if log_flag else None
+    automation_result_file.write(f"Failed sites: {len(failed_sites)}\n") if log_flag else None
+    automation_result_file.write(f"Total sites: {len(sites)}\n") if log_flag else None
+    automation_result_file.write(f"Success rate: {success_ratio}\n\n") if log_flag else None
+    automation_result_file.write(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n") if log_flag else None
     log_site(_site="Result", message="Automation")
     print(_result_sites)
-    print(success_ratio)
+    print(f"Passed sites: {len(passed_sites)}")
+    print(f"Failed sites: {len(failed_sites)}")
+    print(f"Total sites: {len(sites)}")
+    print(f"Success rate: {success_ratio}")
     close_file(automation_result_file)
 
 
