@@ -51,7 +51,18 @@ def read_file_and_append_result():
         automation_result_file.write(f"Site: {_site} - FAILED\n") if log_flag else None
         _result_sites.update({_site: "FAILED"})
 
-    automation_result_file.write("\n") if log_flag else None
+    success_ratio = get_success_ratio(passed_sites)
+    automation_result_file.write(f"\nSuccess rate: {success_ratio}\n\n") if log_flag else None
     log_site(_site="Result", message="Automation")
     print(_result_sites)
+    print(success_ratio)
     close_file(automation_result_file)
+
+
+def get_success_ratio(passed_sites):
+    from app import sites
+    return str(_format_percentage((len(passed_sites) / len(sites)) * 100))+"%"
+
+
+def _format_percentage(value):
+    return '{:.2f}'.format(float(value))
