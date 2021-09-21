@@ -56,3 +56,9 @@ class Base:
     def scroll_page(self, horizontal_axis, vertical_axis):
         query = f"window.scrollTo({horizontal_axis}, {vertical_axis})"
         self.web_driver.execute_script(query)
+
+    def switch_to_frame(self, iframe):
+        self.web_driver.switch_to_frame(iframe)
+    
+    def switch_to_default_content(self):
+        self.web_driver.switch_to_default_content()

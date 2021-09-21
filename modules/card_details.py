@@ -20,48 +20,34 @@ class CardDetails:
         self.card_month_expiry_element = None
         self.card_year_expiry_element = None
         self.card_cvv_element = None
+        self.card_elements_iframes = None
         
     def find_card_details_elements(self):
         time.sleep(120)
         # time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         print("start extracting elements")
-        element_count = 0
         
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
-        self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
-        self.card_number_element = self.__get_required_element(Pattern.CARD_NUMBER)
-        self.card_month_expiry_element = self.__get_required_element(Pattern.EXPIRATION_MONTH)
-        self.card_year_expiry_element = self.__get_required_element(Pattern.EXPIRATION_YEAR)
-        self.card_cvv_element = self.__get_required_element(Pattern.CVV)
-
-        if self.card_holder_name_element:
-            element_count = element_count + 1
-
-        if self.card_number_element:
-            element_count = element_count + 1
-        
-        if self.card_month_expiry_element:
-            element_count = element_count + 1
-
-        if self.card_year_expiry_element:
-            element_count = element_count + 1
-
-        if self.card_cvv_element:
-            element_count = element_count + 1
-
-        if element_count >= 3:
-            self.is_card_details_found = True
+        self.__scrap_required_elements()
+        self.is_card_details_found = self.__is_required_fields_found()
+        if not self.is_card_details_found:
+            print("finding for iframe")
+            self.find_required_iframe()
 
     def __get_required_element(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
         return Utils.extract_required_element_2(list_of_elements=extracted_elements)
     
     def select_and_populate_card_details(self, card_number, card_holder_name, 
-                                        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
-        self.__populate_card_number(number=card_number)
-        self.__populate_card_expiration_details(month=card_month_expiry, year=card_year_expiry, m_y=card_expiry)
-        self.__populate_card_holder_name(name=card_holder_name)
-        self.__populate_card_security_code(cvv=card_cvv)
+        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
+        if self.card_number_element:
+            self.__populate_card_number(number=card_number)
+        if self.card_month_expiry_element:
+            self.__populate_card_expiration_details(month=card_month_expiry, year=card_year_expiry, m_y=card_expiry)
+        if self.card_holder_name_element:
+            self.__populate_card_holder_name(name=card_holder_name)
+        if self.card_cvv_element:
+            self.__populate_card_security_code(cvv=card_cvv)
         time.sleep(15)
 
     def __populate_month(self, month):
@@ -144,3 +130,53 @@ class CardDetails:
                         else:
                             return
             time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+
+    def __is_required_fields_found(self):
+        element_count = 0
+        if self.card_holder_name_element:
+            element_count = element_count + 1
+
+        if self.card_number_element:
+            element_count = element_count + 1
+        
+        if self.card_month_expiry_element:
+            element_count = element_count + 1
+
+        if self.card_year_expiry_element:
+            element_count = element_count + 1
+
+        if self.card_cvv_element:
+            element_count = element_count + 1
+
+        if element_count >= 3:
+            return True
+
+    def __scrap_required_elements(self):
+        self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
+        self.card_number_element = self.__get_required_element(Pattern.CARD_NUMBER)
+        print("card number: ", self.card_number_element)
+        self.card_month_expiry_element = self.__get_required_element(Pattern.EXPIRATION_MONTH)
+        print("card expiry month: ", self.card_month_expiry_element)
+        self.card_year_expiry_element = self.__get_required_element(Pattern.EXPIRATION_YEAR)
+        self.card_cvv_element = self.__get_required_element(Pattern.CVV)
+        print("card cvv: ", self.card_cvv_element)
+
+    def find_required_iframe(self):
+        iframe_pattern = "//iframe[contains(translate(@title, 'PAYMENT', 'payment'), 'payment') " \
+                         "or contains(translate(@title, 'CARDTINPU', 'cardtinpu'), 'card data input') " \
+                         "or contains(translate(@id, 'IFRAMEXP', 'iframexp'), 'iframe-exp') " \
+                         "or contains(translate(@id, 'IFRAMECN', 'iframecn'), 'iframe-ccn') " \
+                         "or contains(translate(@id, 'IFRAMEXP', 'iframexp'), 'iframe-exp') " \
+                         "or contains(translate(@id, 'IFRAMECV', 'iframecv'), 'iframe-cvv')]"
+        self.card_elements_iframes = self.web.finds_by_xpath_wait(iframe_pattern)
+        if self.card_elements_iframes:
+            self.is_card_details_found = True
+
+    def focus_and_update_iframe_fields(self, card_number, card_holder_name, 
+        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
+        for iframe in self.card_elements_iframes:
+            self.web.switch_to_frame(iframe)
+            self.__scrap_required_elements()
+            self.select_and_populate_card_details(card_number, card_holder_name, 
+                card_month_expiry, card_year_expiry, card_cvv, card_expiry)
+            self.web.switch_to_default_content()
