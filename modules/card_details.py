@@ -23,15 +23,12 @@ class CardDetails:
         self.card_elements_iframes = None
         
     def find_card_details_elements(self):
-        time.sleep(120)
-        # time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        print("start extracting elements")
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
         self.__scrap_required_elements()
         self.is_card_details_found = self.__is_required_fields_found()
         if not self.is_card_details_found:
-            print("finding for iframe")
             self.find_required_iframe()
 
     def __get_required_element(self, pattern):
@@ -94,9 +91,7 @@ class CardDetails:
 
     def __update_card_type_details_if_any(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
-        print("extracted elements: ", extracted_elements)
         card_type_dict = Utils.fetch_required_elements3(extracted_elements, TagsList.POSSIBLE_CARD_TYPE_ELEMENTS)
-        print("card type dictionary: ", card_type_dict)
         card_type_element = Utils.get_required_element_2(card_type_dict, TagsList.POSSIBLE_CARD_TYPE_ELEMENTS)
         self.__select_card_type(element=card_type_element)
 
@@ -109,23 +104,16 @@ class CardDetails:
                         option.click()
                         break
             else:
-                print("trying to click on different element")
-                print(element.get_attribute("outerHTML"))
                 try:
                     element.click()
                 except exceptions.ElementNotInteractableException:
-                    print("In exception")
                     parent_element = Utils.find_parent_element_from_child(child_element=element, filter_list=["label"])
                     if parent_element:
-                        print("parent clicked")
                         parent_element.click()
                     else:
-                        print("finding label using for attribute")
                         element_id = element.get_attribute("id")
-                        print("element id: ", element_id)
                         sibling_elements = self.web.find_by_xpath(f"//label[@for={element_id}]")
                         if sibling_elements:
-                            print("clicking on sibling")
                             sibling_elements.click()
                         else:
                             return
@@ -154,12 +142,9 @@ class CardDetails:
     def __scrap_required_elements(self):
         self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
         self.card_number_element = self.__get_required_element(Pattern.CARD_NUMBER)
-        print("card number: ", self.card_number_element)
         self.card_month_expiry_element = self.__get_required_element(Pattern.EXPIRATION_MONTH)
-        print("card expiry month: ", self.card_month_expiry_element)
         self.card_year_expiry_element = self.__get_required_element(Pattern.EXPIRATION_YEAR)
         self.card_cvv_element = self.__get_required_element(Pattern.CVV)
-        print("card cvv: ", self.card_cvv_element)
 
     def find_required_iframe(self):
         iframe_pattern = "//iframe[contains(translate(@title, 'PAYMENT', 'payment'), 'payment') " \
