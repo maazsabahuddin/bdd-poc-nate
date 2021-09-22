@@ -19,20 +19,19 @@ class PromotionPopUp:
     def __extract_required_elements(self, pattern):
         active_promotion_elements = []
         promotion_elements = self.web.find_by_xpath(pattern)
-        if promotion_elements is not None:
+        if promotion_elements:
             for promotion_element in promotion_elements:
                 if promotion_element.is_enabled() and promotion_element.is_displayed():
                     active_promotion_elements.append(promotion_element)
         return active_promotion_elements
 
     def close_promotion_dialog(self):
-        if not self.__promotion_elements:
+        if self.__promotion_elements:
             for element in self.__promotion_elements:
                 try:
                     element.click()
                     self.is_promo_overlay_closed = True
-                    time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+                    time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 except Exception as e:
-                    print(e)
-                    continue
+                    logger.info("In exception of promotion: ", str(e))
         return self.is_promo_overlay_closed

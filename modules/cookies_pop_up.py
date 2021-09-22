@@ -1,4 +1,5 @@
 # Python imports
+import logging
 import time
 
 # Local imports
@@ -20,11 +21,11 @@ class CookiesPopUp:
 
     def accept_cookies(self):
         try:
-            if self.__accept_cookies_element is not None:
-                self.__accept_cookies_element.click()
-                time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-                return True
-            return False
+            if not self.__accept_cookies_element:
+                return False
+            self.__accept_cookies_element.click()
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            return True
         except Exception as e:
-            print("cookies pop up  exception: ", str(e))
+            logging.info("cookies pop up  exception: ", str(e))
             return False
