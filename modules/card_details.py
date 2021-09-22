@@ -34,8 +34,8 @@ class CardDetails:
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
         return Utils.extract_required_element_2(list_of_elements=extracted_elements)
     
-    def select_and_populate_card_details(self, card_number, card_holder_name, 
-        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
+    def select_and_populate_card_details(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
+                                         card_cvv, card_expiry):
         if self.card_number_element:
             self.__populate_card_number(number=card_number)
         if self.card_month_expiry_element:
@@ -156,11 +156,11 @@ class CardDetails:
         if self.card_elements_iframes:
             self.is_card_details_found = True
 
-    def focus_and_update_iframe_fields(self, card_number, card_holder_name, 
-        card_month_expiry, card_year_expiry, card_cvv, card_expiry):
+    def focus_and_update_iframe_fields(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
+                                       card_cvv, card_expiry):
         for iframe in self.card_elements_iframes:
             self.web.switch_to_frame(iframe)
             self.__scrap_required_elements()
-            self.select_and_populate_card_details(card_number, card_holder_name, 
-                card_month_expiry, card_year_expiry, card_cvv, card_expiry)
+            self.select_and_populate_card_details(card_number, card_holder_name, card_month_expiry, card_year_expiry,
+                                                  card_cvv, card_expiry)
             self.web.switch_to_default_content()
