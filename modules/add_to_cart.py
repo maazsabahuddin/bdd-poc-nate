@@ -38,8 +38,30 @@ class AddToCart:
                 if self.required_element:
                     self.is_add_to_cart_found = True
 
+    def get_color_xpath(self):
+        # color_xpath = ""
+        for key, value in self.context.color.items():
+            print(key, value)
+        # color_class = self.context.color['class'] if self.context.color else ""
+        # color_data_index = self.context.color['data-index'] if self.context.color else ""
+
+    def get_size_xpath(self):
+        # size_xpath = "
+        for key, value in self.context.size.items():
+            print(key, value)
+        # size_class = self.context.size['class'] if self.context.size else ""
+        # size_data_index = self.context.size['data-index'] if self.context.size else ""
+
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
+        self.get_color_xpath()
+        self.get_size_xpath()
+        # color_element = self.web.finds_by_xpath_wait(f"//*[contains(@class, {color_class}) "
+        #                                              f"and contains(@data-index, {color_data_index})]")
+        # size_element = self.web.finds_by_xpath_wait(f"//*[contains(@class, {size_class}) "
+        #                                             f"and contains(@data-index, {size_data_index})]")
+        # print(color_element)
+        # print(size_element)
         return Utils.fetch_required_elements(add_to_elements, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
 
     def hit_add_to_cart_element(self):
