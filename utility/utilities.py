@@ -124,8 +124,6 @@ class Utils:
                 element = Utils.get_required_element(tag, element_dict)
                 if element:
                     return element
-                else:
-                    continue
         return None
 
     @staticmethod
@@ -177,11 +175,8 @@ class Utils:
     def extract_required_element_2(list_of_elements):
         if list_of_elements:
             for element in list_of_elements:
-                if element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT:
-                    if element.is_enabled() and element.is_displayed():
-                        return element
-                else:
-                    continue
+                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) and (element.is_enabled() and element.is_displayed()):
+                    return element
         return None
 
     @staticmethod

@@ -1,4 +1,5 @@
 # Local imports
+import logging
 import time
 
 # Framework imports
@@ -35,4 +36,4 @@ class ProceedToCheckoutStep1:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            print("In exception")
+            logging.info("In exception of proceed to checkout step 1")

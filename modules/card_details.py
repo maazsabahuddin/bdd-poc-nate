@@ -95,28 +95,29 @@ class CardDetails:
         self.__select_card_type(element=card_type_element)
 
     def __select_card_type(self, element):
-        if element:
-            if element.tag_name == Tags.SELECT:
-                all_options = element.find_elements_by_tag_name(ETC.OPTION)
-                for option in all_options:
-                    if option.get_attribute(ETC.TEXT) in UserInfo.CARD_TYPE:
-                        option.click()
-                        break
-            else:
-                try:
-                    element.click()
-                except exceptions.ElementNotInteractableException:
-                    parent_element = Utils.find_parent_element_from_child(child_element=element, filter_list=["label"])
-                    if parent_element:
-                        parent_element.click()
-                    else:
-                        element_id = element.get_attribute("id")
-                        sibling_elements = self.web.find_by_xpath(f"//label[@for={element_id}]")
-                        if sibling_elements:
-                            sibling_elements.click()
-                        else:
-                            return
-            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        if not element:
+            return
+        if element.tag_name == Tags.SELECT:
+            all_options = element.find_elements_by_tag_name(ETC.OPTION)
+            for option in all_options:
+                if option.get_attribute(ETC.TEXT) in UserInfo.CARD_TYPE:
+                    option.click()
+                    break
+        else:
+            try:
+                element.click()
+            except exceptions.ElementNotInteractableException:
+                parent_element = Utils.find_parent_element_from_child(child_element=element, filter_list=["label"])
+                if parent_element:
+                    parent_element.click()
+                else:
+                    element_id = element.get_attribute("id")
+                    sibling_elements = self.web.find_by_xpath(f"//label[@for={element_id}]")
+                    if not sibling_elements:
+                        return
+                    sibling_elements.click()
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+            
 
     def __is_required_fields_found(self):
         element_count = 0
@@ -137,6 +138,8 @@ class CardDetails:
 
         if element_count >= 3:
             return True
+        else:
+            return False
 
     def __scrap_required_elements(self):
         self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
