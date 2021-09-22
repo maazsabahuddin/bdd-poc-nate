@@ -130,3 +130,6 @@ dmypy.json
 .vscode
 venv
 .idea
+
+result.txt
+automation_result.txt

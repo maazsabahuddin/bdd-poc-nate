@@ -29,7 +29,7 @@ class Utils:
         """
         try:
             overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
-            if overlay_elements is not None:
+            if overlay_elements:
                 overlay_elements.click()
                 return True
             return False
@@ -103,7 +103,7 @@ class Utils:
             attribute_name = "name"
         for element in elements_dict[tag]:
             attribute = element.get_attribute(attribute_name)
-            if attribute == None or attribute == "":
+            if not attribute:
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
             if 'guest' in attribute or 'Guest' in attribute:
@@ -132,10 +132,9 @@ class Utils:
         This function takes list of elements and priority list, to extract
         required element from the given elements list.
         """
-        if elements is not None:
+        if elements:
             for element in elements:
-                tag_name = element.tag_name
-                if tag_name in list_of_element:
+                if element.tag_name in list_of_element:
                     if element.is_enabled() and element.is_displayed():
                         return element
         return None
@@ -154,6 +153,11 @@ class Utils:
 
     @staticmethod
     def check_overlays(context):
+        """
+        This function open two processes to run the given tasks parallel.
+        manager.dict return multiprocess shared dictionary.
+        Shared dict is used to keep track on pop-up windows.
+        """
         manager = multiprocessing.Manager()
         overlay_dict = manager.dict()
 
