@@ -9,6 +9,7 @@ from selenium.common import exceptions
 from utility.constants import Pattern, Tags
 from modules.cookies_pop_up import CookiesPopUp
 
+
 class Utils:
 
     @staticmethod
@@ -46,7 +47,6 @@ class Utils:
             elif element.is_enabled() and element.get_attribute("type") == "radio" and element.tag_name == Tags.INPUT:
                 return element
         return None
-    
 
     @staticmethod
     def fetch_required_elements(elements, filter_list):
@@ -75,7 +75,6 @@ class Utils:
                         tag_name: [ele]
                     })
         return result_dict
-    
 
     @staticmethod
     def find_parent_element_from_child(child_element, filter_list):
@@ -92,7 +91,6 @@ class Utils:
             return None
         except exceptions.NoSuchElementException:
             return None
-
 
     @staticmethod
     def get_required_element_related_to_guest(tag, elements_dict):
@@ -113,7 +111,6 @@ class Utils:
                     return element
         return None
 
-    
     @staticmethod
     def get_required_element_2(element_dict, tag_priority_list):
         """
@@ -131,7 +128,6 @@ class Utils:
                     continue
         return None
 
-    
     @staticmethod
     def is_element_belong_to_required_element(elements, list_of_element):
         """
@@ -145,7 +141,6 @@ class Utils:
                     if element.is_enabled() and element.is_displayed():
                         return element
         return None
-    
 
     @staticmethod
     def check_cookies_overlay(context, overlay_dict):
@@ -153,14 +148,12 @@ class Utils:
         cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
         overlay_dict['cookies'] = cookies_pop_up.accept_cookies()
 
-    
     @staticmethod
     def check_promotional_overlay(context, overlay_dict):
         promotions = PromotionPopUp(context)
         promotions.find_promotion_elements()
         overlay_dict['promotion'] = promotions.close_promotion_dialog()
 
-    
     @staticmethod
     def check_overlays(context):
         manager = multiprocessing.Manager()
@@ -179,7 +172,6 @@ class Utils:
             return True
         else:
             return False
-    
 
     @staticmethod
     def extract_required_element_2(list_of_elements):
@@ -191,7 +183,6 @@ class Utils:
                 else:
                     continue
         return None
-    
 
     @staticmethod
     def fetch_required_elements3(elements, filter_list):
