@@ -49,22 +49,13 @@ class Base:
 
     def find_by_xpath(self, xpath):
         return self.web_driver.find_elements_by_xpath(xpath)
-    
-    def find_parent_element_from_child(self, child_element):
-        parent_elements_list = ["button", "a"]
-        try:
-            current_found_element = child_element
-            for x in range(2):
-                parent_element = current_found_element.find_element_by_xpath("..")
-                parent_element_name = parent_element.tag_name
-                if parent_element_name in parent_elements_list:
-                    return parent_element
-                else:
-                    current_found_element = parent_element
-            return None
-        except exceptions.NoSuchElementException:
-            return None
 
     def scroll_page(self, horizontal_axis, vertical_axis):
         query = f"window.scrollTo({horizontal_axis}, {vertical_axis})"
         self.web_driver.execute_script(query)
+
+    def switch_to_frame(self, iframe):
+        self.web_driver.switch_to_frame(iframe)
+    
+    def switch_to_default_content(self):
+        self.web_driver.switch_to_default_content()

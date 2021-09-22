@@ -20,4 +20,4 @@ class UserInfo:
     CARD_MONTH_EXPIRY = "09"
     CARD_YEAR_EXPIRY = "22"
     CARD_CVV = "123"
-    CARD_EXPIRY = "09/22"
+    CARD_EXPIRY = "0922"
