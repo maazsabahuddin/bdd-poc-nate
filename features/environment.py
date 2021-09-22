@@ -5,15 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Local imports
 from modules.logger import logger
 from modules.base import Base
+from utility import constants
 from utility.constants import SkipScenario, Timer
-
-
-BEHAVE_DEBUG_ON_ERROR = False
-
-
-def setup_debug_on_error(userdata):
-    global BEHAVE_DEBUG_ON_ERROR
-    BEHAVE_DEBUG_ON_ERROR = userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
 
 
 def before_all(context):
@@ -21,9 +14,6 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
-    # A “debug on error/failure” functionality can easily be provided, by using the after_step() hook.
-    # The debugger is started when a step fails.
-    setup_debug_on_error(context.config.userdata)
     if not context.config.log_capture:
         context.config.setup_logging()
     logger.info("Logs enabled..")
@@ -66,6 +56,7 @@ def before_all(context):
     context.url = context.config.userdata['url']
     context.name = context.config.userdata.get('name')
     context.log = context.config.userdata.get('log')
+    context.BEHAVE_DEBUG_ON_ERROR = context.config.userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
     web = Base(browser, context)
     context.web = web
 
@@ -111,6 +102,7 @@ def before_tag(context, tag):
 
 
 def after_step(context, step):
-    if BEHAVE_DEBUG_ON_ERROR and step.status == "failed":
+    if context.BEHAVE_DEBUG_ON_ERROR and step.status == constants.ETC.FAILED:
         import ipdb
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. STEP FAILS..")
         ipdb.post_mortem(step.exc_traceback)

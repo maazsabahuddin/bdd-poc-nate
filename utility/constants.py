@@ -193,6 +193,7 @@ class ETC:
     VALUE = "value"
     NAME = "name"
     OPTION = "option"
+    FAILED = "failed"
 
 
 class UserInfo:
