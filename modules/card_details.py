@@ -69,7 +69,7 @@ class CardDetails:
         time.sleep(Timer.ONE_SECOND_TIMEOUT)
 
     def __populate_card_holder_name(self, name):
-        if self.card_holder_name_element != None:
+        if self.card_holder_name_element:
             self.card_holder_name_element.send_keys(name)
             time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
@@ -117,7 +117,6 @@ class CardDetails:
                         return
                     sibling_elements.click()
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-            
 
     def __is_required_fields_found(self):
         element_count = 0
@@ -138,8 +137,7 @@ class CardDetails:
 
         if element_count >= 3:
             return True
-        else:
-            return False
+        return False
 
     def __scrap_required_elements(self):
         self.card_holder_name_element = self.__get_required_element(Pattern.CARD_HOLDER_NAME)
