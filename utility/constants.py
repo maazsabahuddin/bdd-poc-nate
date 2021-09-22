@@ -179,17 +179,14 @@ class Pattern:
                 "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
                 "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
     # Cookies overlay
-    '''
-    ACCEPT_COOKIES_PATTERN = "//button[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
-                             "and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') " \
-                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
-    '''
     ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
                              "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
-    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') or " \
-                                "contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm')]"
+    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') " \
+                                "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
+                                "or contains(translate(@class, 'PROM', 'prom'), 'promo')]"
+
 
 
 class SkipScenario:

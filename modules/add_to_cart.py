@@ -20,7 +20,6 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
         self.web.scroll_page(0, 30)
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
@@ -28,13 +27,15 @@ class AddToCart:
             return
 
         self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-        if self.required_element is not None:
+        if self.required_element:
             self.is_add_to_cart_found = True
         else:
+            logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
+            logger.info(f"is overlay handled: {is_overlays_found_and_close}")
             if is_overlays_found_and_close:
                 self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-                if self.required_element is not None:
+                if self.required_element:
                     self.is_add_to_cart_found = True
 
     def extract_required_elements(self, pattern):
