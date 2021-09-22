@@ -24,7 +24,6 @@ class CardDetails:
         
     def find_card_details_elements(self):
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
         self.__scrap_required_elements()
         self.is_card_details_found = self.__is_required_fields_found()
@@ -45,7 +44,7 @@ class CardDetails:
             self.__populate_card_holder_name(name=card_holder_name)
         if self.card_cvv_element:
             self.__populate_card_security_code(cvv=card_cvv)
-        time.sleep(15)
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def __populate_month(self, month):
         if self.card_month_expiry_element.tag_name == Tags.SELECT:
@@ -56,7 +55,7 @@ class CardDetails:
                     break
         else:
             self.card_month_expiry_element.send_keys(month)
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_year(self, year):
         if self.card_year_expiry_element.tag_name == Tags.SELECT:
@@ -66,13 +65,21 @@ class CardDetails:
                     option.click()
                     break
         else:
-            self.card_month_expiry_element.send_keys(year)
+            self.card_year_expiry_element.send_keys(year)
         time.sleep(Timer.ONE_SECOND_TIMEOUT)
 
     def __populate_card_holder_name(self, name):
         if self.card_holder_name_element != None:
             self.card_holder_name_element.send_keys(name)
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
+            time.sleep(Timer.THREE_SECOND_TIMEOUT)
+
+    def __populate_card_number(self, number):
+        self.card_number_element.send_keys(number)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
+
+    def __populate_card_security_code(self, cvv):
+        self.card_cvv_element.send_keys(cvv)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_card_expiration_details(self, month, year, m_y):
         if self.card_year_expiry_element:
@@ -80,14 +87,6 @@ class CardDetails:
             self.__populate_year(year=year)
         else:
             self.__populate_month(month=m_y)
-
-    def __populate_card_number(self, number):
-        self.card_number_element.send_keys(number)
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
-
-    def __populate_card_security_code(self, cvv):
-        self.card_cvv_element.send_keys(cvv)
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
 
     def __update_card_type_details_if_any(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
