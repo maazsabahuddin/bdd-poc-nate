@@ -13,7 +13,8 @@ class CookiesPopUp:
         self.__accept_cookies_element = None
 
     def find_accept_cookies(self, is_element_belong_to_required_element):
-        self.__accept_cookies_element = self.__extract_required_element(Pattern.ACCEPT_COOKIES_PATTERN, is_element_belong_to_required_element)
+        self.__accept_cookies_element = self.__extract_required_element(Pattern.ACCEPT_COOKIES_PATTERN,
+                                                                        is_element_belong_to_required_element)
 
     def __extract_required_element(self, pattern, is_element_belong_to_required_element):
         cookies_elements = self.web.find_by_xpath(pattern)
@@ -27,5 +28,5 @@ class CookiesPopUp:
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
             return True
         except Exception as e:
-            logging.info("cookies pop up  exception: ", str(e))
+            logging.info("cookies pop up exception: ", str(e))
             return False
