@@ -171,6 +171,7 @@ class Pattern:
                                 "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
                                 "or contains(translate(@class, 'PROM', 'prom'), 'promo')]"
 
+
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"
