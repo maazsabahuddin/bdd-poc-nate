@@ -19,7 +19,7 @@ Feature: Ecommerce Checkout
         When cart/check out button found
         Then Click to proceed
 
-    @skip_checkout_step_2
+   @skip_checkout_step_2
     Scenario: Find "Checkout/Proceed to checkout" button
         Given product detailed page
         When checkout or proceed to checkout button found

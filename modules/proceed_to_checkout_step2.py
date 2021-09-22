@@ -18,8 +18,13 @@ class ProceedToCheckoutStep2:
 
     def find_cart_checkout(self):
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)
+        if not view_cart_dict:
+            is_overlays_found_and_close = Utils.check_overlays(context=self.context)
+            if is_overlays_found_and_close:
+                view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)
+            else:
+                return
         self.required_element = Utils.get_required_element_2(view_cart_dict, TagsList.POSSIBLE_VIEW_CART)
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
@@ -27,9 +32,12 @@ class ProceedToCheckoutStep2:
 
     def hit_button_to_proceed(self):
         try:
-            self.required_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            parent_element = self.web.find_parent_element_from_child(self.required_element)
-            parent_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            is_overlays_found_and_close = Utils.check_overlays(context=self.context)
+            if is_overlays_found_and_close:
+                self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
+
+    def __click_and_wait_for(self, timer):
+        self.required_element.click()
+        time.sleep(timer)

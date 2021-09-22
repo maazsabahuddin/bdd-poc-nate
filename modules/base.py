@@ -48,7 +48,7 @@ class Base:
         return self.web_driver_wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, xpath)))
 
     def find_by_xpath(self, xpath):
-        return self.web_driver.find_element_by_xpath(xpath)
+        return self.web_driver.find_elements_by_xpath(xpath)
     
     def find_parent_element_from_child(self, child_element):
         parent_elements_list = ["button", "a"]
@@ -64,3 +64,7 @@ class Base:
             return None
         except exceptions.NoSuchElementException:
             return None
+
+    def scroll_page(self, horizontal_axis, vertical_axis):
+        query = f"window.scrollTo({horizontal_axis}, {vertical_axis})"
+        self.web_driver.execute_script(query)

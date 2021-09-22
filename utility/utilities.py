@@ -1,8 +1,13 @@
-# Framework Imports
+# Python imports
+import multiprocessing
+
+# Framework imports
+from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
 # Local imports
-from utility import constants
+from utility.constants import Pattern
+from modules.cookies_pop_up import CookiesPopUp
 
 
 class Utils:
@@ -23,8 +28,8 @@ class Utils:
         This function accept cookies overlay before clicking on buy button
         """
         try:
-            overlay_elements = find_by_xpath(constants.Pattern.ACCEPT_COOKIES_PATTERN)
-            if overlay_elements is not None:
+            overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
+            if overlay_elements:
                 overlay_elements.click()
                 return True
             return False
@@ -99,7 +104,7 @@ class Utils:
             attribute_name = "name"
         for element in elements_dict[tag]:
             attribute = element.get_attribute(attribute_name)
-            if attribute == None or attribute == "":
+            if not attribute:
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
             if 'guest' in attribute or 'Guest' in attribute:
@@ -107,7 +112,6 @@ class Utils:
                     return element
         return None
 
-    
     @staticmethod
     def get_required_element_2(element_dict, tag_priority_list):
         """
@@ -119,8 +123,56 @@ class Utils:
         for tag in tag_priority_list:
             if tag in element_dict.keys():
                 element = Utils.get_required_element(tag, element_dict)
-                if element != None:
+                if element:
                     return element
-                else:
-                    continue
+                continue
         return None
+
+    @staticmethod
+    def is_element_belong_to_required_element(elements, list_of_element):
+        """
+        This function takes list of elements and priority list, to extract
+        required element from the given elements list.
+        """
+        if elements:
+            for element in elements:
+                if element.tag_name in list_of_element:
+                    if element.is_enabled() and element.is_displayed():
+                        return element
+        return None
+
+    @staticmethod
+    def check_cookies_overlay(context, overlay_dict):
+        cookies_pop_up = CookiesPopUp(context)
+        cookies_pop_up.find_accept_cookies(Utils.is_element_belong_to_required_element)
+        overlay_dict['cookies'] = cookies_pop_up.accept_cookies()
+
+    @staticmethod
+    def check_promotional_overlay(context, overlay_dict):
+        promotions = PromotionPopUp(context)
+        promotions.find_promotion_elements()
+        overlay_dict['promotion'] = promotions.close_promotion_dialog()
+    
+    @staticmethod
+    def check_overlays(context):
+        """
+        This function open two processes to run the given tasks parallel.
+        manager.dict return multiprocess shared dictionary.
+        Shared dict is used to keep track on pop-up windows.
+        """
+        manager = multiprocessing.Manager()
+        overlay_dict = manager.dict()
+
+        process1 = multiprocessing.Process(target=Utils.check_cookies_overlay(context, overlay_dict))
+        process2 = multiprocessing.Process(target=Utils.check_promotional_overlay(context, overlay_dict))
+        
+        process1.start()
+        process2.start()
+        
+        process1.join()
+        process2.join()
+
+        if True in overlay_dict.values():
+            return True
+        return False
+            
