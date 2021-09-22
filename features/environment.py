@@ -5,6 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Local imports
 from modules.logger import logger
 from modules.base import Base
+from utility import constants
 from utility.constants import SkipScenario, Timer
 
 
@@ -13,8 +14,9 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
-    context.config.setup_logging()
-    logger.info("Enabling logs")
+    if not context.config.log_capture:
+        context.config.setup_logging()
+    logger.info("Logs enabled..")
 
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[SkipScenario.SKIP_ALL] = False
@@ -52,6 +54,9 @@ def before_all(context):
 
     logger.info("Setting url and web object.")
     context.url = context.config.userdata['url']
+    context.name = context.config.userdata.get('name')
+    context.log = context.config.userdata.get('log')
+    context.BEHAVE_DEBUG_ON_ERROR = context.config.userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
     web = Base(browser, context)
     context.web = web
 
@@ -94,3 +99,10 @@ def before_tag(context, tag):
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PERSONAL_INFO):
             context.scenario\
                 .skip(reason="Skip populate personal information, because website did not support guest feature")
+
+
+def after_step(context, step):
+    if context.BEHAVE_DEBUG_ON_ERROR and step.status == constants.ETC.FAILED:
+        import ipdb
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. STEP FAILS..")
+        ipdb.post_mortem(step.exc_traceback)

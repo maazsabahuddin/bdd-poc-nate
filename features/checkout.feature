@@ -55,7 +55,7 @@ Feature: Ecommerce Checkout
         Given order page
         When review order button found
         Then review order and proceed to next step
-        
+
     Scenario: Confirm and Pay
         Given order confirmation page
         When confirm and pay found and interactable

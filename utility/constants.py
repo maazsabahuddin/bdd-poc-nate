@@ -175,6 +175,7 @@ class Pattern:
     PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') or " \
                                 "contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm')]"
 
+
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"
@@ -192,6 +193,7 @@ class ETC:
     VALUE = "value"
     NAME = "name"
     OPTION = "option"
+    FAILED = "failed"
 
 
 class UserInfo:
