@@ -20,6 +20,7 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
+        self.web.open(self.context.url)
         self.web.scroll_page(0, 30)
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
