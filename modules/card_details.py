@@ -1,4 +1,5 @@
 # Python imports
+import logging
 import time
 
 # Local imports
@@ -21,21 +22,29 @@ class CardDetails:
         self.card_year_expiry_element = None
         self.card_cvv_element = None
         self.card_elements_iframes = None
+        self.email_element = None
+        self.continue_button = None
         
     def find_card_details_elements(self):
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
         self.__scrap_required_elements()
         self.is_card_details_found = self.__is_required_fields_found()
+        self.email_element = self.__extract_email_element()
+        self.continue_button = self.__extract_continue_button()
         if not self.is_card_details_found:
             self.find_required_iframe()
 
     def __get_required_element(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
         return Utils.extract_required_element_2(list_of_elements=extracted_elements)
+
+    def __extract_required_elements(self, pattern, posible_elements_list):
+        required_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.fetch_required_elements(required_elements, posible_elements_list)
     
     def select_and_populate_card_details(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
-                                         card_cvv, card_expiry):
+                                         card_cvv, card_expiry, email):
         if self.card_number_element:
             self.__populate_card_number(number=card_number)
         if self.card_month_expiry_element:
@@ -44,6 +53,10 @@ class CardDetails:
             self.__populate_card_holder_name(name=card_holder_name)
         if self.card_cvv_element:
             self.__populate_card_security_code(cvv=card_cvv)
+        if self.email_element:
+            self.__populate_email(email=email)
+        if self.continue_button:
+            self.__continue()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def __populate_month(self, month):
@@ -66,7 +79,7 @@ class CardDetails:
                     break
         else:
             self.card_year_expiry_element.send_keys(year)
-        time.sleep(Timer.ONE_SECOND_TIMEOUT)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_card_holder_name(self, name):
         if self.card_holder_name_element:
@@ -158,10 +171,36 @@ class CardDetails:
             self.is_card_details_found = True
 
     def focus_and_update_iframe_fields(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
-                                       card_cvv, card_expiry):
+                                       card_cvv, card_expiry, email):
         for iframe in self.card_elements_iframes:
             self.web.switch_to_frame(iframe)
             self.__scrap_required_elements()
             self.select_and_populate_card_details(card_number, card_holder_name, card_month_expiry, card_year_expiry,
-                                                  card_cvv, card_expiry)
+                                                  card_cvv, card_expiry, email)
             self.web.switch_to_default_content()
+
+    def __extract_email_element(self):
+        email_elements_dict = self.__extract_required_elements(Pattern.EMAIL, TagsList.POSSIBLE_INPUT_ELEMENT)
+        if not email_elements_dict:
+            return None
+        return email_elements_dict['input'][0]
+
+    def __extract_continue_elements(self, pattern):
+        continue_elements = self.web.finds_by_xpath_wait(pattern)
+        return Utils.fetch_required_elements(continue_elements, TagsList.POSSIBLE_CONTINUE_BUTTON)
+
+    def __extract_continue_button(self):
+        continue_dict = self.__extract_continue_elements(Pattern.CONTINUE)
+        if not continue_dict:
+            return None
+        return Utils.get_required_element_2(continue_dict, TagsList.POSSIBLE_CONTINUE_BUTTON)
+
+    def __populate_email(self, email):
+        self.email_element.send_keys(email)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
+
+    def __continue(self):
+        try:
+            self.continue_button.click()
+        except Exception as e:
+            logging.info("In exception of card details continue button: ", str(e))

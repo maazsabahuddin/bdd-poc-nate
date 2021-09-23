@@ -26,8 +26,8 @@ def step_impl(context):
     if context.current_obj.card_elements_iframes:
         context.current_obj.focus_and_update_iframe_fields(UserInfo.CARD_NUMBER, UserInfo.CARD_HOLDER_NAME,
                                                            UserInfo.CARD_MONTH_EXPIRY, UserInfo.CARD_YEAR_EXPIRY,
-                                                           UserInfo.CARD_CVV, UserInfo.CARD_EXPIRY)
+                                                           UserInfo.CARD_CVV, UserInfo.CARD_EXPIRY, UserInfo.EMAIL)
     else:
         context.current_obj.select_and_populate_card_details(UserInfo.CARD_NUMBER, UserInfo.CARD_HOLDER_NAME,
                                                              UserInfo.CARD_MONTH_EXPIRY, UserInfo.CARD_YEAR_EXPIRY,
-                                                             UserInfo.CARD_CVV, UserInfo.CARD_EXPIRY)
+                                                             UserInfo.CARD_CVV, UserInfo.CARD_EXPIRY, UserInfo.EMAIL)
