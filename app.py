@@ -26,16 +26,16 @@ def _execute():
 #     "hm": "https://www2.hm.com/en_us/productpage.0606395006.html"
 # }
 
-sites = {
-    "Cettire": "https://www.cettire.com/products/fendi-ff-jacquard-travel-backpack-99379344?variant=39532224544881",
-    "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
-    "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
-    "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
-    "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
-    "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
-    "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
-    "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
-}
+# sites = {
+#     "Cettire": "https://www.cettire.com/products/fendi-ff-jacquard-travel-backpack-99379344?variant=39532224544881",
+#     "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
+#     "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
+#     "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
+#     "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
+#     "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
+#     "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
+#     "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
+# }
 
 # sites = {
 #     "Kingice": "https://www.kingice.com/collections/men/products/4-sunglasses",
@@ -91,21 +91,21 @@ sites = {
 #     "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
 # }
 
-# sites = {
-#     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
-#     "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
-#     "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
-#     "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
-#     "Getpivo": "https://getpivo.com/products/pivo-pod-1",
-#     "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
-#     "Huel": "https://huel.com/products/huel-flavor-boosts",
-#     "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
-#     "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
-#     "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
-#     "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
-#     "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
-#     "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
-# }
+sites = {
+    "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
+    "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
+    "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
+    "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
+    "Getpivo": "https://getpivo.com/products/pivo-pod-1",
+    "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
+    "Huel": "https://huel.com/products/huel-flavor-boosts",
+    "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
+    "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
+    "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
+    "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
+    "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
+    "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
+}
 
 
 _result_file = open_file(name="result.txt", mod="a")
