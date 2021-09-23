@@ -17,6 +17,8 @@ class AddToCart:
         self.web = context.web
         self.required_element = None
         self.is_add_to_cart_found = False
+        self.color_element = None
+        self.size_element = None
         self.required_element = None
     
     def find_add_to_(self):
@@ -38,31 +40,42 @@ class AddToCart:
                 if self.required_element:
                     self.is_add_to_cart_found = True
 
-    def get_color_xpath(self):
-        # color_xpath = ""
-        for key, value in self.context.color.items():
-            print(key, value)
-        # color_class = self.context.color['class'] if self.context.color else ""
-        # color_data_index = self.context.color['data-index'] if self.context.color else ""
+    @staticmethod
+    def get_size_or_color_xpath(element):
+        """
+        :param element: This element is dictionary either color or size
+        :return:
+        """
+        size_xpath = ""
+        for key, value in element.items():
+            if key == list(element.keys())[-1]:
+                size_xpath += f"contains(@{key}, '{value}')"
+                continue
+            size_xpath += f"contains(@{key}, '{value}') and "
 
-    def get_size_xpath(self):
-        # size_xpath = "
-        for key, value in self.context.size.items():
-            print(key, value)
-        # size_class = self.context.size['class'] if self.context.size else ""
-        # size_data_index = self.context.size['data-index'] if self.context.size else ""
+        return size_xpath
 
     def extract_required_elements(self, pattern):
         add_to_elements = self.web.finds_by_xpath_wait(pattern)
-        self.get_color_xpath()
-        self.get_size_xpath()
-        # color_element = self.web.finds_by_xpath_wait(f"//*[contains(@class, {color_class}) "
-        #                                              f"and contains(@data-index, {color_data_index})]")
-        # size_element = self.web.finds_by_xpath_wait(f"//*[contains(@class, {size_class}) "
-        #                                             f"and contains(@data-index, {size_data_index})]")
-        # print(color_element)
-        # print(size_element)
+        self.color_element = \
+            self.web.finds_by_xpath_wait(f"//*[{AddToCart.get_size_or_color_xpath(self.context.color)}]")
+        self.size_element = \
+            self.web.finds_by_xpath_wait(f"//*[{AddToCart.get_size_or_color_xpath(self.context.size)}]")
+
         return Utils.fetch_required_elements(add_to_elements, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+
+    def select_color_size(self):
+        if self.color_element:
+            logger.info("Selecting color")
+            self.color_element[0].click()
+        if self.size_element:
+            logger.info("Selecting size")
+            try:
+                self.size_element[0].click()
+            except exceptions.StaleElementReferenceException:
+                size_element = \
+                    self.web.finds_by_xpath_wait(f"//*[{AddToCart.get_size_or_color_xpath(self.context.size)}]")
+                size_element[0].click()
 
     def hit_add_to_cart_element(self):
         try:

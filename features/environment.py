@@ -70,7 +70,7 @@ def get_color(context):
         return color_dict
     for val in color.split(','):
         value = val.split(':')
-        color_dict.update({value[0]: value[1].replace("/", ' ')})
+        color_dict.update({value[0]: value[1].replace(".", ' ')})
     return color_dict
 
 
@@ -81,7 +81,7 @@ def get_size(context):
         return size_dict
     for val in color.split(','):
         value = val.split(':')
-        size_dict.update({value[0]: value[1].replace("/", ' ')})
+        size_dict.update({value[0]: value[1].replace(".", ' ')})
     return size_dict
 
 
