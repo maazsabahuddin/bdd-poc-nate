@@ -194,7 +194,6 @@ class Pattern:
                                 "//div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')] | " \
                                 "//a[contains(translate(@title, 'CLOSE', 'close'), 'close')]"
 
-
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"
@@ -214,6 +213,7 @@ class ETC:
     OPTION = "option"
     FAILED = "failed"
     TEXT = "text"
+    IS_CASE_FAILED = "is_case_failed"
 
 
 class UserInfo:

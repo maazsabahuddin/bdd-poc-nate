@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from modules.logger import logger
 from modules.base import Base
 from utility import constants
-from utility.constants import SkipScenario, Timer
+from utility.constants import SkipScenario, Timer, ETC
 
 
 def before_all(context):
@@ -20,6 +20,8 @@ def before_all(context):
 
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[SkipScenario.SKIP_ALL] = False
+    # This flag will be used to tell if the whole website flow is failed or passed
+    context._root[ETC.IS_CASE_FAILED] = False
 
     # This dict will be used to skip individual scenarios along the run
     context._root[SkipScenario.SKIP_SCENARIO] = {SkipScenario.SKIP_LOGIN: False, SkipScenario.SKIP_ADD_TO_CART: False}
