@@ -7,7 +7,7 @@ from selenium.common import exceptions
 # Local imports
 from modules.logger import logger
 from utility.utilities import Utils
-from utility.constants import Pattern, TagsList, Timer
+from utility.constants import Pattern, TagsList, Timer, ETC
 
 
 class AddToCart:
@@ -51,6 +51,8 @@ class AddToCart:
             logger.info(is_overlays_found_and_close)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
+            else:
+                self.context._root[ETC.IS_CASE_FAILED] = True
     
     def __click_and_wait_for(self, timer):
         self.required_element.click()

@@ -188,7 +188,6 @@ class Pattern:
                                 "or contains(translate(@class, 'PROM', 'prom'), 'promo')]"
 
 
-
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"
@@ -208,6 +207,7 @@ class ETC:
     OPTION = "option"
     FAILED = "failed"
     TEXT = "text"
+    IS_CASE_FAILED = "is_case_failed"
 
 
 class UserInfo:

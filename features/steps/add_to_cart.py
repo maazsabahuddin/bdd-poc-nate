@@ -4,6 +4,7 @@ from behave import *
 # Local imports
 from modules.add_to_cart import AddToCart
 from app import _result_file
+from utility.constants import ETC
 
 
 @given('url of product page to check add to cart')
@@ -23,4 +24,5 @@ def step_impl(context):
 @then('click on add to cart and proceed to next step')
 def step_impl(context):
     context.current_obj.hit_add_to_cart_element()
-    _result_file.write(f"{context.name},") if context.log == "True" else None
+    if not context._root[ETC.IS_CASE_FAILED]:
+        _result_file.write(f"{context.name},") if context.log == "True" else None
