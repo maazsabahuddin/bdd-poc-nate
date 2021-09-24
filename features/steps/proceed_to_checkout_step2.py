@@ -25,4 +25,4 @@ def step_impl(context):
 def step_impl(context):
     context.current_obj.hit_button_to_proceed()
     if not context._root[ETC.IS_CASE_FAILED]:
-        _result_file.write(f"proceed_to_checkout_2--->{context.name},") if context.log == "True" else None
+        _result_file.write(f"{context.name},") if context.log == "True" else None
