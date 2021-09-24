@@ -55,7 +55,10 @@ class AddToCart:
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
             else:
+                logger.info("Exception caught at Add to Cart Flow")
+                logger.info("Skipping all other scenarios.")
                 self.context._root[ETC.IS_CASE_FAILED] = True
+                self.context.web.skip_all_remaining_scenarios()
     
     def __click_and_wait_for(self, timer):
         self.required_element.click()

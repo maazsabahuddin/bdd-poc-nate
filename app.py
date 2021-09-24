@@ -131,4 +131,4 @@ if __name__ == '__main__':
         _result_file.write("\n") if list(sites.keys())[-1] == site and log_flag else None
     close_file(_result_file)
 
-    read_file_and_append_result()
+    # read_file_and_append_result()

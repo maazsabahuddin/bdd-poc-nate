@@ -5,7 +5,8 @@ import time
 from selenium.common import exceptions
 
 # Local imports
-from utility.constants import Pattern, TagsList, Timer
+from modules.logger import logger
+from utility.constants import Pattern, TagsList, Timer, ETC
 from utility.utilities import Utils
 
 
@@ -37,6 +38,11 @@ class ProceedToCheckoutStep2:
             is_overlays_found_and_close = Utils.check_overlays(context=self.context)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
+            else:
+                logger.info("Exception caught at Checkout Step 2")
+                logger.info("Skipping all other scenarios.")
+                self.context._root[ETC.IS_CASE_FAILED] = True
+                self.context.web.skip_all_remaining_scenarios()
 
     def __click_and_wait_for(self, timer):
         self.required_element.click()

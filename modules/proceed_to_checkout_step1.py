@@ -1,12 +1,12 @@
 # Local imports
-import logging
 import time
 
 # Framework imports
 from selenium.common import exceptions
 
 # Local imports
-from utility.constants import Pattern, TagsList, Timer
+from modules.logger import logger
+from utility.constants import Pattern, TagsList, Timer, ETC
 from utility.utilities import Utils
 
 
@@ -36,4 +36,7 @@ class ProceedToCheckoutStep1:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            logging.info("In exception of proceed to checkout step 1")
+            logger.info("Exception caught at Proceed to Checkout Step 1")
+            logger.info("Skipping all other scenarios.")
+            self.context._root[ETC.IS_CASE_FAILED] = True
+            self.context.web.skip_all_remaining_scenarios()
