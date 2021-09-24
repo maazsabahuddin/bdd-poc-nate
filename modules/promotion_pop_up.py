@@ -1,9 +1,6 @@
-# Python imports
-import time
-
 # Local imports
 from modules.logger import logger
-from utility.constants import Pattern, Timer
+from utility.constants import Pattern
 
 
 class PromotionPopUp:
@@ -36,7 +33,6 @@ class PromotionPopUp:
             try:
                 element.click()
                 self.is_promo_overlay_closed = True
-                time.sleep(Timer.ONE_SECOND_TIMEOUT)
             except Exception as e:
                 logger.info("In exception of promotion: ", str(e))
 

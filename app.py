@@ -26,16 +26,16 @@ def _execute():
 #     "hm": "https://www2.hm.com/en_us/productpage.0606395006.html"
 # }
 
-# sites = {
-#     "Cettire": "https://www.cettire.com/products/fendi-ff-jacquard-travel-backpack-99379344?variant=39532224544881",
-#     "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
-#     "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
-#     "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
-#     "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
-#     "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
-#     "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
-#     "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
-# }
+sites = {
+    "Cettire": "https://www.cettire.com/products/fendi-ff-jacquard-travel-backpack-99379344?variant=39532224544881",
+    "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
+    "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
+    "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
+    "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
+    "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
+    "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
+    "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
+}
 
 # sites = {
 #     "Kingice": "https://www.kingice.com/collections/men/products/4-sunglasses",
