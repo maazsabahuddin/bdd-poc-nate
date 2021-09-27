@@ -84,7 +84,8 @@ class AddToCart:
     def hit_add_to_cart_element(self):
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
+                AttributeError) as e:
             logger.info(f"\nIn exception of add to cart button.. {str(e)}\n")
             logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)

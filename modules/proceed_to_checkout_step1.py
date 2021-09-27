@@ -37,7 +37,8 @@ class ProceedToCheckoutStep1:
         try:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
+                AttributeError) as e:
             logger.info("Exception caught at Proceed to Checkout Step 1")
             logger.info("Skipping all other scenarios.")
             _result_file.write(f"\n{self.context.name} - FAILED - {str(e)}\n") if self.context.log == "True" else None

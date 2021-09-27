@@ -245,7 +245,7 @@ class UserInfo:
 
 class Timer:
     
-    PAGE_LOAD_TIMEOUT = 60
+    PAGE_LOAD_TIMEOUT = 90
     ELEMENT_TIMEOUT = 10
     PROCESS_PAUSE_TIMEOUT = 12
     ONE_SECOND_TIMEOUT = 1

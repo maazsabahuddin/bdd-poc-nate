@@ -36,14 +36,15 @@ class ProceedToCheckoutStep2:
     def hit_button_to_proceed(self):
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
+                AttributeError) as e:
             is_overlays_found_and_close = Utils.check_overlays(context=self.context)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
             else:
                 logger.info("Exception caught at Checkout Step 2")
                 logger.info("Skipping all other scenarios.")
-                _result_file.write(f"{self.context.name} - FAILED - Overlay found but not closed.\n") \
+                _result_file.write(f"{self.context.name} - FAILED - {str(e)}.\n") \
                     if self.context.log == "True" else None
                 close_file(_result_file)
                 self.context._root[ETC.IS_CASE_FAILED] = True

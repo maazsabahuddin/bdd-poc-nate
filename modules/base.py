@@ -22,9 +22,9 @@ class Base:
     def open(self, url):
         try:
             self.web_driver.get(url)
-        except exceptions.TimeoutException:
-            logger.info("Timeout Exception encountered.\n Site failed to load.")
-            _result_file.write(f"{self.context.name} - FAILED - Overlay found but not closed.\n") \
+        except exceptions.TimeoutException as e:
+            logger.info("Timeout Exception encountered.\nSite failed to load.")
+            _result_file.write(f"{self.context.name} - FAILED - {str(e)}\n") \
                 if self.context.log == "True" else None
             close_file(_result_file)
             self.context._root[ETC.IS_CASE_FAILED] = True

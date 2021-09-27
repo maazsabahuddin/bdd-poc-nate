@@ -94,17 +94,17 @@ def _execute():
 sites = {
     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
     "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
-    # "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
-    # "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
-    # "Getpivo": "https://getpivo.com/products/pivo-pod-1",
-    # "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
-    # "Huel": "https://huel.com/products/huel-flavor-boosts",
-    # "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
-    # "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
-    # "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
-    # "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
-    # "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
-    # "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
+    "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
+    "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
+    "Getpivo": "https://getpivo.com/products/pivo-pod-1",
+    "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
+    "Huel": "https://huel.com/products/huel-flavor-boosts",
+    "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
+    "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
+    "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
+    "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
+    "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
+    "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
 }
 
 
