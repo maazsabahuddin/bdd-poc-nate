@@ -208,6 +208,11 @@ class ETC:
     OPTION = "option"
     FAILED = "failed"
     TEXT = "text"
+    LOG = "log"
+    COLOR = "color"
+    SIZE = "size"
+    BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
+    URL = "url"
 
 
 class UserInfo:
