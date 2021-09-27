@@ -108,7 +108,7 @@ sites = {
 }
 
 
-_result_file = open_file(name="result.txt", mod="a")
+_result_file = open_file(name="automation_result_file.txt", mod="a")
 log_flag = True
 ERASE_FILE_CONTENT_EVERYTIME = False
 
