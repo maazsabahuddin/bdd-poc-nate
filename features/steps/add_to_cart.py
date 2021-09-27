@@ -25,5 +25,3 @@ def step_impl(context):
 def step_impl(context):
     context.current_obj.select_color_size()
     context.current_obj.hit_add_to_cart_element()
-    if context._root[ETC.IS_CASE_FAILED]:
-        _result_file.write(f"{context.name} - FAILED") if context.log == "True" else None

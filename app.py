@@ -93,7 +93,7 @@ def _execute():
 
 sites = {
     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
-    # "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
+    "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
     # "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
     # "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
     # "Getpivo": "https://getpivo.com/products/pivo-pod-1",

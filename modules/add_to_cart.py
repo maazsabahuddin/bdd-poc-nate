@@ -5,9 +5,11 @@ import time
 from selenium.common import exceptions
 
 # Local imports
+from file import close_file
 from modules.logger import logger
 from utility.utilities import Utils
 from utility.constants import Pattern, TagsList, Timer, ETC
+from app import _result_file
 
 
 class AddToCart:
@@ -92,6 +94,9 @@ class AddToCart:
             else:
                 logger.info("Exception caught at Add to Cart Flow")
                 logger.info("Skipping all other scenarios.")
+                _result_file.write(f"{self.context.name} - FAILED - Overlay found but not closed.\n") \
+                    if self.context.log == "True" else None
+                close_file(_result_file)
                 self.context._root[ETC.IS_CASE_FAILED] = True
                 self.context.web.skip_all_remaining_scenarios()
     

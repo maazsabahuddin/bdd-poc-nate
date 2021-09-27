@@ -23,5 +23,3 @@ def step_impl(context):
 @then('Click to proceed')
 def step_impl(context):
     context.current_obj.hit_button_to_proceed()
-    if context._root[ETC.IS_CASE_FAILED]:
-        _result_file.write(f"{context.name} - FAILED") if context.log == "True" else None
