@@ -1,4 +1,7 @@
 
+from modules.keywords import KeyWords
+
+
 class Tags:
 
     BUTTON = "button"
@@ -8,6 +11,7 @@ class Tags:
     H1 = "h1"
     H2 = "h2"
     H3 = "h3"
+    H4 = "h4"
     DIV = "div"
     SELECT = "select"
 
@@ -193,6 +197,14 @@ class Pattern:
                                 "or contains(translate(@class, 'CLOSE', 'close'), 'close')] | " \
                                 "//div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')] | " \
                                 "//a[contains(translate(@title, 'CLOSE', 'close'), 'close')]"
+
+    # Keywords to check address details
+    KeyWords = "//h2[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
+               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
+               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')] | " \
+               "//h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
+               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') or " \
+               "contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
 
 class SkipScenario:
 
