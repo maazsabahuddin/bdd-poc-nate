@@ -50,7 +50,7 @@ class AddToCart:
         for key, value in element.items():
             if key == list(element.keys())[-1]:
                 size_xpath += f"contains(@{key}, '{value}')"
-                continue
+                break
             size_xpath += f"contains(@{key}, '{value}') and "
 
         return size_xpath
