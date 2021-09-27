@@ -55,12 +55,25 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    context.url = context.config.userdata['url']
-    context.name = context.config.userdata.get('name')
-    context.log = context.config.userdata.get('log')
-    context.BEHAVE_DEBUG_ON_ERROR = context.config.userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
+    context.url = context.config.userdata[ETC.URL]
+    context.name = context.config.userdata.get(ETC.NAME)
+    context.log = context.config.userdata.get(ETC.LOG)
+    context.color = extract_user_data(context, ETC.COLOR)
+    context.size = extract_user_data(context, ETC.SIZE)
+    context.BEHAVE_DEBUG_ON_ERROR = context.config.userdata.getbool(ETC.BEHAVE_DEBUG_ON_ERROR)
     web = Base(browser, context)
     context.web = web
+
+
+def extract_user_data(context, key):
+    data = context.config.userdata.get(key)
+    data_dict = {}
+    if not data:
+        return data_dict
+    for val in data.split(','):
+        value = val.split(':')
+        data_dict.update({value[0]: value[1].replace(".", ' ')})
+    return data_dict
 
 
 def after_all(context):

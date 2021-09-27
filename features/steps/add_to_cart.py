@@ -23,6 +23,7 @@ def step_impl(context):
 
 @then('click on add to cart and proceed to next step')
 def step_impl(context):
+    context.current_obj.select_color_size()
     context.current_obj.hit_add_to_cart_element()
     if context._root[ETC.IS_CASE_FAILED]:
         _result_file.write(f"{context.name} - FAILED") if context.log == "True" else None
