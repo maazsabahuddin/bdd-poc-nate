@@ -15,23 +15,22 @@ def step_impl(context):
 @when('personal information is required')
 def step_impl(context):
     if context.current_obj.is_required_field_found:
-        print("required field found")
         pass
     else:
-        context.scenario.skip(reason='required field not found')
+        context.scenario.skip(reason='cannot find required fields')
 
 
 @then('fill the information and proceed to next step')
 def step_impl(context):
     email, phone, first_name, last_name = None, None, None, None
 
-    if context.current_obj.email is not None:
+    if context.current_obj.email:
         email = UserInfo.EMAIL
-    if context.current_obj.first_name is not None:
+    if context.current_obj.first_name:
         first_name = UserInfo.FIRST_NAME
-    if context.current_obj.last_name is not None:
+    if context.current_obj.last_name:
         last_name = UserInfo.LAST_NAME
-    if context.current_obj.phone is not None:
+    if context.current_obj.phone:
         phone = UserInfo.PHONE
 
     context.current_obj.fill_required_info(email, first_name, last_name, phone)

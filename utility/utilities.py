@@ -21,20 +21,6 @@ class Utils:
             if tag in tags:
                 return tag
         return None
-    
-    @staticmethod
-    def accept_cookies(find_by_xpath):
-        """
-        This function accept cookies overlay before clicking on buy button
-        """
-        try:
-            overlay_elements = find_by_xpath(Pattern.ACCEPT_COOKIES_PATTERN)
-            if overlay_elements:
-                overlay_elements.click()
-                return True
-            return False
-        except exceptions.TimeoutException:
-            return True
 
     @staticmethod
     def get_required_element(tag, elements_dict):

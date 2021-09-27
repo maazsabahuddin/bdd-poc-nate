@@ -44,23 +44,24 @@ class BuyNow(object):
         """
         This function click on the provided element
         """
-        try:
-            self.required_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException) as e:
-            is_cookies_overlay = Utils.accept_cookies(self.web.find_by_xpath_wait)
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-            if is_cookies_overlay:
-                self.check_buy_now_page()
-                self.required_element.click()
-            else:
-                # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
-                # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
-                try:
-                    cross_element = \
-                        self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
-                    cross_element.click()
-                except:
-                    return
-                time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-                self.required_element.click()
+        return
+        # try:
+        #     self.required_element.click()
+        #     time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        # except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException, exceptions.ElementNotInteractableException) as e:
+        #     is_cookies_overlay = Utils.accept_cookies (self.web.find_by_xpath_wait)
+        #     time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        #     if is_cookies_overlay:
+        #         self.check_buy_now_page()
+        #         self.required_element.click()
+        #     else:
+        #         # cross_element = self.web.find_cross_by_css_selector("button[aria-labelby='Close']")
+        #         # cross_element = self.web.find_cross_by_xpath("//*[@title='Close']")
+        #         try:
+        #             cross_element = \
+        #                 self.web.find_cross_by_css_selector_wait("button[class='emailReengagement_close_button']")
+        #             cross_element.click()
+        #         except:
+        #             return
+        #         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        #         self.required_element.click()

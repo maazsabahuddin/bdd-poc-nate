@@ -7,7 +7,7 @@ from selenium.common import exceptions
 # Local imports
 from modules.logger import logger
 from utility.utilities import Utils
-from utility.constants import Pattern, TagsList, Timer
+from utility.constants import Pattern, TagsList, Timer, ETC
 
 
 class AddToCart:
@@ -22,10 +22,12 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
+        self.web.open(self.context.url)
         self.web.scroll_page(0, 30)
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
+            logger.info("Add to cart element not found..")
             return
 
         self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
@@ -81,11 +83,14 @@ class AddToCart:
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
-            logger.info(f"In exception of add to cart button.. {str(e)}")
+            logger.info(f"\nIn exception of add to cart button.. {str(e)}\n")
+            logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
-            logger.info(is_overlays_found_and_close)
+            logger.info(f"is overlay handled: {is_overlays_found_and_close}")
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
+            else:
+                self.context._root[ETC.IS_CASE_FAILED] = True
     
     def __click_and_wait_for(self, timer):
         self.required_element.click()

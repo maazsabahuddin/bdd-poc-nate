@@ -17,7 +17,7 @@ class TagsList:
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
     POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.A, Tags.DIV]
-    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT]
+    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
@@ -25,7 +25,7 @@ class TagsList:
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
-    POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON]
+    POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_TYPE_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.BUTTON, Tags.DIV, Tags.SPAN]
 
 
@@ -37,7 +37,7 @@ class Pattern:
                      "or contains(translate(text(), 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
-                     "or contains(text(), 'ADD') " \
+                     "or contains(translate(text(), 'ADD', 'add'), 'add') " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
@@ -179,15 +179,20 @@ class Pattern:
                 "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
                 "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
     # Cookies overlay
-    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
-                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept') or " \
+                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept') or " \
+                             "contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie')] | " \
+                             "//a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
     PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') " \
                                 "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
-                                "or contains(translate(@class, 'PROM', 'prom'), 'promo')]"
-
-
+                                "or contains(translate(@class, 'PROM', 'prom'), 'promo') or " \
+                                "contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') or " \
+                                "contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
+                                "or contains(translate(@class, 'CLOSE', 'close'), 'close')] | " \
+                                "//div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')] | " \
+                                "//a[contains(translate(@title, 'CLOSE', 'close'), 'close')]"
 
 class SkipScenario:
 
@@ -213,6 +218,7 @@ class ETC:
     SIZE = "size"
     BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
     URL = "url"
+    IS_CASE_FAILED = "is_case_failed"
 
 
 class UserInfo:
@@ -241,7 +247,7 @@ class Timer:
     
     PAGE_LOAD_TIMEOUT = 60
     ELEMENT_TIMEOUT = 10
-    PROCESS_PAUSE_TIMEOUT = 15
+    PROCESS_PAUSE_TIMEOUT = 12
     ONE_SECOND_TIMEOUT = 1
     THREE_SECOND_TIMEOUT = 3
     FIVE_SECOND_TIMEOUT = 5
