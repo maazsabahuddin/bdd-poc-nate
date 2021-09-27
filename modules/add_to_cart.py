@@ -95,7 +95,7 @@ class AddToCart:
             else:
                 logger.info("Exception caught at Add to Cart Flow")
                 logger.info("Skipping all other scenarios.")
-                _result_file.write(f"{self.context.name} - FAILED - Overlay found but not closed.\n") \
+                _result_file.write(f"{self.context.name} - FAILED - Step Add to Cart - {str(e)}\n") \
                     if self.context.log == "True" else None
                 close_file(_result_file)
                 self.context._root[ETC.IS_CASE_FAILED] = True

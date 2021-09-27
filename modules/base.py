@@ -24,7 +24,7 @@ class Base:
             self.web_driver.get(url)
         except exceptions.TimeoutException as e:
             logger.info("Timeout Exception encountered.\nSite failed to load.")
-            _result_file.write(f"{self.context.name} - FAILED - {str(e)}\n") \
+            _result_file.write(f"{self.context.name} - FAILED - base.py lineno 25 {str(e)}\n") \
                 if self.context.log == "True" else None
             close_file(_result_file)
             self.context._root[ETC.IS_CASE_FAILED] = True

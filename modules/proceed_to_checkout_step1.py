@@ -41,7 +41,8 @@ class ProceedToCheckoutStep1:
                 AttributeError) as e:
             logger.info("Exception caught at Proceed to Checkout Step 1")
             logger.info("Skipping all other scenarios.")
-            _result_file.write(f"\n{self.context.name} - FAILED - {str(e)}\n") if self.context.log == "True" else None
+            _result_file.write(f"\n{self.context.name} - FAILED - Step Checkout Step1 - {str(e)}\n") \
+                if self.context.log == "True" else None
             close_file(_result_file)
             self.context._root[ETC.IS_CASE_FAILED] = True
             self.context.web.skip_all_remaining_scenarios()

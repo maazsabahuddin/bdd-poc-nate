@@ -44,7 +44,7 @@ class ProceedToCheckoutStep2:
             else:
                 logger.info("Exception caught at Checkout Step 2")
                 logger.info("Skipping all other scenarios.")
-                _result_file.write(f"{self.context.name} - FAILED - {str(e)}.\n") \
+                _result_file.write(f"{self.context.name} - FAILED - Step Checkout Step2 - {str(e)}\n") \
                     if self.context.log == "True" else None
                 close_file(_result_file)
                 self.context._root[ETC.IS_CASE_FAILED] = True
