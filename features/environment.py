@@ -5,7 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Local imports
 from modules.logger import logger
 from modules.base import Base
-from utility.constants import SkipScenario, Timer
+from utility import constants
+from utility.constants import SkipScenario, Timer, ETC
 
 
 def before_all(context):
@@ -13,11 +14,14 @@ def before_all(context):
     This function run before the whole shooting match
     :param context:
     """
-    context.config.setup_logging()
-    logger.info("Enabling logs")
+    if not context.config.log_capture:
+        context.config.setup_logging()
+    logger.info("Logs enabled..")
 
     # This flag will be used to skip all future scenarios, can be set from anywhere
     context._root[SkipScenario.SKIP_ALL] = False
+    # This flag will be used to tell if the whole website flow is failed or passed
+    context._root[ETC.IS_CASE_FAILED] = False
 
     # This dict will be used to skip individual scenarios along the run
     context._root[SkipScenario.SKIP_SCENARIO] = {SkipScenario.SKIP_LOGIN: False, SkipScenario.SKIP_ADD_TO_CART: False}
@@ -51,9 +55,25 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    context.url = context.config.userdata['url']
+    context.url = context.config.userdata[ETC.URL]
+    context.name = context.config.userdata.get(ETC.NAME)
+    context.log = context.config.userdata.get(ETC.LOG)
+    context.color = extract_user_data(context, ETC.COLOR)
+    context.size = extract_user_data(context, ETC.SIZE)
+    context.BEHAVE_DEBUG_ON_ERROR = context.config.userdata.getbool(ETC.BEHAVE_DEBUG_ON_ERROR)
     web = Base(browser, context)
     context.web = web
+
+
+def extract_user_data(context, key):
+    data = context.config.userdata.get(key)
+    data_dict = {}
+    if not data:
+        return data_dict
+    for val in data.split(','):
+        value = val.split(':')
+        data_dict.update({value[0]: value[1].replace(".", ' ')})
+    return data_dict
 
 
 def after_all(context):
@@ -94,3 +114,10 @@ def before_tag(context, tag):
         if context._root.get(SkipScenario.SKIP_SCENARIO).get(SkipScenario.SKIP_PERSONAL_INFO):
             context.scenario\
                 .skip(reason="Skip populate personal information, because website did not support guest feature")
+
+
+def after_step(context, step):
+    if context.BEHAVE_DEBUG_ON_ERROR and step.status == constants.ETC.FAILED:
+        import ipdb
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. STEP FAILS..")
+        ipdb.post_mortem(step.exc_traceback)

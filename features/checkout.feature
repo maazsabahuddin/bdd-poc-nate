@@ -2,12 +2,6 @@
 @capture
 Feature: Ecommerce Checkout
 
-    Scenario: Find and click buy now button
-        Given url of product page
-        When buy now found
-        Then click on buy now and proceed to next step
-
-    @skip_add_to_cart
     Scenario: Find and click "add to cart" button
         Given url of product page to check add to cart
         When add to cart found
@@ -19,7 +13,7 @@ Feature: Ecommerce Checkout
         When cart/check out button found
         Then Click to proceed
 
-   @skip_checkout_step_2
+    @skip_checkout_step_2
     Scenario: Find "Checkout/Proceed to checkout" button
         Given product detailed page
         When checkout or proceed to checkout button found
@@ -55,7 +49,7 @@ Feature: Ecommerce Checkout
         Given order page
         When review order button found
         Then review order and proceed to next step
-        
+
     Scenario: Confirm and Pay
         Given order confirmation page
         When confirm and pay found and interactable

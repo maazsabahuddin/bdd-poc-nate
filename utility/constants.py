@@ -17,7 +17,7 @@ class TagsList:
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
     POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.A, Tags.DIV]
-    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT]
+    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
@@ -25,7 +25,8 @@ class TagsList:
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
-    POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON]
+    POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON, Tags.A]
+    POSSIBLE_CARD_TYPE_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.BUTTON, Tags.DIV, Tags.SPAN]
 
 
 class Pattern:
@@ -36,7 +37,7 @@ class Pattern:
                      "or contains(translate(text(), 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
-                     "or contains(text(), 'ADD') " \
+                     "or contains(translate(text(), 'ADD', 'add'), 'add') " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
@@ -133,11 +134,15 @@ class Pattern:
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
 
     # Card details
-    CARD_NUMBER = "//*[contains(translate(@name, 'CARD', 'card'), 'card') " \
+    CARD_NUMBER = "//input[contains(translate(@name, 'CARD', 'card'), 'card') " \
                   "and contains(translate(@name, 'NUM', 'num'), 'num') " \
                   "or contains(translate(@id, 'CARD', 'card'), 'card') and " \
                   "contains(translate(@id, 'NUM', 'num'), 'num') " \
-                  "or contains(translate(@name, 'CREDITAD', 'creditad'), 'creditcard')]"
+                  "or contains(translate(@name, 'CREDITAD', 'creditad'), 'creditcard') " \
+                  "or contains(translate(@id, 'INPUT', 'input'), 'input') " \
+                  "and contains(translate(@id, 'NUMBER', 'number'), 'number') " \
+                  "or @autocomplete ='cc-number' " \
+                  "or @name = 'pan']"
     EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'expdate') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'exp-date') " \
@@ -145,35 +150,49 @@ class Pattern:
                        "or contains(translate(@id, 'EXPIRATON', 'expiraton'), 'expiration') " \
                        "or contains(translate(@id, 'MONTH', 'month'), 'month') " \
                        "or contains(translate(@name, 'MONTH', 'month'), 'month') " \
-                       "or contains(translate(@id, 'EXP', 'exp'), 'exp')]"
+                       "or contains(translate(@id, 'EXP', 'exp'), 'exp') " \
+                       "or @autocomplete = 'cc-exp-month' " \
+                       "or contains(translate(@name, 'EXPIRATOND', 'expiratond'), 'expirationdate')]"
     EXPIRATION_YEAR = "//*[contains(translate(@id, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'exp-year') " \
                       "or contains(translate(@id, 'YEAR', 'year'), 'year') " \
-                      "or contains(translate(@name, 'YEAR', 'year'), 'year')]"
-    CVV = "//*[contains(translate(@name, 'SECURITYOD', 'securityod'), 'securitycode') " \
+                      "or contains(translate(@name, 'YEAR', 'year'), 'year') " \
+                      "or @autocomplete = 'cc-exp-year']"
+    CVV = "//input[contains(translate(@name, 'SECURITYOD', 'securityod'), 'securitycode') " \
           "or contains(translate(@name, 'CV', 'cv'), 'cv') " \
           "or contains(translate(@id, 'CVN', 'cvn'), 'cvn') " \
           "or contains(translate(@id, 'CV', 'cvv'), 'cvv') " \
           "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
-          "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode')]"
-    CARD_HOLDER_NAME = "//*[contains(translate(@id, 'NAME', 'name'), 'name') " \
+          "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode') " \
+          "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode')]"
+    CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
                        "and contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
                        "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')]"
+    CARD_TYPE = "//*[contains(translate(@name, 'CARDTYPE', 'cardtype'), 'cardtype') " \
+                "or contains(translate(text(), 'CREDIT', 'credit'), 'credit') " \
+                "and contains(translate(text(), 'DEBIT', 'debit'), 'debit') " \
+                "and contains(translate(text(), 'CARD', 'card'), 'card') " \
+                "or contains(translate(@name, 'CREDITOPNS', 'creditopns'), 'creditoptions') " \
+                "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
+                "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
     # Cookies overlay
-    '''
-    ACCEPT_COOKIES_PATTERN = "//button[(contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
-                             "and contains(translate(text(), 'COKIES', 'cokies'), 'cookies') " \
-                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept'))]"
-    '''
-    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPTLOKIS', 'aceptlokis'), 'accept') or " \
-                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept')]"
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept') or " \
+                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept') or " \
+                             "contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie')] | " \
+                             "//a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
-    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') or " \
-                                "contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm')]"
+    PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') " \
+                                "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
+                                "or contains(translate(@class, 'PROM', 'prom'), 'promo') or " \
+                                "contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') or " \
+                                "contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
+                                "or contains(translate(@class, 'CLOSE', 'close'), 'close')] | " \
+                                "//div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')] | " \
+                                "//a[contains(translate(@title, 'CLOSE', 'close'), 'close')]"
 
 class SkipScenario:
 
@@ -192,6 +211,14 @@ class ETC:
     VALUE = "value"
     NAME = "name"
     OPTION = "option"
+    FAILED = "failed"
+    TEXT = "text"
+    LOG = "log"
+    COLOR = "color"
+    SIZE = "size"
+    BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
+    URL = "url"
+    IS_CASE_FAILED = "is_case_failed"
 
 
 class UserInfo:
@@ -211,11 +238,16 @@ class UserInfo:
     POSTAL_CODE = "postal_code"
     CONTINUE = "continue"
     CONSENT = "consent"
+    CARD_EXPIRATION_MONTH = "09"
+    CARD_EXPIRATION_YEAR = "2022"
+    CARD_TYPE = ["Visa", "MasterCard"]
 
 
 class Timer:
+    
     PAGE_LOAD_TIMEOUT = 60
     ELEMENT_TIMEOUT = 10
-    PROCESS_PAUSE_TIMEOUT = 15
+    PROCESS_PAUSE_TIMEOUT = 12
     ONE_SECOND_TIMEOUT = 1
+    THREE_SECOND_TIMEOUT = 3
     FIVE_SECOND_TIMEOUT = 5
