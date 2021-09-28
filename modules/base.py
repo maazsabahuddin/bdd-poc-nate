@@ -5,8 +5,11 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.common import exceptions
 
 # Local imports
+from file import close_file
 from utility import constants
 from modules.logger import logger
+from app import _result_file
+from utility.constants import ETC
 
 
 class Base:
@@ -17,7 +20,17 @@ class Base:
         self.context = context
 
     def open(self, url):
-        self.web_driver.get(url)
+        try:
+            self.web_driver.get(url)
+        except exceptions.TimeoutException as e:
+            logger.info("Timeout Exception encountered.\nSite failed to load.")
+            _result_file.write(f"{self.context.name} - FAILED - base.py line number 25 {str(e)}\n") \
+                if self.context.log == "True" else None
+            close_file(_result_file)
+            self.context._root[ETC.IS_CASE_FAILED] = True
+            self.context.web.skip_all_remaining_scenarios()
+            return
+
         logger.info("URL successfully accessed.")
     
     def close_driver(self):

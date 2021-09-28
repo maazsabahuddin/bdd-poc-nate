@@ -212,13 +212,13 @@ class Pattern:
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address')" \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
 
+
 class SkipScenario:
 
     SKIP_SCENARIO = "skip_scenario"
     SKIP_ALL = "skip_all"
     SKIP_LOGIN = "skip_login"
     SKIP_ADD_TO_CART = "skip_add_to_cart"
-    SKIP_CHECKOUT_STEP_1 = "skip_checkout_step_1"
     SKIP_CHECKOUT_STEP_2 = "skip_checkout_step_2"
     SKIP_PROCEED_CHECKOUT = "skip_proceed_checkout"
     SKIP_PERSONAL_INFO = "skip_personal_info"
@@ -231,6 +231,11 @@ class ETC:
     OPTION = "option"
     FAILED = "failed"
     TEXT = "text"
+    LOG = "log"
+    COLOR = "color"
+    SIZE = "size"
+    BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
+    URL = "url"
     IS_CASE_FAILED = "is_case_failed"
 
 

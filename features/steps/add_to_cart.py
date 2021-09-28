@@ -3,6 +3,8 @@ from behave import *
 
 # Local imports
 from modules.add_to_cart import AddToCart
+from utility.constants import ETC
+from app import _result_file
 
 
 @given('url of product page to check add to cart')
@@ -21,4 +23,5 @@ def step_impl(context):
 
 @then('click on add to cart and proceed to next step')
 def step_impl(context):
+    context.current_obj.select_color_size()
     context.current_obj.hit_add_to_cart_element()
