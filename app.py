@@ -108,9 +108,9 @@ sites = {
 }
 
 
-_result_file = open_file(name="result.txt", mod="a")
+_result_file = open_file(name="automation_result.txt", mod="a")
 log_flag = True
-ERASE_FILE_CONTENT_EVERYTIME = False
+ERASE_FILE_CONTENT_EVERYTIME = True
 
 
 def log_site(_site, message):
@@ -131,4 +131,4 @@ if __name__ == '__main__':
         _result_file.write("\n") if list(sites.keys())[-1] == site and log_flag else None
     close_file(_result_file)
 
-    read_file_and_append_result()
+    # read_file_and_append_result()

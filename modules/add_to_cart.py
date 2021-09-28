@@ -5,9 +5,11 @@ import time
 from selenium.common import exceptions
 
 # Local imports
+from file import close_file
 from modules.logger import logger
 from utility.utilities import Utils
 from utility.constants import Pattern, TagsList, Timer, ETC
+from app import _result_file
 
 
 class AddToCart:
@@ -82,7 +84,8 @@ class AddToCart:
     def hit_add_to_cart_element(self):
         try:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException) as e:
+        except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
+                AttributeError) as e:
             logger.info(f"\nIn exception of add to cart button.. {str(e)}\n")
             logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
@@ -90,7 +93,13 @@ class AddToCart:
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
             else:
+                logger.info("Exception caught at Add to Cart Flow")
+                logger.info("Skipping all other scenarios.")
+                _result_file.write(f"{self.context.name} - FAILED - Step Add to Cart - {str(e)}\n") \
+                    if self.context.log == "True" else None
+                close_file(_result_file)
                 self.context._root[ETC.IS_CASE_FAILED] = True
+                self.context.web.skip_all_remaining_scenarios()
     
     def __click_and_wait_for(self, timer):
         self.required_element.click()

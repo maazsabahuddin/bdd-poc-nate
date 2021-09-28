@@ -20,7 +20,7 @@ def close_file(f):
 
 
 def erase_file_content():
-    f = open_file(name="result.txt", mod="w")
+    f = open_file(name="automation_result.txt", mod="w")
     close_file(f)
     return True
 

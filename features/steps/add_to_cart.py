@@ -3,6 +3,8 @@ from behave import *
 
 # Local imports
 from modules.add_to_cart import AddToCart
+from utility.constants import ETC
+from app import _result_file
 
 
 @given('url of product page to check add to cart')
