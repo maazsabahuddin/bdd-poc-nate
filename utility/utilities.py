@@ -6,7 +6,7 @@ from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
 # Local imports
-from utility.constants import Pattern, Tags
+from utility.constants import Tags
 from modules.cookies_pop_up import CookiesPopUp
 
 

@@ -1,7 +1,3 @@
-
-from modules.keywords import KeyWords
-
-
 class Tags:
 
     BUTTON = "button"
@@ -20,7 +16,7 @@ class TagsList:
 
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
-    POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.A, Tags.DIV]
+    POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
     POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
@@ -42,13 +38,18 @@ class Pattern:
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(translate(text(), 'ADD', 'add'), 'add') " \
-                     "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag')]"
+                     "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag') " \
+                     "or contains(translate(@name, 'ADD', 'add'), 'add')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
                 "or text()='Cart' " \
                 "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
-                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag')]"
+                "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag') " \
+                "or contains(translate(@class, 'MYCART', 'mycart'), 'mycart') " \
+                "or contains(translate(@id, 'CARTBUON', 'cartbuon'), 'cartbutton') " \
+                "or contains(translate(text(), 'GOTCAR', 'gotcar'), 'go to cart') " \
+                "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -58,7 +59,8 @@ class Pattern:
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
-                         "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout')]"
+                         "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') "\
+                         "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
@@ -183,28 +185,32 @@ class Pattern:
                 "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
                 "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
     # Cookies overlay
-    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept') or " \
-                             "contains(translate(@name, 'ACEPT', 'acept'), 'accept') or " \
-                             "contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie')] | " \
-                             "//a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept')" \
+                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept')" \
+                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie')]" \
+                             "| //a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
     PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') " \
                                 "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
-                                "or contains(translate(@class, 'PROM', 'prom'), 'promo') or " \
-                                "contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') or " \
-                                "contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
-                                "or contains(translate(@class, 'CLOSE', 'close'), 'close')] | " \
-                                "//div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')] | " \
-                                "//a[contains(translate(@title, 'CLOSE', 'close'), 'close')]"
+                                "or contains(translate(@class, 'PROM', 'prom'), 'promo')" \
+                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks')" \
+                                "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
+                                "or contains(translate(@class, 'CLOSE', 'close'), 'close') " \
+                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle')]" \
+                                "| //div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')" \
+                                "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') " \
+                                "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')]" \
+                                "| //a[contains(translate(@title, 'CLOSE', 'close'), 'close')]" \
+                                "| //span[contains(translate(@class, 'ICONLSE', 'iconlse'), 'icon-close')]"
 
     # Keywords to check address details
     KeyWords = "//h2[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
-               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')] | " \
-               "//h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
-               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') or " \
-               "contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
+               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]" \
+               "| //h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
+               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address')" \
+               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
 
 class SkipScenario:
 
@@ -252,7 +258,7 @@ class UserInfo:
 
 class Timer:
     
-    PAGE_LOAD_TIMEOUT = 60
+    PAGE_LOAD_TIMEOUT = 120
     ELEMENT_TIMEOUT = 10
     PROCESS_PAUSE_TIMEOUT = 12
     ONE_SECOND_TIMEOUT = 1

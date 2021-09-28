@@ -13,11 +13,6 @@ Feature: Ecommerce Checkout
         When cart/check out button found
         Then Click to proceed
 
-    Scenario: Find keywords to verify checkout step 2 is required or not
-        Given product page
-        When keywords found
-        Then skip checkout step 2 and process further
-
     @skip_checkout_step_2
     Scenario: Find "Checkout/Proceed to checkout" button
         Given product detailed page
