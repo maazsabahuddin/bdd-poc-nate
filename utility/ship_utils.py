@@ -15,15 +15,16 @@ class ShipUtils:
 
     @staticmethod
     def validate_address_element(element):
-        for val in ["address1", "address-1", "address_1", "line1", "lineone"]:
-            if val in element.get_attribute(constants.ETC.NAME).lower():
+        for val in ["address1", "address-1", "address_1", "line1", "lineone", "addr1", "address"]:
+            if val in element.get_attribute(constants.ETC.NAME).lower() and \
+                    "name" not in element.get_attribute(constants.ETC.NAME).lower():
                 return True
         return False
 
     @staticmethod
     def validate_phone_element(element):
-        for val in ["card", "Card", "credit", "Credit"]:
-            if val in element.get_attribute(constants.ETC.NAME):
+        for val in ["card", "credit", "country"]:
+            if val in element.get_attribute(constants.ETC.NAME).lower():
                 return False
         return True
 

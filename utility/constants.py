@@ -76,7 +76,7 @@ class Pattern:
     EMAIL = "//input[contains(translate(@name, 'EMAIL', 'email'), 'email') " \
             "or contains(translate(@id, 'EMAIL', 'email'), 'email')]"
     COUNTRY_CODE = "//input[contains(@name, 'countryCode')]"
-    PHONE = "//input[contains(translate(@name, 'TELEPHONE-_', 'telephone-_'), 'telephone') " \
+    PHONE = "//input[contains(translate(@name, 'TELEPHONE', 'telephone'), 'telephone') " \
             "or contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
             "or contains(@name, 'billing_phone') or contains(translate(@name, 'Number', 'number'), 'number') " \
             "or contains(translate(@name, 'PHONE', 'phone'), 'phone') " \
@@ -84,15 +84,6 @@ class Pattern:
             "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
             "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \
             "or contains(@aria-label, 'Phone Number')]"
-    # ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
-    #            "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
-    #            "or contains(@name, 'addressLine1') or contains(@name, 'addr1') or contains(@id, 'StreetLine1') " \
-    #            "or contains(translate(@name, 'ADDRESS1', 'address1'), 'address') " \
-    #            "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
-    #            "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
-    #            "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1') " \
-    #            "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
-    #            "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1')]"
     ADDRESS1 = "//input[contains(translate(@id, 'ADRES', 'adres'), 'address') " \
                "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
                "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1') " \

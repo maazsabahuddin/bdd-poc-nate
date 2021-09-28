@@ -110,12 +110,11 @@ class Shipping:
         if self.shipping_info[constants.UserInfo.CONSENT]:
             # TODO Have to click this consent in order to move forwards (NIKE)
             pass
-        time.sleep(15)
 
     def click_now(self):
-        logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
-        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-        logger.info("TIMEOUT OVER")
+        # logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
+        # time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        # logger.info("TIMEOUT OVER")
         logger.info("clicking on done/continue button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
@@ -137,6 +136,7 @@ class Shipping:
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         logger.info("TIMEOUT OVER")
+        time.sleep(10)
 
     def get_validation_keys(self):
         """
