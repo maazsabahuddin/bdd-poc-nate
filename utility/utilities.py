@@ -47,7 +47,7 @@ class Utils:
         for ele in elements:
             tag_name = ele.tag_name
             # handling case of span - here we find the parent element of span and check in list
-            if tag_name == "span":
+            if tag_name == Tags.SPAN or tag_name == Tags.P:
                 # find its parent element and check its tag
                 parent_element = Utils.find_parent_element_from_child(ele, filter_list)
                 if parent_element is not None:
@@ -189,3 +189,33 @@ class Utils:
                         tag_name: [ele]
                     })
         return result_dict
+
+    @staticmethod
+    def get_last_element(tag, elements_dict):
+        """
+        This function returns element from the elements dict
+        """
+        positive_elements = list()
+        for element in elements_dict[tag]:
+            if element.is_enabled() and element.is_displayed():
+                positive_elements.append(element)
+            elif element.is_enabled() and element.get_attribute("type") == "radio" and element.tag_name == Tags.INPUT:
+                return element
+        if not positive_elements:
+            return None
+        return positive_elements[-1]
+
+    @staticmethod
+    def get_required_element_3(element_dict, tag_priority_list):
+        """
+        This function take element dictionary and priority list of elements.
+        This will loop over the list and find the tag in dictionary if found,
+        then fetch element and test if it's enabled and displayed then return either
+        search for the next element in list.
+        """
+        for tag in tag_priority_list:
+            if tag in element_dict.keys():
+                element = Utils.get_last_element(tag, element_dict)
+                if element:
+                    return element
+        return None

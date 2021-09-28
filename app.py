@@ -38,17 +38,17 @@ def _execute():
 #     "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
 # }
 
-sites = {
-    "Kingice": "https://www.kingice.com/collections/men/products/4-sunglasses",
-    "Boat-lifestyle": "https://www.boat-lifestyle.com/products/stone-1200?variant=32087654400098",
-    "Missoma": "https://www.missoma.com/products/sphere-beaded-hair-clip?variant=39494138658860&queryId=97b43d4ecbd4dc2f930d70f83f53d0f5&pdpIndex=usd_production_products",
-    "Staples": "https://www.staples.ca/products/566848-en-ballpoint-pens-retractable-grip-10mm-assorted-50pack",
-    "Fab": "https://fab.com/collections/household/products/organic-vegan-stain-removal-stick-560249459",
-    "Vqfit": "https://www.vqfit.com/collections/accessories/products/vanquish-khaki-crossbody-bag",
-    "Puravidabracelets": "https://www.puravidabracelets.com/collections/rings/products/raw-gemstone-ring?variant=39352154849366",
-    "Cupshe": "https://www.cupshe.com/collections/dress/products/haleigh-orange-backless-split-tea-length-dress?variant=39527129219162",
-    "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size",
-}
+# sites = {
+#     "Kingice": "https://www.kingice.com/collections/men/products/4-sunglasses",
+#     "Boat-lifestyle": "https://www.boat-lifestyle.com/products/stone-1200?variant=32087654400098",
+#     "Missoma": "https://www.missoma.com/products/sphere-beaded-hair-clip?variant=39494138658860&queryId=97b43d4ecbd4dc2f930d70f83f53d0f5&pdpIndex=usd_production_products",
+#     "Staples": "https://www.staples.ca/products/566848-en-ballpoint-pens-retractable-grip-10mm-assorted-50pack",
+#     "Fab": "https://fab.com/collections/household/products/organic-vegan-stain-removal-stick-560249459",
+#     "Vqfit": "https://www.vqfit.com/collections/accessories/products/vanquish-khaki-crossbody-bag",
+#     "Puravidabracelets": "https://www.puravidabracelets.com/collections/rings/products/raw-gemstone-ring?variant=39352154849366",
+#     "Cupshe": "https://www.cupshe.com/collections/dress/products/haleigh-orange-backless-split-tea-length-dress?variant=39527129219162",
+#     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size",
+# }
 
 # sites = {
 #     "Outofthesandbox": "https://outofthesandbox.com/collections/turbo-theme/products/turbo-theme-portland",
@@ -63,19 +63,19 @@ sites = {
 #     "Ruggable": "https://ruggable.com/products/verena-dark-wood-rug?size=5x7"
 # }
 
-# sites = {
-#     "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
-#     "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
-#     "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
-#     "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
-#     "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
-#     "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
-#     "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
-#     "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
-#     "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
-#     "Skims": "https://skims.com/products/face-mask-clay",
-#     "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
-# }
+sites = {
+    "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
+    "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
+    "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
+    "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
+    "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
+    "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
+    "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
+    "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
+    "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
+    "Skims": "https://skims.com/products/face-mask-clay",
+    "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
+}
 
 # sites = {
 #     "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",

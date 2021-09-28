@@ -10,6 +10,7 @@ class Tags:
     H4 = "h4"
     DIV = "div"
     SELECT = "select"
+    P = "p"
 
 
 class TagsList:
@@ -17,7 +18,7 @@ class TagsList:
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
     POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
-    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.SPAN, Tags.INPUT, Tags.DIV]
+    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
@@ -38,18 +39,21 @@ class Pattern:
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(translate(text(), 'ADD', 'add'), 'add') " \
+                     "and not(contains(translate(text(), 'WISH', 'wish'), 'wish'))" \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag') " \
                      "or contains(translate(@name, 'ADD', 'add'), 'add')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
-                "or text()='Cart' " \
+                "or text()='Cart' and not(contains(translate(@class, 'HIDEN', 'hiden'), 'hidden'))" \
                 "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                 "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag') " \
                 "or contains(translate(@class, 'MYCART', 'mycart'), 'mycart') " \
                 "or contains(translate(@id, 'CARTBUON', 'cartbuon'), 'cartbutton') " \
                 "or contains(translate(text(), 'GOTCAR', 'gotcar'), 'go to cart') " \
-                "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown')]"
+                "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown') " \
+                "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')] " \
+                "| //a[contains(translate(@href, 'CART', 'cart'),'cart')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -60,7 +64,9 @@ class Pattern:
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') "\
-                         "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')]"
+                         "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout') "\
+                         "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out')] " \
+                         "| //button[contains(translate(text(), 'CARD', 'card'), 'card')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
@@ -187,7 +193,8 @@ class Pattern:
     # Cookies overlay
     ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept')" \
                              "or contains(translate(@name, 'ACEPT', 'acept'), 'accept')" \
-                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie')]" \
+                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie') " \
+                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'cookie-accept')]" \
                              "| //a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
@@ -265,7 +272,7 @@ class Timer:
     
     PAGE_LOAD_TIMEOUT = 120
     ELEMENT_TIMEOUT = 10
-    PROCESS_PAUSE_TIMEOUT = 12
+    PROCESS_PAUSE_TIMEOUT = 8
     ONE_SECOND_TIMEOUT = 1
     THREE_SECOND_TIMEOUT = 3
     FIVE_SECOND_TIMEOUT = 5
