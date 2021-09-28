@@ -15,10 +15,10 @@ class ShipUtils:
 
     @staticmethod
     def validate_address_element(element):
-        for val in ["firstName", "firstname", "lastName", "lastname", "state", "city", "postalCode"]:
-            if val in element.get_attribute(constants.ETC.NAME):
-                return False
-        return True
+        for val in ["address1", "address-1", "address_1", "line1", "lineone"]:
+            if val in element.get_attribute(constants.ETC.NAME).lower():
+                return True
+        return False
 
     @staticmethod
     def validate_phone_element(element):
@@ -81,6 +81,7 @@ class ShipUtils:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
                         element.send_keys(UserInfo.FULL_NAME)
+                        break
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception Full Name: {str(e)}")
 
@@ -91,6 +92,7 @@ class ShipUtils:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
                         element.send_keys(UserInfo.FIRST_NAME)
+                        break
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception First Name: {str(e)}")
 
@@ -101,6 +103,7 @@ class ShipUtils:
                     if element.is_enabled() and element.is_displayed() \
                             and not element.get_attribute(constants.ETC.VALUE):
                         element.send_keys(UserInfo.LAST_NAME)
+                        break
             except (StaleElementReferenceException, ElementNotInteractableException) as e:
                 logger.info(f"Exception Last Name: {str(e)}")
 
@@ -156,7 +159,7 @@ class ShipUtils:
             # If the phone element is not prefilled then this condition will be true
             if not phone_element.get_attribute(constants.ETC.VALUE):
                 # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                phone_element.send_keys(f"+{UserInfo.PHONE}")
+                phone_element.send_keys(f"+{UserInfo.COUNTRY_CODE}{UserInfo.PHONE}")
 
             # If the phone element is prefilled with + sign then this condition will be true
             elif phone_element.get_attribute(constants.ETC.VALUE)[0] == "+":
@@ -188,6 +191,7 @@ class ShipUtils:
                 if not element.is_enabled() or not element.is_displayed():
                     continue
                 element.send_keys(UserInfo.ADDRESS2)
+                break
 
         city_elements = shipping_info[constants.UserInfo.CITY]
         for element in city_elements:
@@ -197,6 +201,7 @@ class ShipUtils:
                 element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             element.send_keys(UserInfo.CITY)
+            break
 
         postal_code_elements = shipping_info[constants.UserInfo.POSTAL_CODE]
         for element in postal_code_elements:
@@ -206,6 +211,7 @@ class ShipUtils:
                 element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             element.send_keys(UserInfo.POSTAL_CODE)
+            break
 
         ShipUtils.fill_state_attribute(shipping_info)
         ShipUtils.fill_country_field(shipping_info)

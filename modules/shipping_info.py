@@ -110,6 +110,7 @@ class Shipping:
         if self.shipping_info[constants.UserInfo.CONSENT]:
             # TODO Have to click this consent in order to move forwards (NIKE)
             pass
+        time.sleep(15)
 
     def click_now(self):
         logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
@@ -185,9 +186,10 @@ class Shipping:
         return True
 
     def fetching_required_elements(self):
+        self.web.open(self.context.url)
         logger.info("fetching required elements")
         manual_address_button = self.web.finds_by_xpath_wait(constants.Pattern.ENTER_ADDRESS)
-        logger.info(f"Address button: {manual_address_button}")
+        logger.info(f"Manual Address button: {manual_address_button}")
         if manual_address_button:
             logger.info("Address button found. Clicking now")
             manual_address_button[0].click()

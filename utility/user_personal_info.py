@@ -4,14 +4,14 @@ class UserInfo:
     FIRST_NAME = "Sean"
     LAST_NAME = "Abbott"
     COUNTRY_CODE = "1"
-    PHONE = "3023946070"
+    PHONE = "30239460702"
     EMAIL = "faiqkhan@techwards.co"
     ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
     POSTAL_CODE = "19716"
     CITY = "Newark"
     STATE_INPUT = "Delaware"
-    STATE_OPTIONS = ["DE", "MA", "USLA", "LA", "AL", "California", "IS", "NY"]
+    STATE_OPTIONS = ["DE", "MA", "USLA", "LA", "IS", "NY"]
     COUNTRY_OPTIONS = ["US", "PK"]
 
     # Card details

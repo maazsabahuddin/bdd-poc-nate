@@ -56,22 +56,25 @@ class Pattern:
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
-    FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
-                 "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
-                 "or contains(@name, 'billing_first_name') or contains(@name, 'shipping-first-name') " \
+    FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNME', 'firstnme'), 'firstname') " \
+                 "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first-name') " \
+                 "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first_name') " \
                  "or contains(@name, 'given-name') " \
-                 "or contains(translate(@id, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
-                 "or contains(@id, 'FirstName') or contains(@id, 'firstName') or contains(@id, 'shipping-first-name')" \
-                 "or contains(@id, 'billing_first_name')]"
-    LAST_NAME = "//input[contains(translate(@name, 'LASTNAME-_', 'lastname-_'), 'lastname') " \
-                "or contains(@name, 'LastName') or contains(@name, 'lastName') " \
-                "or contains(@name, 'billing_last_name') or contains(@name, 'shipping-last-name') " \
+                 "or contains(@id, 'given-name') " \
+                 "or contains(translate(@id, 'FIRSTNME', 'firstnme'), 'first-name') " \
+                 "or contains(translate(@id, 'FIRSTNME', 'firstnme'), 'first_name')]"
+    LAST_NAME = "//input[contains(translate(@name, 'LASTNME', 'lastnme'), 'lastname') " \
+                "or contains(translate(@name, 'LASTNME', 'lastnme'), 'last-name') " \
+                "or contains(translate(@name, 'LASTNME', 'lastnme'), 'last_name') " \
                 "or contains(@name, 'family-name') " \
-                "or contains(@id, 'LastName') or contains(@id, 'lastName') or contains(@id, 'shipping-last-name') " \
-                "or contains(@id, 'billing_last_name')]"
-    FULL_NAME = "//input[contains(translate(@name, 'FULNAME-_', 'fulname-_'), 'fullname')]"
-    EMAIL = "//input[contains(translate(@name, 'EMAIL-_[]', 'email-_[]'), 'email') " \
-            "or contains(translate(@id, 'EMAIL-_[]', 'email-_[]'), 'email')]"
+                "or contains(@id, 'family-name') " \
+                "or contains(translate(@id, 'LASTNME', 'lastnme'), 'last-name') " \
+                "or contains(translate(@id, 'LASTNME', 'lastnme'), 'last_name')]"
+    FULL_NAME = "//input[contains(translate(@name, 'FULNAME', 'fulname'), 'fullname') " \
+                "or contains(translate(@name, 'FULNAME', 'fulname'), 'full-name') " \
+                "or contains(translate(@name, 'FULNAME', 'fulname'), 'full_name')]"
+    EMAIL = "//input[contains(translate(@name, 'EMAIL', 'email'), 'email') " \
+            "or contains(translate(@id, 'EMAIL', 'email'), 'email')]"
     COUNTRY_CODE = "//input[contains(@name, 'countryCode')]"
     PHONE = "//input[contains(translate(@name, 'TELEPHONE-_', 'telephone-_'), 'telephone') " \
             "or contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
@@ -81,15 +84,25 @@ class Pattern:
             "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
             "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \
             "or contains(@aria-label, 'Phone Number')]"
-    ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
-               "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
-               "or contains(@name, 'addressLine1') or contains(@name, 'addr1') or contains(@id, 'StreetLine1') " \
-               "or contains(translate(@name, 'ADDRESS1', 'address1'), 'address') " \
-               "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
-               "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
-               "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1') " \
+    # ADDRESS1 = "//input[contains(@name, 'StreetLine1') or contains(@name, 'addressLines[0]') " \
+    #            "or contains(@name, 'shipping-street-address') or contains(@name, 'addressLineOne') " \
+    #            "or contains(@name, 'addressLine1') or contains(@name, 'addr1') or contains(@id, 'StreetLine1') " \
+    #            "or contains(translate(@name, 'ADDRESS1', 'address1'), 'address') " \
+    #            "or contains(@name, 'billing_address_1') or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
+    #            "or contains(@id, 'addressLines[0]') or contains(@id, 'shipping-street-address') " \
+    #            "or contains(@id, 'addressLineOne') or contains(@id, 'addressLine1') or contains(@id, 'street1') " \
+    #            "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
+    #            "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1')]"
+    ADDRESS1 = "//input[contains(translate(@id, 'ADRES', 'adres'), 'address') " \
                "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
-               "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1')]"
+               "or contains(translate(@id, 'ADRES-1', 'adres-1'), 'address-1') " \
+               "or contains(translate(@id, 'LINE1', 'line1'), 'line1') " \
+               "or contains(translate(@id, 'LINEONE', 'lineone'), 'lineone') " \
+               "or contains(translate(@name, 'ADRES', 'adres'), 'address') " \
+               "or contains(translate(@name, 'ADRES1', 'adres1'), 'address1') " \
+               "or contains(translate(@name, 'ADRES-1', 'adres-1'), 'address-1') " \
+               "or contains(translate(@name, 'LINE1', 'line1'), 'line1') " \
+               "or contains(translate(@name, 'LINEONE', 'lineone'), 'lineone')]"
     ADDRESS2 = "//input[contains(@name, '2') or contains(@name, 'StreetLine2') or contains(@name, 'addressLines[1]') " \
                "or contains(@name, 'addressLineTwo') or contains(@name, 'addr2') or contains(@name, 'addressLine2') " \
                "or contains(translate(@name, 'APARTMENT', 'apartment'), 'apt') " \
