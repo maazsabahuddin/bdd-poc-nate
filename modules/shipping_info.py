@@ -1,13 +1,14 @@
 # Python Imports
 import time
-import os
 
 # Local Imports
+from file import close_file
 from utility import constants
 from modules.logger import logger
-from utility.constants import Timer
+from utility.constants import Timer, ETC
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
+from app import _result_file
 
 
 class Shipping:
@@ -121,22 +122,29 @@ class Shipping:
                                           constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         if not continue_elements_dict:
             logger.info("Button element not found.")
-            logger.info("Aborting..")
-            os.abort()
+            logger.info("Skipping all other scenarios.")
+            _result_file.write(f"{self.context.name} - FAILED - Step Checkout Step2 - Required element not found\n") \
+                if self.context.log == "True" else None
+            close_file(_result_file)
+            self.context._root[ETC.IS_CASE_FAILED] = True
+            self.context.web.skip_all_remaining_scenarios()
 
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
                                                        constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
-            logger.info("Aborting..")
-            os.abort()
+            logger.info("Skipping all other scenarios.")
+            _result_file.write(f"{self.context.name} - FAILED - Step Checkout Step2 - Required element not found\n") \
+                if self.context.log == "True" else None
+            close_file(_result_file)
+            self.context._root[ETC.IS_CASE_FAILED] = True
+            self.context.web.skip_all_remaining_scenarios()
 
         required_element.click()
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         logger.info("TIMEOUT OVER")
-        time.sleep(10)
 
     def get_validation_keys(self):
         """
