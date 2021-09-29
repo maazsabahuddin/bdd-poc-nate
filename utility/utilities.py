@@ -165,7 +165,8 @@ class Utils:
     def extract_required_element_2(list_of_elements):
         if list_of_elements:
             for element in list_of_elements:
-                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) and (element.is_enabled() and element.is_displayed()):
+                is_hidden = element.get_attribute("aria-hidden")
+                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) and (element.is_enabled() and element.is_displayed()) and not is_hidden:
                     return element
         return None
 

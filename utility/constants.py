@@ -155,7 +155,7 @@ class Pattern:
                   "contains(translate(@id, 'NUM', 'num'), 'num') " \
                   "or contains(translate(@name, 'CREDITAD', 'creditad'), 'creditcard') " \
                   "or contains(translate(@id, 'INPUT', 'input'), 'input') " \
-                  "and contains(translate(@id, 'NUMBER', 'number'), 'number') " \
+                  "or contains(translate(@id, 'NUMBER', 'number'), 'number') " \
                   "or @autocomplete ='cc-number' " \
                   "or @name = 'pan']"
     EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
@@ -167,7 +167,8 @@ class Pattern:
                        "or contains(translate(@name, 'MONTH', 'month'), 'month') " \
                        "or contains(translate(@id, 'EXP', 'exp'), 'exp') " \
                        "or @autocomplete = 'cc-exp-month' " \
-                       "or contains(translate(@name, 'EXPIRATOND', 'expiratond'), 'expirationdate')]"
+                       "or contains(translate(@name, 'EXPIRATOND', 'expiratond'), 'expirationdate') " \
+                       "or contains(translate(@id, 'EXPIRY', 'expiry'), 'expiry')]"
     EXPIRATION_YEAR = "//*[contains(translate(@id, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'exp-year') " \
@@ -180,9 +181,10 @@ class Pattern:
           "or contains(translate(@id, 'CV', 'cvv'), 'cvv') " \
           "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
           "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode') " \
-          "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode')] "
+          "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode') " \
+          "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value')] "
     CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
-                       "and contains(translate(@id, 'CARD', 'card'), 'card') " \
+                       "or contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
                        "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')] "
@@ -192,7 +194,8 @@ class Pattern:
                 "and contains(translate(text(), 'CARD', 'card'), 'card') " \
                 "or contains(translate(@name, 'CREDITOPNS', 'creditopns'), 'creditoptions') " \
                 "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
-                "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
+                "or contains(translate(@value, 'VISA', 'visa'), 'visa') " \
+                "or contains(translate(@id, 'CHEKOUTPAYMNGW', 'chekoutpaymngw'), 'checkout_payment_gateway')]"
     # Cookies overlay
     ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
                              "or contains(translate(@name, 'ACEPT', 'acept'), 'accept') " \
