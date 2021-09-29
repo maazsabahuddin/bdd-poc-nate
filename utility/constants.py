@@ -105,18 +105,29 @@ class Pattern:
            "or contains(@id, 'AdministrativeArea') or contains(translate(@id, 'CITY', 'city'), 'city') " \
            "or contains(translate(@name, 'LOCALITY', 'locality'), 'locality') " \
            "or contains(translate(@name, 'TOWN', 'town'), 'town')]"
-    STATE = "//select[contains(@name, 'stateCode') or contains(@name, 'state') or contains(@name, 'region') " \
-            "or contains(@id, 'stateCode') or contains(@id, 'state') or contains(@id, 'region') " \
-            "or contains(translate(@name, 'PROVINCE', 'province'), 'province')] | " \
-            "//input[contains(@name, 'stateCode') or contains(translate(@name, 'STATE', 'state'), 'state') " \
-            "or contains(@name, 'region') or contains(@id, 'stateCode') or contains(@id, 'state') " \
-            "or contains(@id, 'region')]"
+    STATE = "//select[contains(translate(@name, 'STAE', 'stae'), 'state') " \
+            "or contains(translate(@name, 'REGION', 'region'), 'region') " \
+            "or contains(translate(@name, 'PROVINCE', 'province'), 'province') " \
+            "or contains(translate(@name, 'AREA', 'area'), 'area') " \
+            "or contains(translate(@id, 'STAE', 'stae'), 'state') " \
+            "or contains(translate(@id, 'REGION', 'region'), 'region') " \
+            "or contains(translate(@id, 'PROVINCE', 'province'), 'province') " \
+            "or contains(translate(@id, 'AREA', 'area'), 'area')] | " \
+            "input[contains(translate(@name, 'STAE', 'stae'), 'state') " \
+            "or contains(translate(@name, 'REGION', 'region'), 'region') " \
+            "or contains(translate(@name, 'PROVINCE', 'province'), 'province') " \
+            "or contains(translate(@name, 'AREA', 'area'), 'area')" \
+            "or contains(translate(@id, 'STAE', 'stae'), 'state') " \
+            "or contains(translate(@id, 'REGION', 'region'), 'region') " \
+            "or contains(translate(@id, 'PROVINCE', 'province'), 'province') " \
+            "or contains(translate(@id, 'AREA', 'area'), 'area')]"
     POSTAL_CODE = "//input[contains(@name, 'postal') or contains(translate(@name, 'ZIP', 'zip'), 'zip') " \
                   "or contains(@name, 'shipping-zip-code') or contains(@name, 'postcode') " \
                   "or contains(@id, 'postal') or contains(@id, 'zip') or contains(@id, 'postcode') " \
                   "or contains(@id, 'shipping-zip-code')]"
     COUNTRY = "//select[contains(translate(@name, 'COUNTRY', 'country'), 'country')]"
-    CONTINUE = "//*[contains(text(), 'Continue') or contains(text(), 'CONTINUE') or contains(text(), 'next') " \
+    CONTINUE = "//*[contains(translate(text(), 'CONTINUE', 'continue'), 'continue') " \
+               "or contains(translate(text(), 'NEXT', 'next'), 'next') " \
                "or contains(translate(text(), 'DONE', 'done'), 'done') " \
                "or contains(translate(text(), 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                "or contains(translate(text(), 'SUBMIT', 'submit'), 'submit') " \
