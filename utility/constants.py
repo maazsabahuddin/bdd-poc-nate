@@ -177,12 +177,12 @@ class Pattern:
           "or contains(translate(@id, 'CV', 'cvv'), 'cvv') " \
           "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
           "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode') " \
-          "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode')]"
+          "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode')] "
     CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
                        "and contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
-                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')]"
+                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')] "
     CARD_TYPE = "//*[contains(translate(@name, 'CARDTYPE', 'cardtype'), 'cardtype') " \
                 "or contains(translate(text(), 'CREDIT', 'credit'), 'credit') " \
                 "and contains(translate(text(), 'DEBIT', 'debit'), 'debit') " \
@@ -191,32 +191,33 @@ class Pattern:
                 "or contains(translate(text(), 'CREDITA', 'credita'), 'creditcard') " \
                 "or contains(translate(@value, 'VISA', 'visa'), 'visa')]"
     # Cookies overlay
-    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept')" \
-                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept')" \
+    ACCEPT_COOKIES_PATTERN = "//button[contains(translate(text(), 'ACEPT', 'acept'), 'accept') " \
+                             "or contains(translate(@name, 'ACEPT', 'acept'), 'accept') " \
                              "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'acceptcookie') " \
-                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'cookie-accept')]" \
+                             "or contains(translate(@id, 'ACEPTOKI', 'aceptoki'), 'cookie-accept')] " \
                              "| //a[contains(translate(text(), 'ACEPT', 'acept'), 'accept')]"
 
     # Promotion overlay
     PROMOTION_OVERLAY_PATTERN = "//button[contains(translate(@aria-label, 'CLOSE', 'close'), 'close') " \
                                 "or contains(translate(@aria-label, 'CONFIRM', 'confirm'), 'confirm') " \
-                                "or contains(translate(@class, 'PROM', 'prom'), 'promo')" \
-                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks')" \
+                                "or contains(translate(@class, 'PROM', 'prom'), 'promo') " \
+                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
                                 "or contains(translate(@class, 'CLOSE', 'close'), 'close') " \
-                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle')]" \
-                                "| //div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal')" \
+                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle')] " \
+                                "| //div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') " \
-                                "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')]" \
-                                "| //a[contains(translate(@title, 'CLOSE', 'close'), 'close')]" \
-                                "| //span[contains(translate(@class, 'ICONLSE', 'iconlse'), 'icon-close')]"
+                                "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')] " \
+                                "| //a[contains(translate(@title, 'CLOSE', 'close'), 'close')] " \
+                                "| //span[contains(translate(@class, 'ICONLSE', 'iconlse'), 'icon-close') " \
+                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks')]"
 
     # Keywords to check address details
     KeyWords = "//h2[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
-               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]" \
+               "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')] " \
                "| //h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
-               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address')" \
+               "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
 
 

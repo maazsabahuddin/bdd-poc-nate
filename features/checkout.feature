@@ -7,6 +7,7 @@ Feature: Ecommerce Checkout
         When add to cart found
         Then click on add to cart and proceed to next step
 
+    @skip_checkout_step_1
     Scenario: Find "cart/checkout" button
         Given In page, product is added into cart
         When cart/check out button found
