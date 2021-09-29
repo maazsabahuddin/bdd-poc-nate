@@ -53,7 +53,9 @@ class Pattern:
                 "or contains(translate(text(), 'GOTCAR', 'gotcar'), 'go to cart') " \
                 "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown') " \
                 "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')] " \
-                "| //a[contains(translate(@href, 'CART', 'cart'),'cart')]"
+                "| //a[contains(translate(@href, 'CART', 'cart'),'cart') " \
+                "or contains(translate(@class, 'SHOPINGBA', 'shopingba'), 'shopping-bag')] " \
+                "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -66,7 +68,8 @@ class Pattern:
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') "\
                          "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout') "\
                          "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out')] " \
-                         "| //button[contains(translate(text(), 'CARD', 'card'), 'card')]"
+                         "| //button[contains(translate(text(), 'CARD', 'card'), 'card') " \
+                         "or contains(translate(@class, 'SHOPFTER', 'shopfter'), 'shop-footer')]"
     ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNAME-_', 'firstname-_'), 'firstname') " \
                  "or contains(@name, 'FirstName') or contains(@name, 'firstName') " \
@@ -210,7 +213,8 @@ class Pattern:
                                 "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')] " \
                                 "| //a[contains(translate(@title, 'CLOSE', 'close'), 'close')] " \
                                 "| //span[contains(translate(@class, 'ICONLSE', 'iconlse'), 'icon-close') " \
-                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks')]"
+                                "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') " \
+                                "or text()='x']"
 
     # Keywords to check address details
     KeyWords = "//h2[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \

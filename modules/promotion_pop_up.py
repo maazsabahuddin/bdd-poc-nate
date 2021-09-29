@@ -46,7 +46,7 @@ class PromotionPopUp:
         return self.is_promo_overlay_closed
 
     def __find_iframe_element(self):
-        iframe_pattern = "//iframe[@id='ju_iframe_727313']"
+        iframe_pattern = "//iframe[@id='ju_iframe_727313' or @id='ju_iframe_439916']"
         return self.web.finds_by_xpath_wait(iframe_pattern)
 
     def __find_element_and_close_promotion_iframe(self):
