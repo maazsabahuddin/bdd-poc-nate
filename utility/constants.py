@@ -55,7 +55,7 @@ class Pattern:
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout')]"
-    ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTR ADRES', 'Entr adres'), 'Enter address')]"
+    ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTRADS', 'entrads'), 'Enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNME', 'firstnme'), 'firstname') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first-name') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first_name') " \
@@ -135,7 +135,6 @@ class Pattern:
                "//button[contains(@type, 'submit') and contains(translate(text(), 'SHIP', 'ship'), 'ship')]"
     PLACE_ORDER = "//*[contains(@name, 'place')]"
     CONSENT = "//input[contains(@type, 'checkbox')]"
-
     GUEST_BUTTON = "//*[contains(translate(text(),'CONTINUE','continue'),'continue') " \
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
