@@ -46,14 +46,12 @@ def _execute():
 #     "Vqfit": "https://www.vqfit.com/collections/accessories/products/vanquish-khaki-crossbody-bag",
 #     "Puravidabracelets": "https://www.puravidabracelets.com/collections/rings/products/raw-gemstone-ring?variant=39352154849366",
 #     "Cupshe": "https://www.cupshe.com/collections/dress/products/haleigh-orange-backless-split-tea-length-dress?variant=39527129219162",
-#     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size",
-#     "Usatuan": "https://usatuan.com/products/product-15"
+#     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size"
 # }
 
 # sites = {
 #     "Outofthesandbox": "https://outofthesandbox.com/collections/turbo-theme/products/turbo-theme-portland",
 #     "Theoodie": "https://theoodie.com/products/oodie-pillows",
-#     "Recommendationletters": "https://recommendationletters.pro/products/full-page-recommendation-letter",
 #     "Giuliofashion": "https://www.giuliofashion.com/collections/mens-accessories/products/moncler-area-backpack-5a6010002t02999?variant=32387225944147",
 #     "Princesspolly": "https://us.princesspolly.com/collections/bags-wallets/products/highland-bag-brown",
 #     "Nativeunion": "https://www.nativeunion.com/collections/usb-c-to-usb-c/products/desk-cable-usb-c-to-usb-c",
