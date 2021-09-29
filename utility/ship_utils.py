@@ -1,16 +1,11 @@
 # Python imports
-# import time
 
 # Framework imports
-import time
-
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
 from modules.logger import logger
 from utility import constants
-# from utility.constants import Timer
-from utility.constants import Timer
 from utility.user_personal_info import UserInfo
 
 
