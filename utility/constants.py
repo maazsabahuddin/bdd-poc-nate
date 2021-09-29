@@ -76,13 +76,12 @@ class Pattern:
     EMAIL = "//input[contains(translate(@name, 'EMAIL', 'email'), 'email') " \
             "or contains(translate(@id, 'EMAIL', 'email'), 'email')]"
     COUNTRY_CODE = "//input[contains(@name, 'countryCode')]"
-    PHONE = "//input[contains(translate(@name, 'TELEPHONE', 'telephone'), 'telephone') " \
-            "or contains(@name, 'phones[0].subscriberNumber') or contains(@name, 'phoneNumber') " \
-            "or contains(@name, 'billing_phone') or contains(translate(@name, 'Number', 'number'), 'number') " \
+    PHONE = "//input[contains(translate(@name, 'TELPHON', 'telphon'), 'telephone') " \
+            "or contains(translate(@name, 'NUMBER', 'number'), 'number') " \
             "or contains(translate(@name, 'PHONE', 'phone'), 'phone') " \
-            "or contains(@name, 'primaryVoiceNumber') " \
-            "or contains(@id, 'phones[0].subscriberNumber') or contains(@id, 'phoneNumber') " \
-            "or contains(@id, 'billing_phone') or contains(@id, 'primaryVoiceNumber') " \
+            "or contains(translate(@id, 'TELPHON', 'telphon'), 'telephone') " \
+            "or contains(translate(@id, 'NUMBER', 'number'), 'number') " \
+            "or contains(translate(@id, 'PHONE', 'phone'), 'phone') " \
             "or contains(@aria-label, 'Phone Number')]"
     ADDRESS1 = "//input[contains(translate(@id, 'ADRES', 'adres'), 'address') " \
                "or contains(translate(@id, 'ADRES1', 'adres1'), 'address1') " \
@@ -101,10 +100,14 @@ class Pattern:
                "or contains(@id, 'StreetLine2') or contains(@id, 'addressLines[1]') " \
                "or contains(@id, 'addressLineTwo') or contains(@id, 'addressLine2') " \
                "or contains(translate(@id, 'ADRES2', 'adres2'), 'address2')]"
-    CITY = "//input[contains(@name, 'AdministrativeArea') or contains(translate(@name, 'CITY', 'city'), 'city') " \
-           "or contains(@id, 'AdministrativeArea') or contains(translate(@id, 'CITY', 'city'), 'city') " \
-           "or contains(translate(@name, 'LOCALITY', 'locality'), 'locality') " \
-           "or contains(translate(@name, 'TOWN', 'town'), 'town')]"
+    CITY = "//input[contains(translate(@name, 'ARE', 'are'), 'area') " \
+           "or contains(translate(@name, 'CITY', 'city'), 'city') " \
+           "or contains(translate(@name, 'LOCAITY', 'locaity'), 'locality') " \
+           "or contains(translate(@name, 'TOWN', 'town'), 'town') " \
+           "or contains(translate(@id, 'ARE', 'are'), 'area') " \
+           "or contains(translate(@id, 'CITY', 'city'), 'city') " \
+           "or contains(translate(@id, 'LOCAITY', 'locaity'), 'locality') " \
+           "or contains(translate(@id, 'TOWN', 'town'), 'town')]"
     STATE = "//select[contains(translate(@name, 'STAE', 'stae'), 'state') " \
             "or contains(translate(@name, 'REGION', 'region'), 'region') " \
             "or contains(translate(@name, 'PROVINCE', 'province'), 'province') " \
@@ -121,10 +124,12 @@ class Pattern:
             "or contains(translate(@id, 'REGION', 'region'), 'region') " \
             "or contains(translate(@id, 'PROVINCE', 'province'), 'province') " \
             "or contains(translate(@id, 'AREA', 'area'), 'area')]"
-    POSTAL_CODE = "//input[contains(@name, 'postal') or contains(translate(@name, 'ZIP', 'zip'), 'zip') " \
-                  "or contains(@name, 'shipping-zip-code') or contains(@name, 'postcode') " \
-                  "or contains(@id, 'postal') or contains(@id, 'zip') or contains(@id, 'postcode') " \
-                  "or contains(@id, 'shipping-zip-code')]"
+    POSTAL_CODE = "//input[contains(translate(@name, 'POSTAL', 'postal'),'postal') " \
+                  "or contains(translate(@name, 'ZIP', 'zip'), 'zip') " \
+                  "or contains(translate(@name, 'CODE', 'code'), 'code') " \
+                  "or contains(translate(@id, 'POSTAL', 'postal'),'postal') " \
+                  "or contains(translate(@id, 'ZIP', 'zip'), 'zip') " \
+                  "or contains(translate(@id, 'CODE', 'code'), 'code')]"
     COUNTRY = "//select[contains(translate(@name, 'COUNTRY', 'country'), 'country')]"
     CONTINUE = "//*[contains(translate(text(), 'CONTINUE', 'continue'), 'continue') " \
                "or contains(translate(text(), 'NEXT', 'next'), 'next') " \
@@ -233,6 +238,7 @@ class ETC:
     BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
     URL = "url"
     IS_CASE_FAILED = "is_case_failed"
+    CLASS = "class"
 
 
 class UserInfo:

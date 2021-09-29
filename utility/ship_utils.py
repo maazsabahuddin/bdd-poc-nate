@@ -2,12 +2,15 @@
 # import time
 
 # Framework imports
+import time
+
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
 from modules.logger import logger
 from utility import constants
 # from utility.constants import Timer
+from utility.constants import Timer
 from utility.user_personal_info import UserInfo
 
 
@@ -47,9 +50,10 @@ class ShipUtils:
         :return:
         """
         for element in phone_elements:
-            for val in ["number", "Number", "phone", "Phone"]:
-                if val in element.get_attribute(constants.ETC.NAME) and \
-                        element.is_enabled() and element.is_displayed() and ShipUtils.validate_phone_element(element):
+            for val in ["number", "phone"]:
+                if val in element.get_attribute(constants.ETC.NAME).lower() and \
+                        element.is_enabled() and element.is_displayed() and ShipUtils.validate_phone_element(element) \
+                        and "hidden" not in element.get_attribute(constants.ETC.CLASS):
                     return element
 
     @staticmethod
@@ -190,14 +194,16 @@ class ShipUtils:
         if address2_elements:
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
             for element in address2_elements:
-                if not element.is_enabled() or not element.is_displayed():
+                if not element.is_enabled() or not element.is_displayed() or \
+                        "hidden" in element.get_attribute(constants.ETC.CLASS):
                     continue
                 element.send_keys(UserInfo.ADDRESS2)
                 break
 
         city_elements = shipping_info[constants.UserInfo.CITY]
         for element in city_elements:
-            if not element.is_enabled() or not element.is_displayed():
+            if not element.is_enabled() or not element.is_displayed() or \
+                    "hidden" in element.get_attribute(constants.ETC.CLASS):
                 continue
             if element.get_attribute(constants.ETC.VALUE):
                 element.clear()
@@ -207,8 +213,11 @@ class ShipUtils:
 
         postal_code_elements = shipping_info[constants.UserInfo.POSTAL_CODE]
         for element in postal_code_elements:
-            if not element.is_enabled() or not element.is_displayed():
+
+            if not element.is_enabled() or not element.is_displayed() or \
+                    "hidden" in element.get_attribute(constants.ETC.CLASS):
                 continue
+
             if element.get_attribute(constants.ETC.VALUE):
                 element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
@@ -230,12 +239,14 @@ class ShipUtils:
             return
 
         for element in state_element:
-            if not element.is_enabled() or not element.is_displayed():
+            if not element.is_enabled() or not element.is_displayed() or \
+                    "hidden" in element.get_attribute(constants.ETC.CLASS):
                 continue
             if element.tag_name == constants.Tags.INPUT:
                 logger.info("Filling state using input")
                 # time.sleep(Timer.ONE_SECOND_TIMEOUT)
                 element.send_keys(UserInfo.STATE_INPUT)
+                break
             else:
                 logger.info("Filling state using select option")
                 all_options = element.find_elements_by_tag_name(constants.ETC.OPTION)

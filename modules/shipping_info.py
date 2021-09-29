@@ -133,7 +133,8 @@ class Shipping:
             self.failed_case(f"{extracted_element_tag} element is not clickable")
 
         try:
-            required_element.click()
+            # required_element.click()
+            pass
         except Exception as e:
             logger.info("Element is not clickable")
             self.failed_case(str(e))
@@ -190,6 +191,7 @@ class Shipping:
         return True
 
     def fetching_required_elements(self):
+        self.web.open(self.context.url)
         logger.info("fetching required elements")
         manual_address_button = self.web.finds_by_xpath_wait(constants.Pattern.ENTER_ADDRESS)
         logger.info(f"Manual Address button: {manual_address_button}")
