@@ -133,8 +133,7 @@ class Shipping:
             self.failed_case(f"{extracted_element_tag} element is not clickable")
 
         try:
-            # required_element.click()
-            pass
+            required_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
             self.failed_case(str(e))
