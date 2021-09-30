@@ -2,13 +2,11 @@
 import time
 
 # Local Imports
-from file import close_file
+from features.environment import failed_case
 from utility import constants
 from modules.logger import logger
-from utility.constants import Timer, ETC
-from utility.ship_utils import ShipUtils
+from utility.constants import Timer
 from utility.utilities import Utils
-from app import _result_file
 
 
 class Payment:
@@ -22,7 +20,7 @@ class Payment:
         logger.info("Initializing payment variable.")
         self.payment_element = None
 
-    def click_now(self):
+    def click_payment_button(self):
         logger.info("clicking on payment button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.payment_element,
@@ -41,7 +39,8 @@ class Payment:
             required_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
-            # self.failed_case(str(e))
+            failed_case(scenario="Payment Button Flow", exception_message=str(e))
+            # self.context.scenario.skip(reason='cannot find payment field')
 
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)

@@ -3,10 +3,13 @@ from behave import *
 
 # Local imports
 from modules.payment import Payment
+from utility.constants import ETC
+from app import _result_file
+from file import close_file
 
 
 @given('Payment Button')
-def shipping_address_required_step(context):
+def step_impl(context):
     """
     Gather required elements
     :param context:
@@ -17,7 +20,7 @@ def shipping_address_required_step(context):
 
 
 @when('If payment button found')
-def identify_scenario(context):
+def step_impl(context):
     """
     Check which type of page is identified and call that controller accordingly.
     :param context:
@@ -27,9 +30,12 @@ def identify_scenario(context):
 
 
 @then('Click on it')
-def proceed_shipping_address_page(context):
+def step_impl(context):
     """
     Enter details and proceed to checkout
     :param context:
     """
-    context.current_obj.click_now()
+    context.current_obj.click_payment_button()
+    if not context._root[ETC.IS_CASE_FAILED]:
+        _result_file.write(f"{context.name} - PASSED\n") if context.log == "True" else None
+        close_file(_result_file)

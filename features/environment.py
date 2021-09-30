@@ -3,10 +3,12 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Local imports
+from file import close_file
 from modules.logger import logger
 from modules.base import Base
 from utility import constants
 from utility.constants import SkipScenario, Timer, ETC
+from app import _result_file
 
 
 def before_all(context):
@@ -121,3 +123,12 @@ def after_step(context, step):
         import ipdb
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. STEP FAILS..")
         ipdb.post_mortem(step.exc_traceback)
+
+
+def failed_case(scenario, exception_message):
+    logger.info("Skipping all other scenarios.")
+    _result_file.write(f"{self.context.name} - FAILED - {scenario} - {str(exception_message)}\n") \
+        if self.context.log == "True" else None
+    close_file(_result_file)
+    self.context._root[ETC.IS_CASE_FAILED] = True
+    self.context.web.skip_all_remaining_scenarios()
