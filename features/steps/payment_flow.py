@@ -8,7 +8,7 @@ from app import _result_file
 from file import close_file
 
 
-@given('ContinueToPayment Button')
+@given('Payment Button')
 def step_impl(context):
     """
     Gather required elements
