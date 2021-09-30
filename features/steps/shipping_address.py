@@ -34,4 +34,4 @@ def proceed_shipping_address_page(context):
     :param context:
     """
     context.current_obj.fill_out_data()
-    context.current_obj.click_payment_button()
+    context.current_obj.click_now()
