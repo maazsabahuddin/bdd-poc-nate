@@ -2,7 +2,7 @@
 from behave import *
 
 # Local imports
-from modules.payment import ContinueToPayment
+from modules.continuetopayment import ContinueToPayment
 from utility.constants import ETC
 from app import _result_file
 from file import close_file
