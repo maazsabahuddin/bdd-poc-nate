@@ -162,10 +162,11 @@ class Pattern:
                    "or contains(translate(text(),'GUEST','guest'),'guest') " \
                    "or contains(translate(text(), 'SAVE', 'save'), 'save') " \
                    "or contains(translate(text(), 'ADEILMY', 'adeilmy'), 'add my email')]"
-    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') or " \
-                      "contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') or " \
-                      "contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') or " \
-                      "contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase')]"
+    CONFIRM_AND_PAY = "//*[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order') " \
+                      "or contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') " \
+                      "or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') " \
+                      "or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase') " \
+                      "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now')]"
     PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
@@ -179,7 +180,8 @@ class Pattern:
                   "or contains(translate(@id, 'INPUT', 'input'), 'input') " \
                   "or contains(translate(@id, 'NUMBER', 'number'), 'number') " \
                   "or @autocomplete ='cc-number' " \
-                  "or @name = 'pan']"
+                  "or @name = 'pan' " \
+                  "or contains(translate(@placeholder, 'CARDNUMBE', 'cardnumbe'), 'card number')]"
     EXPIRATION_MONTH = "//*[contains(translate(@id, 'EXPMONTH', 'expmonth'), 'expmonth') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'expdate') " \
                        "or contains(translate(@name, 'EXPDAT', 'expdat'), 'exp-date') " \
@@ -190,7 +192,8 @@ class Pattern:
                        "or contains(translate(@id, 'EXP', 'exp'), 'exp') " \
                        "or @autocomplete = 'cc-exp-month' " \
                        "or contains(translate(@name, 'EXPIRATOND', 'expiratond'), 'expirationdate') " \
-                       "or contains(translate(@id, 'EXPIRY', 'expiry'), 'expiry')]"
+                       "or contains(translate(@id, 'EXPIRY', 'expiry'), 'expiry') " \
+                       "or contains(translate(@placeholder, 'EXPIRATOND', 'expiratond'), 'expiration date')]"
     EXPIRATION_YEAR = "//*[contains(translate(@id, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'expyear') " \
                       "or contains(translate(@name, 'EXPYAR', 'expyar'), 'exp-year') " \
@@ -204,12 +207,14 @@ class Pattern:
           "or contains(translate(@id, 'SECURITYOD', 'securityod'), 'securitycode') " \
           "or contains(translate(@id, 'CARDOE', 'cardoe'), 'cardcode') " \
           "or contains(translate(@id, 'VALIDTONCE', 'validtonce'), 'validationcode') " \
-          "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value')] "
+          "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value') " \
+          "or contains(translate(@placeholder, 'SECURITYOD', 'securityod'), 'security code')] "
     CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
                        "or contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
-                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name')] "
+                       "or contains(translate(@id, 'INPUTAME', 'inputame'), 'input-name') " \
+                       "or contains(translate(@placeholder, 'NAMEOCRD', 'nameocrd'), 'name on card')]"
     CARD_TYPE = "//*[contains(translate(@name, 'CARDTYPE', 'cardtype'), 'cardtype') " \
                 "or contains(translate(text(), 'CREDIT', 'credit'), 'credit') " \
                 "and contains(translate(text(), 'DEBIT', 'debit'), 'debit') " \

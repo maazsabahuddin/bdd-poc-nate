@@ -26,7 +26,6 @@ class CardDetails:
         self.continue_button = None
         
     def find_card_details_elements(self):
-        time.sleep(Timer.THREE_SECOND_TIMEOUT)
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
         self.__scrap_required_elements()
         self.is_card_details_found = self.__is_required_fields_found()
@@ -66,10 +65,13 @@ class CardDetails:
                     option.click()
                     break
         else:
-            expiry_details = month.split("/")
-            self.card_month_expiry_element.send_keys(expiry_details[0])
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            self.card_month_expiry_element.send_keys(expiry_details[1])
+            if "/" in month:
+                expiry_details = month.split("/")
+                self.card_month_expiry_element.send_keys(expiry_details[0])
+                time.sleep(Timer.ONE_SECOND_TIMEOUT)
+                self.card_month_expiry_element.send_keys(expiry_details[1])
+            else:
+                self.card_month_expiry_element.send_keys(month)
         time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_year(self, year):
@@ -112,14 +114,20 @@ class CardDetails:
             print(f"Exception while populating cvv of {e}")
 
     def __populate_card_expiration_details(self, month, year, m_y):
-        try:
-            if self.card_year_expiry_element:
+        if self.card_year_expiry_element:
+            try:
                 self.__populate_month(month=month)
+            except Exception as e:
+                print(f"Exception while populating month expiry of {e}")
+            try:
                 self.__populate_year(year=year)
-            else:
+            except Exception as e:
+                print(f"Exception while populating year expiry of {e}")
+        else:
+            try:
                 self.__populate_month(month=m_y)
-        except Exception as e:
-            print(f"Exception while populating expiry of {e}")
+            except Exception as e:
+                print(f"Exception while populating expiry of {e}")
 
     def __update_card_type_details_if_any(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
@@ -189,7 +197,9 @@ class CardDetails:
                          "or contains(translate(@id, 'CARDFIELDSNUMB', 'cardfieldsnumb'), 'card-fields-number') " \
                          "or contains(translate(@id, 'CARDFIELDSNM', 'cardfieldsnm'), 'card-fields-name') " \
                          "or contains(translate(@id, 'CARDFIELDSXPY', 'cardfieldsxpy'), 'card-fields-expiry') " \
-                         "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value')]"
+                         "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value') " \
+                         "or contains(translate(@id, 'SECURWINDO', 'securwindo'), 'securewindow') " \
+                         "or contains(translate(@id, 'GIPAYMENT', 'gipayment'), 'gip-payment')]"
         self.card_elements_iframes = self.web.finds_by_xpath_wait(iframe_pattern)
         if self.card_elements_iframes:
             self.is_card_details_found = True

@@ -12,11 +12,11 @@ def _execute():
     """
     behave_main()
 
-sites = {
-    "walmart": "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867",
-    "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
-    "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004"
-}
+# sites = {
+#     "walmart": "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867",
+#     "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
+#     "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004"
+# }
 
 # sites = {
 #     "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
@@ -70,7 +70,6 @@ sites = {
 # }
 
 # sites = {
-#     "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
 #     "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
 #     "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
 #     "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
@@ -83,18 +82,18 @@ sites = {
 #     "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
 # }
 
-# sites = {
-#     "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
-#     "gonoise": "https://www.gonoise.com/products/noise-air-buds-plus-truly-wireless-earbuds",
-#     "tommycashshop": "https://tommycashshop.com/collections/sweaters/products/blue-sweater",
-#     "bandolierstyle": "https://www.bandolierstyle.com/products/morgan-belt-with-ryder-carabin-dark-leopard-gold",
-#     "articture": "https://articture.com/collections/best-sellers/products/rosetta-floor-lamp?variant=39298854486103",
-#     "keychron": "https://www.keychron.com/products/keychron-q1",
-#     "uspoloassn": "https://uspoloassn.com/collections/mens-new-arrivals/products/tricot-tape-pieced-polo-shirt?",
-#     "burga": "https://www.burga.com/collections/iphone-13-cases/products/cute-iphone-13-case?variant=40642467332271",
-#     "brooklinen": "https://www.brooklinen.com/products/down-pillow?variant=8364503043",
-#     "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
-# }
+sites = {
+    "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
+    "gonoise": "https://www.gonoise.com/products/noise-air-buds-plus-truly-wireless-earbuds",
+    "tommycashshop": "https://tommycashshop.com/collections/sweaters/products/blue-sweater",
+    "bandolierstyle": "https://www.bandolierstyle.com/products/morgan-belt-with-ryder-carabin-dark-leopard-gold",
+    "articture": "https://articture.com/collections/best-sellers/products/rosetta-floor-lamp?variant=39298854486103",
+    "keychron": "https://www.keychron.com/products/keychron-q1",
+    "uspoloassn": "https://uspoloassn.com/collections/mens-new-arrivals/products/tricot-tape-pieced-polo-shirt?",
+    "burga": "https://www.burga.com/collections/iphone-13-cases/products/cute-iphone-13-case?variant=40642467332271",
+    "brooklinen": "https://www.brooklinen.com/products/down-pillow?variant=8364503043",
+    "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
+}
 
 # sites = {
 #     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
