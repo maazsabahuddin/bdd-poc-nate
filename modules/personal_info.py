@@ -2,6 +2,8 @@
 import time
 
 # Local imports
+from features.environment import failed_case
+from modules.logger import logger
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
 from utility.constants import TagsList, Pattern, Timer
@@ -91,4 +93,6 @@ class PersonalInfo:
                 self.button.click()
                 time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
             except Exception as e:
-                print("\nPrersonal info -----> ", e)
+                logger.info("\nPersonal info -----> ", e)
+                failed_case(scenario="Personal Information",
+                            exception_message=f"Error in clicking personal info button {str(e)}")
