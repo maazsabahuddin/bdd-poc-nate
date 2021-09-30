@@ -1,8 +1,8 @@
 # Python Imports
 import time
-import os
 
 # Local Imports
+from features.environment import failed_case
 from utility import constants
 from modules.logger import logger
 from utility.constants import Timer
@@ -112,27 +112,29 @@ class Shipping:
             pass
 
     def click_now(self):
-        logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
-        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-        logger.info("TIMEOUT OVER")
         logger.info("clicking on done/continue button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
                                           constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         if not continue_elements_dict:
             logger.info("Button element not found.")
-            logger.info("Aborting..")
-            os.abort()
+            logger.info("Skipping all other scenarios.")
+            failed_case(scenario="Shipping Address", exception_message="Button element not found.")
 
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
                                                        constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
-            logger.info("Aborting..")
-            os.abort()
+            failed_case(scenario="Shipping Address",
+                        exception_message=f"{extracted_element_tag} element is not clickable")
 
-        required_element.click()
+        try:
+            required_element.click()
+        except Exception as e:
+            logger.info("Element is not clickable")
+            failed_case(scenario="Shipping Address", exception_message=str(e))
+
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         logger.info("TIMEOUT OVER")
@@ -187,7 +189,7 @@ class Shipping:
     def fetching_required_elements(self):
         logger.info("fetching required elements")
         manual_address_button = self.web.finds_by_xpath_wait(constants.Pattern.ENTER_ADDRESS)
-        logger.info(f"Address button: {manual_address_button}")
+        logger.info(f"Manual Address button: {manual_address_button}")
         if manual_address_button:
             logger.info("Address button found. Clicking now")
             manual_address_button[0].click()

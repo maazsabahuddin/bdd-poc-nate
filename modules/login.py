@@ -5,6 +5,8 @@ import time
 from selenium.common import exceptions
 
 # Local imports
+from features.environment import failed_case
+from modules.logger import logger
 from utility.constants import TagsList, Pattern, Timer
 from utility.utilities import Utils
 
@@ -41,8 +43,10 @@ class Login:
             self.selected_login_guest_element.click()
             # remove when run in production
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException):
-            print("Error in clicking login as guest button")
+        except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException) as e:
+            logger.info("Error in clicking login as guest button")
+            failed_case(scenario="Login As Guest",
+                        exception_message=f"Error in clicking login as guest button {str(e)}")
 
     def fetch_login_as_guest_elements(self):
         """

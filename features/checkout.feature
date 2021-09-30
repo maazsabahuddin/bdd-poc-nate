@@ -39,6 +39,11 @@ Feature: Ecommerce Checkout
         When Shipping information found or not
         Then Enter shipping address details and proceed
 
+    Scenario: Continue to payment flow
+        Given Payment Button
+        When If payment button found
+        Then Click on it
+
     Scenario: Fill card details
         Given order card details page
         When card details found
