@@ -26,8 +26,7 @@ class CardDetails:
         self.continue_button = None
         
     def find_card_details_elements(self):
-        self.web.open(self.context.url)
-        time.sleep(40)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
         self.__update_card_type_details_if_any(Pattern.CARD_TYPE)
         self.__scrap_required_elements()
         self.is_card_details_found = self.__is_required_fields_found()
