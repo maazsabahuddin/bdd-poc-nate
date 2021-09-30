@@ -2,13 +2,12 @@
 import time
 
 # Local Imports
-from file import close_file
+from features.environment import failed_case
 from utility import constants
 from modules.logger import logger
-from utility.constants import Timer, ETC
+from utility.constants import Timer
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
-from app import _result_file
 
 
 class Shipping:
@@ -113,9 +112,6 @@ class Shipping:
             pass
 
     def click_now(self):
-        # logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds pause timeout")
-        # time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-        # logger.info("TIMEOUT OVER")
         logger.info("clicking on done/continue button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.shipping_info[constants.UserInfo.CONTINUE],
@@ -123,20 +119,21 @@ class Shipping:
         if not continue_elements_dict:
             logger.info("Button element not found.")
             logger.info("Skipping all other scenarios.")
-            self.failed_case(exception_message="Button element not found.")
+            failed_case(scenario="Shipping Address", exception_message="Button element not found.")
 
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
                                                        constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
-            self.failed_case(f"{extracted_element_tag} element is not clickable")
+            failed_case(scenario="Shipping Address",
+                        exception_message=f"{extracted_element_tag} element is not clickable")
 
         try:
             required_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
-            self.failed_case(str(e))
+            failed_case(scenario="Shipping Address", exception_message=str(e))
 
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
@@ -216,11 +213,3 @@ class Shipping:
         self.shipping_info[constants.UserInfo.CONSENT] = self.web.finds_by_xpath_wait(constants.Pattern.CONSENT)
 
         logger.info("Fetched")
-
-    def failed_case(self, exception_message):
-        logger.info("Skipping all other scenarios.")
-        _result_file.write(f"{self.context.name} - FAILED -Shipping Address - {str(exception_message)}\n") \
-            if self.context.log == "True" else None
-        close_file(_result_file)
-        self.context._root[ETC.IS_CASE_FAILED] = True
-        self.context.web.skip_all_remaining_scenarios()
