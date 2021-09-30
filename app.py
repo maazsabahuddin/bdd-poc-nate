@@ -12,6 +12,12 @@ def _execute():
     """
     behave_main()
 
+sites = {
+    "walmart": "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867",
+    "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
+    "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004"
+}
+
 # sites = {
 #     "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
 #     "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004",
@@ -31,8 +37,9 @@ def _execute():
 #     "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
 #     "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
 #     "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
-#     "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
+#     "Zanerobe": "https://zanerobe.com/products/box-tee-washed-camo",
 #     "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
+#     "Shop.ledger": "https://shop.ledger.com/products/ledger-nano-s",
 #     "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
 #     "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
 # }
@@ -47,13 +54,11 @@ def _execute():
 #     "Puravidabracelets": "https://www.puravidabracelets.com/collections/rings/products/raw-gemstone-ring?variant=39352154849366",
 #     "Cupshe": "https://www.cupshe.com/collections/dress/products/haleigh-orange-backless-split-tea-length-dress?variant=39527129219162",
 #     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size",
-#     "Usatuan": "https://usatuan.com/products/product-15"
 # }
 
 # sites = {
 #     "Outofthesandbox": "https://outofthesandbox.com/collections/turbo-theme/products/turbo-theme-portland",
 #     "Theoodie": "https://theoodie.com/products/oodie-pillows",
-#     "Recommendationletters": "https://recommendationletters.pro/products/full-page-recommendation-letter",
 #     "Giuliofashion": "https://www.giuliofashion.com/collections/mens-accessories/products/moncler-area-backpack-5a6010002t02999?variant=32387225944147",
 #     "Princesspolly": "https://us.princesspolly.com/collections/bags-wallets/products/highland-bag-brown",
 #     "Nativeunion": "https://www.nativeunion.com/collections/usb-c-to-usb-c/products/desk-cable-usb-c-to-usb-c",
@@ -91,21 +96,21 @@ def _execute():
 #     "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
 # }
 
-sites = {
-    "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
-    "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
-    "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
-    "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
-    "Getpivo": "https://getpivo.com/products/pivo-pod-1",
-    "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
-    "Huel": "https://huel.com/products/huel-flavor-boosts",
-    "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
-    "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
-    "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
-    "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
-    "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
-    "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
-}
+# sites = {
+#     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
+#     "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
+#     "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
+#     "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
+#     "Getpivo": "https://getpivo.com/products/pivo-pod-1",
+#     "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
+#     "Huel": "https://huel.com/products/huel-flavor-boosts",
+#     "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
+#     "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
+#     "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
+#     "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
+#     "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
+#     "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
+# }
 
 
 _result_file = open_file(name="automation_result.txt", mod="a")

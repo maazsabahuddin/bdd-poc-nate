@@ -39,6 +39,7 @@ class AddToCart:
             logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
             logger.info(f"is overlay handled: {is_overlays_found_and_close}")
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
             if is_overlays_found_and_close:
                 self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
                 if self.required_element:
@@ -90,6 +91,7 @@ class AddToCart:
             logger.info("finding for overlays")
             is_overlays_found_and_close = Utils.check_overlays(self.context)
             logger.info(f"is overlay handled: {is_overlays_found_and_close}")
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
             else:

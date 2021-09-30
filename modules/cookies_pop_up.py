@@ -1,9 +1,8 @@
 # Python imports
 import logging
-import time
 
 # Local imports
-from utility.constants import Pattern, TagsList, Timer
+from utility.constants import Pattern, TagsList
 
 
 class CookiesPopUp:
@@ -25,7 +24,6 @@ class CookiesPopUp:
             if not self.__accept_cookies_element:
                 return False
             self.__accept_cookies_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
             return True
         except Exception as e:
             logging.info("cookies pop up exception: ", str(e))
