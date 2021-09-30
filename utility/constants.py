@@ -248,7 +248,7 @@ class Pattern:
                "| //h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
-    PAYMENT = "//*[]"
+    PAYMENT = "//*[contains(translate(text(), 'CONTINUEPAYMN', 'continuepaymn'), 'continue to payment')]"
 
 
 class SkipScenario:
