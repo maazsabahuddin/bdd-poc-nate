@@ -15,9 +15,9 @@ class UserInfo:
     COUNTRY_OPTIONS = ["US", "PK"]
 
     # Card details
-    CARD_NUMBER = "4026430004733334"
+    CARD_NUMBER = "4026 4300 0473 3334"
     CARD_HOLDER_NAME = "Sean Abbott"
     CARD_MONTH_EXPIRY = "09"
     CARD_YEAR_EXPIRY = "22"
     CARD_CVV = "123"
-    CARD_EXPIRY = "0922"
+    CARD_EXPIRY = "09/22"
