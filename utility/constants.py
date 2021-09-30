@@ -223,6 +223,7 @@ class ETC:
     BEHAVE_DEBUG_ON_ERROR = "BEHAVE_DEBUG_ON_ERROR"
     URL = "url"
     IS_CASE_FAILED = "is_case_failed"
+    CLASS = "class"
 
 
 class UserInfo:

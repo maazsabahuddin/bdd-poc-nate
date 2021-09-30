@@ -206,8 +206,12 @@ class ShipUtils:
 
         postal_code_elements = shipping_info[constants.UserInfo.POSTAL_CODE]
         for element in postal_code_elements:
-            if not element.is_enabled() or not element.is_displayed():
+
+            if not element.is_enabled() or not element.is_displayed() \
+                    or "hidden" in element.get_attribute(constants.ETC.CLASS) \
+                    or "reduction_code" in element.get_attribute(constants.ETC.NAME):
                 continue
+
             if element.get_attribute(constants.ETC.VALUE):
                 element.clear()
             # time.sleep(Timer.ONE_SECOND_TIMEOUT)
