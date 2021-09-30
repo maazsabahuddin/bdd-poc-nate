@@ -31,8 +31,9 @@ def _execute():
 #     "Spigen": "https://www.spigen.com/collections/iphone-13/products/iphone-13-case-slim-armor-essential-s?variant=39985455431727",
 #     "Jbhifi": "https://www.jbhifi.com.au/products/gopro-hero10-black-5-3k-hypersmooth-4-0-action-cam",
 #     "Mnml": "https://mnml.la/products/mnml-beanie-classic-beanie-beanie-m2020-b829-blk",
-#     "Colourpop": "https://colourpop.com/products/glisten-up-vitamin-c",
+#     "Zanerobe": "https://zanerobe.com/products/box-tee-washed-camo",
 #     "Kith": "https://kith.com/collections/kith-accessories-1/products/khm050023-307",
+#     "Shop.ledger": "https://shop.ledger.com/products/ledger-nano-s",
 #     "Aloyoga": "https://www.aloyoga.com/products/a0084u-uplifting-yoga-block-black-silver",
 #     "Uk.craftdlondon": "https://uk.craftdlondon.com/collections/rings/products/band-2-0-ring-silver"
 # }
@@ -46,7 +47,7 @@ def _execute():
 #     "Vqfit": "https://www.vqfit.com/collections/accessories/products/vanquish-khaki-crossbody-bag",
 #     "Puravidabracelets": "https://www.puravidabracelets.com/collections/rings/products/raw-gemstone-ring?variant=39352154849366",
 #     "Cupshe": "https://www.cupshe.com/collections/dress/products/haleigh-orange-backless-split-tea-length-dress?variant=39527129219162",
-#     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size"
+#     "Allbirds": "https://www.allbirds.com/products/runner-lace-kit?size=one-size",
 # }
 
 # sites = {
@@ -62,19 +63,19 @@ def _execute():
 #     "Ruggable": "https://ruggable.com/products/verena-dark-wood-rug?size=5x7"
 # }
 
-# sites = {
-#     "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
-#     "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
-#     "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
-#     "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
-#     "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
-#     "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
-#     "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
-#     "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
-#     "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
-#     "Skims": "https://skims.com/products/face-mask-clay",
-#     "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
-# }
+sites = {
+    "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
+    "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
+    "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
+    "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
+    "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
+    "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
+    "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
+    "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
+    "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
+    "Skims": "https://skims.com/products/face-mask-clay",
+    "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
+}
 
 # sites = {
 #     "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
@@ -89,21 +90,21 @@ def _execute():
 #     "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
 # }
 
-sites = {
-    "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
-    "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
-    "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
-    "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
-    "Getpivo": "https://getpivo.com/products/pivo-pod-1",
-    "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
-    "Huel": "https://huel.com/products/huel-flavor-boosts",
-    "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
-    "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
-    "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
-    "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
-    "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
-    "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
-}
+# sites = {
+#     "Amrstore": "https://amrstore.com/products/max-mara-knit-16",
+#     "Ripndipclothing": "https://www.ripndipclothing.com/collections/long-sleeves/products/embroidered-logo-long-sleeve-black-mineral-wash",
+#     "Hanon-shop": "https://www.hanon-shop.com/collections/nike/products/nike-air-max-96-ii-db0251500",
+#     "Vicicollection": "https://www.vicicollection.com/products/banks-ribbed-knit-midi-dress-oatmeal",
+#     "Getpivo": "https://getpivo.com/products/pivo-pod-1",
+#     "Themusiczoo": "https://www.themusiczoo.com/products/martin-lxk2-little-martin-natural",
+#     "Huel": "https://huel.com/products/huel-flavor-boosts",
+#     "Drsquatch": "https://drsquatch.com/collections/toothpaste/products/citrus-mint-toothpaste",
+#     "Proozy": "https://www.proozy.com/collections/mens-sweaters/products/under-armour-mens-elevate-quarter-zip-sweater",
+#     "Vitalydesign": "https://www.vitalydesign.com/collections/accessories/products/akoya?variant=32796683567179",
+#     "Palomawool": "https://palomawool.com/collections/new-in/products/darwin-long-sleeved-asymmetric-top-navy",
+#     "Theseea": "https://www.theseea.com/collections/shop-all/products/lennon-shorts-denim",
+#     "Blvck": "https://blvck.com/collections/accessories/products/blvck-can?variant=32266072850534"
+# }
 
 
 _result_file = open_file(name="automation_result.txt", mod="a")
