@@ -22,8 +22,8 @@ def identify_scenario(context):
     Check which type of page is identified and call that controller accordingly.
     :param context:
     """
-    if not context.current_obj.validate_fields():
-        context.current_obj.failed_case("Required fields not found.")
+    if not context.current_obj.validate_payment_fields():
+        context.scenario.skip(reason='cannot find payment field')
 
 
 @then('Click on it')

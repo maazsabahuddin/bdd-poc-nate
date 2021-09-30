@@ -23,7 +23,7 @@ class Payment:
         self.payment_element = None
 
     def click_now(self):
-        logger.info("clicking on done/continue button")
+        logger.info("clicking on payment button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.payment_element,
                                           constants.TagsList.POSSIBLE_PAYMENT_BUTTON)
@@ -52,6 +52,10 @@ class Payment:
     def fetching_required_elements(self):
         logger.info("fetching payment element")
         self.payment_element = self.web.finds_by_xpath_wait(constants.Pattern.PAYMENT)
-
         logger.info("Fetched")
 
+    def validate_payment_fields(self):
+        """
+        Validate if payment field found or not..
+        """
+        return True if self.payment_element else False
