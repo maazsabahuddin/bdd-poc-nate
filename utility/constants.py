@@ -28,6 +28,7 @@ class TagsList:
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
     POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_TYPE_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.BUTTON, Tags.DIV, Tags.SPAN]
+    POSSIBLE_PAYMENT_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
 
 
 class Pattern:
@@ -247,6 +248,7 @@ class Pattern:
                "| //h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
+    PAYMENT = "//*[]"
 
 
 class SkipScenario:

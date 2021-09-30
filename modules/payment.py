@@ -1,0 +1,57 @@
+# Python Imports
+import time
+
+# Local Imports
+from file import close_file
+from utility import constants
+from modules.logger import logger
+from utility.constants import Timer, ETC
+from utility.ship_utils import ShipUtils
+from utility.utilities import Utils
+from app import _result_file
+
+
+class Payment:
+    """
+    This class is responsible to fill out shipping address details by identify
+    shipping page type and other flows.
+    """
+    def __init__(self, context):
+        self.context = context
+        self.web = context.web
+        logger.info("Initializing payment variable.")
+        self.payment_element = None
+
+    def click_now(self):
+        logger.info("clicking on done/continue button")
+        continue_elements_dict = \
+            Utils.fetch_required_elements(self.payment_element,
+                                          constants.TagsList.POSSIBLE_PAYMENT_BUTTON)
+        if not continue_elements_dict:
+            logger.info("Button element not found.")
+            logger.info("Skipping all other scenarios.")
+            # self.failed_case(exception_message="Button element not found.")
+
+        extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
+                                                       constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
+        required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
+        if not required_element:
+            logger.info(f"{extracted_element_tag} element is not clickable")
+            # self.failed_case(f"{extracted_element_tag} element is not clickable")
+
+        try:
+            required_element.click()
+        except Exception as e:
+            logger.info("Element is not clickable")
+            # self.failed_case(str(e))
+
+        logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
+        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        logger.info("TIMEOUT OVER")
+
+    def fetching_required_elements(self):
+        logger.info("fetching payment element")
+        self.payment_element = self.web.finds_by_xpath_wait(constants.Pattern.PAYMENT)
+
+        logger.info("Fetched")
+
