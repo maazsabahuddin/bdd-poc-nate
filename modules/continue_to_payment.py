@@ -47,8 +47,6 @@ class ContinueToPayment:
         logger.info("TIMEOUT OVER")
 
     def fetching_required_elements(self):
-        self.web.open(self.context.url)
-        time.sleep(25)
         logger.info("fetching payment element")
         self.payment_element = self.web.finds_by_xpath_wait(constants.Pattern.PAYMENT)
         logger.info("Fetched")
