@@ -12,6 +12,12 @@ def _execute():
     """
     behave_main()
 
+sites = {
+    "walmart": "https://www.walmart.com/ip/SmileMart-Adjustable-Ergonomic-High-Back-Gaming-Chair-Black-Gray/882329867",
+    "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
+    "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004"
+}
+
 # sites = {
 #     "kohls": "https://www.kohls.com/product/prd-4836898/under-armour-hustle-sport-backpack.jsp?color=Black&prdPV=1",
 #     "ae": "https://www.ae.com/us/en/p/women/home/games-party-supplies/what-do-you-meme-the-office-expansion-pack/0577_3377_900?menu=cat4840004",
@@ -63,19 +69,19 @@ def _execute():
 #     "Ruggable": "https://ruggable.com/products/verena-dark-wood-rug?size=5x7"
 # }
 
-sites = {
-    "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
-    "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
-    "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
-    "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
-    "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
-    "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
-    "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
-    "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
-    "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
-    "Skims": "https://skims.com/products/face-mask-clay",
-    "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
-}
+# sites = {
+#     "beeinspiredclothing": "https://www.beeinspiredclothing.com/collections/accessories/products/linear-bucket-hat-oatmeal",
+#     "Victoriaemerson": "https://www.victoriaemerson.com/collections/gold-necklaces/products/alessia",
+#     "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
+#     "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
+#     "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
+#     "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
+#     "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
+#     "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",
+#     "Culturekings": "https://www.culturekings.com.au/products/goat-crew-original-trucker-hat-white-black",
+#     "Skims": "https://skims.com/products/face-mask-clay",
+#     "Stevemadden": "https://www.stevemadden.com/collections/handbag-straps/products/bclipper-black"
+# }
 
 # sites = {
 #     "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
