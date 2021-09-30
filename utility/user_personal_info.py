@@ -11,7 +11,7 @@ class UserInfo:
     POSTAL_CODE = "19716"
     CITY = "Newark"
     STATE_INPUT = "Delaware"
-    STATE_OPTIONS = ["DE", "Delaware", "MA", "USLA", "LA", "IS", "NY"]
+    STATE_OPTIONS = ["DE", "Delaware", "MA", "USLA", "LA", "IS", "NY", "Ontario"]
     COUNTRY_OPTIONS = ["US", "PK"]
 
     # Card details

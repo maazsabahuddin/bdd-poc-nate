@@ -19,15 +19,12 @@ def step_impl(context):
 def step_impl(context):
     if not context.current_obj.required_element:
         context.scenario.skip(reason="Required button not found.")
-        if not context._root[ETC.IS_CASE_FAILED]:
-            _result_file.write(f"{context.name} - PASSED (Button not found at checkout step2)\n") \
-                if context.log == "True" else None
-            close_file(_result_file)
+        # if not context._root[ETC.IS_CASE_FAILED]:
+        #     _result_file.write(f"{context.name} - PASSED (Button not found at checkout step2)\n") \
+        #         if context.log == "True" else None
+        #     close_file(_result_file)
 
 
 @then('click to move further')
 def step_impl(context):
     context.current_obj.hit_button_to_proceed()
-    if not context._root[ETC.IS_CASE_FAILED]:
-        _result_file.write(f"{context.name} - PASSED\n") if context.log == "True" else None
-        close_file(_result_file)
