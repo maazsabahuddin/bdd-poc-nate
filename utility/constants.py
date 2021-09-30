@@ -45,7 +45,7 @@ class Pattern:
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                 "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out') " \
-                "or text()='Cart' and not(contains(translate(@class, 'HIDEN', 'hiden'), 'hidden'))" \
+                "or text()='Cart' and not(contains(translate(@class, 'HIDEN', 'hiden'), 'hidden')) " \
                 "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                 "or contains(translate(text(), 'SHOPINGA', 'shopinga'), 'shopping bag') " \
                 "or contains(translate(@class, 'MYCART', 'mycart'), 'mycart') " \
