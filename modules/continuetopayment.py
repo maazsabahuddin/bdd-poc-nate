@@ -9,7 +9,7 @@ from utility.constants import Timer
 from utility.utilities import Utils
 
 
-class Payment:
+class ContinueToPayment:
     """
     This class is responsible to fill out shipping address details by identify
     shipping page type and other flows.
@@ -24,7 +24,7 @@ class Payment:
         logger.info("clicking on payment button")
         continue_elements_dict = \
             Utils.fetch_required_elements(self.payment_element,
-                                          constants.TagsList.POSSIBLE_PAYMENT_BUTTON)
+                                          constants.TagsList.POSSIBLE_CONTINUE_TO_PAYMENT_BUTTON)
         if not continue_elements_dict:
             logger.info("Button element not found.")
             self.context.scenario.skip(reason='cannot find payment field')
@@ -39,7 +39,7 @@ class Payment:
             required_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
-            failed_case(scenario="Payment Button Flow", exception_message=str(e))
+            failed_case(scenario="ContinueToPayment Button Flow", exception_message=str(e))
             # self.context.scenario.skip(reason='cannot find payment field')
 
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
