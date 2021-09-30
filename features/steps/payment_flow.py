@@ -2,13 +2,13 @@
 from behave import *
 
 # Local imports
-from modules.payment import ContinueToPayment
+from modules.continuetopayment import ContinueToPayment
 from utility.constants import ETC
 from app import _result_file
 from file import close_file
 
 
-@given('ContinueToPayment Button')
+@given('Payment Button')
 def step_impl(context):
     """
     Gather required elements
