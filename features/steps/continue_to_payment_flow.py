@@ -15,7 +15,7 @@ def step_impl(context):
     :param context:
     """
     payment = ContinueToPayment(context)
-    payment.fetching_required_elements()
+    payment.find_required_element()
     context.current_obj = payment
 
 
