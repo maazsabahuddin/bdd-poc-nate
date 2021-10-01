@@ -166,7 +166,8 @@ class Pattern:
                       "or contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') " \
                       "or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') " \
                       "or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase') " \
-                      "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now')]"
+                      "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now') " \
+                      "or contains(translate(text(), 'COMPLETRD', 'completrd'), 'complete order')]"
     PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
@@ -253,7 +254,8 @@ class Pattern:
                "| //h4[contains(translate(text(), 'CONTAIFRM', 'contaifrm'), 'contact information') " \
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
-    PAYMENT = "//*[contains(translate(text(), 'CONTINUEPAYMN', 'continuepaymn'), 'continue to payment')]"
+    PAYMENT = "//*[contains(translate(text(), 'CONTINUEPAYMN', 'continuepaymn'), 'continue to payment') " \
+              "or contains(translate(text(), 'CONTINUE', 'continue'), 'continue')]"
     SHIPPING_ADDRESS = "//input[contains(translate(@name, 'CHEKOUTDIFRNBLGAS', 'chekoutdifrnblgas'), " \
                        "'checkout[different_billing_address]')]"
 
