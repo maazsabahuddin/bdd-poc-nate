@@ -57,7 +57,7 @@ class CardDetails:
             self.__populate_email(email=email)
         if self.continue_button:
             self.__continue()
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_month(self, month):
         if self.card_month_expiry_element.tag_name == Tags.SELECT:
@@ -67,14 +67,10 @@ class CardDetails:
                     option.click()
                     break
         else:
-            if "/" in month:
-                expiry_details = month.split("/")
-                self.card_month_expiry_element.send_keys(expiry_details[0])
+            expiry_details = month.split("/")
+            for date in expiry_details:
+                self.card_month_expiry_element.send_keys(date)
                 time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                self.card_month_expiry_element.send_keys(expiry_details[1])
-            else:
-                self.card_month_expiry_element.send_keys(month)
-        time.sleep(Timer.THREE_SECOND_TIMEOUT)
 
     def __populate_year(self, year):
         if self.card_year_expiry_element.tag_name == Tags.SELECT:
@@ -85,33 +81,28 @@ class CardDetails:
                     break
         else:
             self.card_year_expiry_element.send_keys(year)
-        time.sleep(Timer.THREE_SECOND_TIMEOUT)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
 
     def __populate_card_holder_name(self, name):
         try:
             self.card_holder_name_element.send_keys(name)
-            time.sleep(Timer.THREE_SECOND_TIMEOUT)
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
         except Exception as e:
             logger.info(f"Exception while populating holder name of {str(e)}")
 
     def __populate_card_number(self, number):
         try:
             card_number = number.split(" ")
-            self.card_number_element.send_keys(card_number[0])
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            self.card_number_element.send_keys(card_number[1])
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            self.card_number_element.send_keys(card_number[2])
-            time.sleep(Timer.ONE_SECOND_TIMEOUT)
-            self.card_number_element.send_keys(card_number[3])
-            time.sleep(Timer.THREE_SECOND_TIMEOUT)
+            for number in card_number:
+                self.card_number_element.send_keys(number)
+                time.sleep(Timer.ONE_SECOND_TIMEOUT)
         except Exception as e:
             logger.info(f"Exception while populating number of {str(e)}")
 
     def __populate_card_security_code(self, cvv):
         try:
             self.card_cvv_element.send_keys(cvv)
-            time.sleep(Timer.THREE_SECOND_TIMEOUT)
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
         except Exception as e:
             logger.info(f"Exception while populating cvv of {str(e)}")
 
@@ -121,6 +112,7 @@ class CardDetails:
                 self.__populate_month(month=month)
             except Exception as e:
                 logger.info(f"Exception while populating month expiry of {str(e)}")
+
             try:
                 self.__populate_year(year=year)
             except Exception as e:
@@ -159,7 +151,7 @@ class CardDetails:
                     if not sibling_elements:
                         return
                     sibling_elements.click()
-        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        time.sleep(Timer.ONE_SECOND_TIMEOUT)
 
     def __is_required_fields_found(self):
         element_count = 0
@@ -199,9 +191,7 @@ class CardDetails:
                          "or contains(translate(@id, 'CARDFIELDSNUMB', 'cardfieldsnumb'), 'card-fields-number') " \
                          "or contains(translate(@id, 'CARDFIELDSNM', 'cardfieldsnm'), 'card-fields-name') " \
                          "or contains(translate(@id, 'CARDFIELDSXPY', 'cardfieldsxpy'), 'card-fields-expiry') " \
-                         "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value') " \
-                         "or contains(translate(@id, 'SECURWINDO', 'securwindo'), 'securewindow') " \
-                         "or contains(translate(@id, 'GIPAYMENT', 'gipayment'), 'gip-payment')]"
+                         "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value')]"
         self.card_elements_iframes = self.web.finds_by_xpath_wait(iframe_pattern)
         if self.card_elements_iframes:
             self.is_card_details_found = True
@@ -234,7 +224,7 @@ class CardDetails:
     def __populate_email(self, email):
         try:
             self.email_element.send_keys(email)
-            time.sleep(Timer.THREE_SECOND_TIMEOUT)
+            time.sleep(Timer.ONE_SECOND_TIMEOUT)
         except Exception as e:
             print(f"Exception while populating email {e}")
 

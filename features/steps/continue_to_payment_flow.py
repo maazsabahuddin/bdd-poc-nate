@@ -2,7 +2,7 @@
 from behave import *
 
 # Local imports
-from modules.continuetopayment import ContinueToPayment
+from modules.continue_to_payment import ContinueToPayment
 from utility.constants import ETC
 from app import _result_file
 from file import close_file
@@ -15,7 +15,7 @@ def step_impl(context):
     :param context:
     """
     payment = ContinueToPayment(context)
-    payment.fetching_required_elements()
+    payment.find_required_element()
     context.current_obj = payment
 
 

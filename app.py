@@ -83,16 +83,16 @@ def _execute():
 # }
 
 sites = {
-    "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
-    "gonoise": "https://www.gonoise.com/products/noise-air-buds-plus-truly-wireless-earbuds",
-    "tommycashshop": "https://tommycashshop.com/collections/sweaters/products/blue-sweater",
-    "bandolierstyle": "https://www.bandolierstyle.com/products/morgan-belt-with-ryder-carabin-dark-leopard-gold",
-    "articture": "https://articture.com/collections/best-sellers/products/rosetta-floor-lamp?variant=39298854486103",
-    "keychron": "https://www.keychron.com/products/keychron-q1",
-    "uspoloassn": "https://uspoloassn.com/collections/mens-new-arrivals/products/tricot-tape-pieced-polo-shirt?",
+    # "bdgastore": "https://bdgastore.com/products/air-jordan-t-shirt",
+    # "gonoise": "https://www.gonoise.com/products/noise-air-buds-plus-truly-wireless-earbuds",
+    # "tommycashshop": "https://tommycashshop.com/collections/sweaters/products/blue-sweater",
+    # "bandolierstyle": "https://www.bandolierstyle.com/products/morgan-belt-with-ryder-carabin-dark-leopard-gold",
+    # "articture": "https://articture.com/collections/best-sellers/products/rosetta-floor-lamp?variant=39298854486103",
+    # "keychron": "https://www.keychron.com/products/keychron-q1",
+    "Nurserylive": "https://nurserylive.com/products/best-4-plants-to-kill-indoor-pollution",
     "burga": "https://www.burga.com/collections/iphone-13-cases/products/cute-iphone-13-case?variant=40642467332271",
     "brooklinen": "https://www.brooklinen.com/products/down-pillow?variant=8364503043",
-    "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
+    # "jimmyjazz": "https://www.jimmyjazz.com/products/jordan-air-jordan-retro-6-little-flex-ct4416-103",
 }
 
 # sites = {
