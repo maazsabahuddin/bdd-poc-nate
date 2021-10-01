@@ -15,9 +15,7 @@ def step_impl(context):
 
 @when('card details found')
 def step_impl(context):
-    if context.current_obj.is_card_details_found:
-        pass
-    else:
+    if not context.current_obj.is_card_details_found:
         context.scenario.skip(reason="Required fields not found")
 
 

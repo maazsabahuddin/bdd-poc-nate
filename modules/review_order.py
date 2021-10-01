@@ -2,6 +2,7 @@
 import time
 
 # Local imports
+from features.environment import failed_case
 from utility.constants import Pattern, TagsList, Timer
 from utility.utilities import Utils
 from modules.logger import logger
@@ -33,6 +34,8 @@ class ReviewOrder:
         return Utils.fetch_required_elements(add_to_elements, TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
 
     def hit_review_order(self):
-        self.required_element.click()
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-        
+        try:
+            self.required_element.click()
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        except Exception as e:
+            failed_case(scenario="Review Order", exception_message=str(e))

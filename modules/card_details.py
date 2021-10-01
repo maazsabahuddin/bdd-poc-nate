@@ -3,6 +3,7 @@ import logging
 import time
 
 # Local imports
+from modules.logger import logger
 from utility.constants import Pattern, Tags, TagsList, Timer, ETC, UserInfo
 from utility.utilities import Utils
 
@@ -42,7 +43,8 @@ class CardDetails:
         required_elements = self.web.finds_by_xpath_wait(pattern)
         return Utils.fetch_required_elements(required_elements, posible_elements_list)
     
-    def select_and_populate_card_details(self, card_number, card_holder_name, card_month_expiry, card_year_expiry, card_cvv, card_expiry, email):
+    def select_and_populate_card_details(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
+                                         card_cvv, card_expiry, email):
         if self.card_number_element:
             self.__populate_card_number(number=card_number)
         if self.card_month_expiry_element:
@@ -90,7 +92,7 @@ class CardDetails:
             self.card_holder_name_element.send_keys(name)
             time.sleep(Timer.THREE_SECOND_TIMEOUT)
         except Exception as e:
-            print(f"Exception while populating holder name of {e}")
+            logger.info(f"Exception while populating holder name of {str(e)}")
 
     def __populate_card_number(self, number):
         try:
@@ -104,30 +106,30 @@ class CardDetails:
             self.card_number_element.send_keys(card_number[3])
             time.sleep(Timer.THREE_SECOND_TIMEOUT)
         except Exception as e:
-            print(f"Exception while populating number of {e}")
+            logger.info(f"Exception while populating number of {str(e)}")
 
     def __populate_card_security_code(self, cvv):
         try:
             self.card_cvv_element.send_keys(cvv)
             time.sleep(Timer.THREE_SECOND_TIMEOUT)
         except Exception as e:
-            print(f"Exception while populating cvv of {e}")
+            logger.info(f"Exception while populating cvv of {str(e)}")
 
     def __populate_card_expiration_details(self, month, year, m_y):
         if self.card_year_expiry_element:
             try:
                 self.__populate_month(month=month)
             except Exception as e:
-                print(f"Exception while populating month expiry of {e}")
+                logger.info(f"Exception while populating month expiry of {str(e)}")
             try:
                 self.__populate_year(year=year)
             except Exception as e:
-                print(f"Exception while populating year expiry of {e}")
+                logger.info(f"Exception while populating year expiry of {str(e)}")
         else:
             try:
                 self.__populate_month(month=m_y)
             except Exception as e:
-                print(f"Exception while populating expiry of {e}")
+                logger.info(f"Exception while populating expiry of {str(e)}")
 
     def __update_card_type_details_if_any(self, pattern):
         extracted_elements = self.web.finds_by_xpath_wait(pattern)
@@ -206,10 +208,11 @@ class CardDetails:
 
     def focus_and_update_iframe_fields(self, card_number, card_holder_name, card_month_expiry, card_year_expiry,
                                        card_cvv, card_expiry, email):
-         for iframe in self.card_elements_iframes:
+        for iframe in self.card_elements_iframes:
             self.web.switch_to_frame(iframe)
             self.__scrap_required_elements()
-            self.select_and_populate_card_details(card_number, card_holder_name, card_month_expiry, card_year_expiry,card_cvv, card_expiry, email)                                                  
+            self.select_and_populate_card_details(card_number, card_holder_name, card_month_expiry, card_year_expiry,
+                                                  card_cvv, card_expiry, email)
             self.web.switch_to_default_content()
 
     def __extract_email_element(self):
