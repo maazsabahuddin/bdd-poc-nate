@@ -1,7 +1,7 @@
 # Python imports
-import logging
 
 # Local imports
+from modules.logger import logger
 from utility.constants import Pattern, TagsList
 
 
@@ -26,5 +26,5 @@ class CookiesPopUp:
             self.__accept_cookies_element.click()
             return True
         except Exception as e:
-            logging.info("cookies pop up exception: ", str(e))
+            logger.info("cookies pop up exception: ", str(e))
             return False

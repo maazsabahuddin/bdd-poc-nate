@@ -36,6 +36,3 @@ def step_impl(context):
     :param context:
     """
     context.current_obj.click_payment_button()
-    if not context._root[ETC.IS_CASE_FAILED]:
-        _result_file.write(f"{context.name} - PASSED\n") if context.log == "True" else None
-        close_file(_result_file)

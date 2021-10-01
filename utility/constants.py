@@ -254,6 +254,8 @@ class Pattern:
                "or contains(translate(text(), 'SHIPNGADRES', 'shipngadrs'), 'shipping address') " \
                "or contains(translate(text(), 'DELIVRYTAIS', 'delivrytais'), 'delivery details')]"
     PAYMENT = "//*[contains(translate(text(), 'CONTINUEPAYMN', 'continuepaymn'), 'continue to payment')]"
+    SHIPPING_ADDRESS = "//input[contains(translate(@name, 'CHEKOUTDIFRNBLGAS', 'chekoutdifrnblgas'), " \
+                       "'checkout[different_billing_address]')]"
 
 
 class SkipScenario:

@@ -45,7 +45,7 @@ class Login:
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.StaleElementReferenceException, exceptions.ElementClickInterceptedException) as e:
             logger.info("Error in clicking login as guest button")
-            failed_case(scenario="Login As Guest",
+            failed_case(context=self.context, scenario="Login As Guest",
                         exception_message=f"Error in clicking login as guest button {str(e)}")
 
     def fetch_login_as_guest_elements(self):

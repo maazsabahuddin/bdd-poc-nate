@@ -14,9 +14,7 @@ def step_impl(context):
 
 @when('review order button found')
 def step_impl(context):
-    if context.current_obj.is_review_order_found:
-        pass
-    else:
+    if not context.current_obj.is_review_order_found:
         context.scenario.skip(reason="Review order button not found, it means no need to review order")
 
 
