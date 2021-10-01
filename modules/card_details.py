@@ -1,5 +1,4 @@
 # Python imports
-import logging
 import time
 
 # Local imports
@@ -232,4 +231,4 @@ class CardDetails:
         try:
             self.continue_button.click()
         except Exception as e:
-            logging.info("In exception of card details continue button: ", str(e))
+            logger.info("In exception of card details continue button: ", str(e))
