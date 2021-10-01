@@ -126,9 +126,12 @@ def after_step(context, step):
 
 
 def failed_case(context, scenario, exception_message):
-    logger.info("Skipping all other scenarios.")
-    _result_file.write(f"{context.name} - FAILED - {scenario} - {str(exception_message)}\n") \
-        if context.log == "True" else None
-    close_file(_result_file)
-    context._root[ETC.IS_CASE_FAILED] = True
-    context.web.skip_all_remaining_scenarios()
+    try:
+        logger.info("Skipping all other scenarios.")
+        _result_file.write(f"{context.name} - FAILED - {scenario} - {str(exception_message)}\n") \
+            if context.log == "True" else None
+        close_file(_result_file)
+        context._root[ETC.IS_CASE_FAILED] = True
+        context.web.skip_all_remaining_scenarios()
+    except ValueError as e:
+        logger.info(f"CANNOT WRITE TO FILE. FILE ALREADY CLOSED.. Exception - {str(e)}")
