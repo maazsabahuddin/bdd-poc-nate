@@ -24,7 +24,9 @@ def identify_scenario(context):
     :param context:
     """
     if not context.current_obj.validate_fields():
-        failed_case(scenario="Shipping Address", exception_message="Required fields not found.")
+        failed_case(context=context,
+                    scenario="Shipping Address",
+                    exception_message="Required fields not found.")
 
 
 @then('Enter shipping address details and proceed')

@@ -20,7 +20,9 @@ def step_impl(context):
 def step_impl(context):
     if not context.current_obj.is_confirm_and_pay_found:
         context.scenario.skip(reason="Order confirmation and pay button not found")
-        failed_case(scenario="Confirm And Pay", exception_message="Order confirmation and pay button not found")
+        failed_case(context=context,
+                    scenario="Confirm And Pay",
+                    exception_message="Order confirmation and pay button not found")
 
 
 @then('confirm order and pay')

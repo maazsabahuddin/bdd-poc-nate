@@ -50,4 +50,4 @@ class ReviewOrder:
             self.review_order_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except Exception as e:
-            failed_case(scenario="Review Order", exception_message=str(e))
+            failed_case(context=self.context, scenario="Review Order", exception_message=str(e))

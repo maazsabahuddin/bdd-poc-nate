@@ -37,4 +37,6 @@ class ConfirmAndPay:
             self.required_element.click()
             time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
         except Exception as e:
-            failed_case(scenario="Confirm And Pay", exception_message=str(e))
+            failed_case(context=self.context,
+                        scenario="Confirm And Pay",
+                        exception_message=str(e))
