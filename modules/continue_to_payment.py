@@ -32,8 +32,6 @@ class ContinueToPayment:
         logger.info("TIMEOUT OVER")
 
     def find_required_element(self):
-        self.web.open(self.context.url)
-        time.sleep(90)
         logger.info("finding payment element")
         continue_to_pay_element = self.web.finds_by_xpath_wait(Pattern.PAYMENT)
         element_dict = Utils.fetch_required_elements(continue_to_pay_element, TagsList.POSSIBLE_CONTINUE_BUTTON)
