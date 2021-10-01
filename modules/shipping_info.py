@@ -119,21 +119,25 @@ class Shipping:
         if not continue_elements_dict:
             logger.info("Button element not found.")
             logger.info("Skipping all other scenarios.")
-            failed_case(scenario="Shipping Address", exception_message="Button element not found.")
+            failed_case(context=self.context,
+                        scenario="Shipping Address",
+                        exception_message="Button element not found.")
 
         extracted_element_tag = Utils.get_required_tag(continue_elements_dict.keys(),
                                                        constants.TagsList.POSSIBLE_CONTINUE_BUTTON)
         required_element = Utils.get_required_element(extracted_element_tag, continue_elements_dict)
         if not required_element:
             logger.info(f"{extracted_element_tag} element is not clickable")
-            failed_case(scenario="Shipping Address",
+            failed_case(context=self.context,
+                        scenario="Shipping Address",
                         exception_message=f"{extracted_element_tag} element is not clickable")
 
         try:
             required_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
-            failed_case(scenario="Shipping Address", exception_message=str(e))
+            failed_case(context=self.context,
+                        scenario="Shipping Address", exception_message=str(e))
 
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)

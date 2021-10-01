@@ -2,6 +2,7 @@
 import multiprocessing
 
 # Framework imports
+from modules.logger import logger
 from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
 
@@ -40,27 +41,31 @@ class Utils:
         This function returns filter dict from extracted elements
         """
         result_dict = {}
-        # if no elements found, return empty dict
-        if len(elements) == 0:
-            return result_dict
+        try:
+            # if no elements found, return empty dict
+            if len(elements) == 0:
+                return result_dict
 
-        for ele in elements:
-            tag_name = ele.tag_name
-            # handling case of span - here we find the parent element of span and check in list
-            if tag_name == Tags.SPAN or tag_name == Tags.P:
-                # find its parent element and check its tag
-                parent_element = Utils.find_parent_element_from_child(ele, filter_list)
-                if parent_element is not None:
-                    tag_name = parent_element.tag_name
-                    ele = parent_element
-            if tag_name in filter_list:
-                if result_dict.get(tag_name):
-                    result_dict.get(tag_name).append(ele)
-                else:
-                    result_dict.update({
-                        tag_name: [ele]
-                    })
-        return result_dict
+            for ele in elements:
+                tag_name = ele.tag_name
+                # handling case of span - here we find the parent element of span and check in list
+                if tag_name == Tags.SPAN or tag_name == Tags.P:
+                    # find its parent element and check its tag
+                    parent_element = Utils.find_parent_element_from_child(ele, filter_list)
+                    if parent_element is not None:
+                        tag_name = parent_element.tag_name
+                        ele = parent_element
+                if tag_name in filter_list:
+                    if result_dict.get(tag_name):
+                        result_dict.get(tag_name).append(ele)
+                    else:
+                        result_dict.update({
+                            tag_name: [ele]
+                        })
+            return result_dict
+        except AttributeError as e:
+            logger.info(str(e))
+            return result_dict
 
     @staticmethod
     def find_parent_element_from_child(child_element, filter_list):

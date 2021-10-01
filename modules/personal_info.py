@@ -94,5 +94,5 @@ class PersonalInfo:
                 time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
             except Exception as e:
                 logger.info("\nPersonal info -----> ", e)
-                failed_case(scenario="Personal Information",
+                failed_case(context=self.context, scenario="Personal Information",
                             exception_message=f"Error in clicking personal info button {str(e)}")
