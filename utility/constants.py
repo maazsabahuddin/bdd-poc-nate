@@ -166,11 +166,11 @@ class Pattern:
                       "or contains(translate(text(), 'AUTHORIZEPYMN', 'authorizepymn'), 'authorize payment') " \
                       "or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') " \
                       "or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase') " \
-                      "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now') " \
-                      "or contains(translate(text(), 'COMPLETRD', 'completrd'), 'complete order')]"
+                      "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now')]"
     PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
-                   "and contains(translate(text(), 'ORDE', 'orde'), 'order')]"
+                   "and contains(translate(text(), 'ORDE', 'orde'), 'order') " \
+                   "or contains(translate(text(), 'COMPLETRD', 'completrd'), 'complete order')]"
 
     # Card details
     CARD_NUMBER = "//input[contains(translate(@name, 'CARD', 'card'), 'card') " \
