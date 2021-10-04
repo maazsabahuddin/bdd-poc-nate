@@ -7,7 +7,6 @@ Feature: Ecommerce Checkout
         When add to cart found
         Then click on add to cart and proceed to next step
 
-    @skip_checkout_step_1
     Scenario: Find "cart/checkout" button
         Given In page, product is added into cart
         When cart/check out button found
@@ -39,6 +38,11 @@ Feature: Ecommerce Checkout
         Given Shipping information required page
         When Shipping information found or not
         Then Enter shipping address details and proceed
+
+    Scenario: Continue to payment flow
+        Given Payment Button
+        When If payment button found
+        Then Click on it
 
     Scenario: Fill card details
         Given order card details page

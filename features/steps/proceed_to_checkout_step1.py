@@ -3,6 +3,8 @@ from behave import *
 
 # Local imports
 from modules.proceed_to_checkout_step1 import ProceedToCheckoutStep1
+from utility.constants import ETC
+from app import _result_file
 
 
 @given('In page, product is added into cart')

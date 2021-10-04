@@ -1,7 +1,11 @@
 # Python imports
 import time
 
+# Framework imports
+from selenium.common import exceptions
+
 # Local imports
+from modules.logger import logger
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
 from utility.constants import TagsList, Pattern, Timer
@@ -25,7 +29,8 @@ class PersonalInfo:
         first_name_elements_dict = self.extract_required_elements(Pattern.FIRST_NAME, TagsList.POSSIBLE_INPUT_ELEMENT)
         last_name_elements_dict = self.extract_required_elements(Pattern.LAST_NAME, TagsList.POSSIBLE_INPUT_ELEMENT)
         phone_elements_dict = self.extract_required_elements(Pattern.PHONE, TagsList.POSSIBLE_INPUT_ELEMENT)
-        button_elements_dict = self.extract_required_elements(Pattern.GUEST_BUTTON, TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
+        button_elements_dict = self.extract_required_elements(Pattern.GUEST_BUTTON,
+                                                              TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
         
         if email_elements_dict:
             if len(email_elements_dict['input']) > 1:
@@ -90,5 +95,5 @@ class PersonalInfo:
             try:
                 self.button.click()
                 time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
-            except Exception as e:
-                print("\nPrersonal info -----> ", e)
+            except exceptions.ElementNotInteractableException as e:
+                logger.info(f"\nPersonal info {str(e)}")

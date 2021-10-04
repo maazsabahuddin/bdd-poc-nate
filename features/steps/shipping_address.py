@@ -2,6 +2,7 @@
 from behave import *
 
 # Local imports
+from features.environment import failed_case
 from modules.shipping_info import Shipping
 
 
@@ -22,10 +23,10 @@ def identify_scenario(context):
     Check which type of page is identified and call that controller accordingly.
     :param context:
     """
-    if context.current_obj.validate_fields():
-        pass
-    else:
-        context.scenario.skip(reason="Required fields not found.")
+    if not context.current_obj.validate_fields():
+        failed_case(context=context,
+                    scenario="Shipping Address",
+                    exception_message="Required fields not found.")
 
 
 @then('Enter shipping address details and proceed')
