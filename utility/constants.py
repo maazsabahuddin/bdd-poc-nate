@@ -54,7 +54,7 @@ class Pattern:
                 "or contains(translate(text(), 'GOTCAR', 'gotcar'), 'go to cart') " \
                 "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown') " \
                 "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')] " \
-                "| //a[contains(translate(@href, 'CART', 'cart'),'cart') " \
+                "| //a[contains(translate(@href, 'CART', 'cart'),'/cart') " \
                 "or contains(translate(@class, 'SHOPINGBA', 'shopingba'), 'shopping-bag')] " \
                 "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
