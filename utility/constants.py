@@ -238,7 +238,8 @@ class Pattern:
                                 "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
                                 "or contains(translate(@class, 'CLOSE', 'close'), 'close') " \
-                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle')] " \
+                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle') " \
+                                "or contains(translate(@id, 'CLOSEINTAR', 'closeintar'), 'closeiconcontainer')] " \
                                 "| //div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') " \
                                 "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')] " \
