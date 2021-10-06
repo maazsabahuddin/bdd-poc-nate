@@ -72,7 +72,7 @@ class Pattern:
                          "| //button[contains(translate(text(), 'CARD', 'card'), 'card') " \
                          "or contains(translate(@class, 'SHOPFTER', 'shopfter'), 'shop-footer')]"
 
-    ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTRADS', 'entrads'), 'Enter address')]"
+    ENTER_ADDRESS = "//*[contains(translate(text(), 'ENTRADS', 'entrads'), 'enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNME', 'firstnme'), 'firstname') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first-name') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first_name') " \

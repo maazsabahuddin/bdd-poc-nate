@@ -250,3 +250,13 @@ class ShipUtils:
                     if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
                         option.click()
                         break
+
+    @staticmethod
+    def click_manual_address_button(manual_buttons):
+        for element in manual_buttons:
+            if not element.is_enabled() or not element.is_displayed() or \
+                    "hidden" in element.get_attribute(constants.ETC.CLASS):
+                continue
+            if element.tag_name in [constants.Tags.DIV]:
+                element.click()
+                break
