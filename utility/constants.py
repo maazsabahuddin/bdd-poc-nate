@@ -134,7 +134,7 @@ class Pattern:
             "or contains(translate(@id, 'REGION', 'region'), 'region') " \
             "or contains(translate(@id, 'PROVINCE', 'province'), 'province') " \
             "or contains(translate(@id, 'AREA', 'area'), 'area')] | " \
-            "input[contains(translate(@name, 'STAE', 'stae'), 'state') " \
+            "//input[contains(translate(@name, 'STAE', 'stae'), 'state') " \
             "or contains(translate(@name, 'REGION', 'region'), 'region') " \
             "or contains(translate(@name, 'PROVINCE', 'province'), 'province') " \
             "or contains(translate(@name, 'AREA', 'area'), 'area')" \
