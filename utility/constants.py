@@ -56,7 +56,8 @@ class Pattern:
                 "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')] " \
                 "| //a[contains(translate(@href, 'CART', 'cart'),'/cart') " \
                 "or contains(translate(@class, 'SHOPINGBA', 'shopingba'), 'shopping-bag')] " \
-                "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart')]"
+                "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart') " \
+                "or contains(translate(@aria-label, 'CARTONI', 'cartoni'), 'cart contain')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -68,6 +69,7 @@ class Pattern:
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                          "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout') " \
+                         "and not(contains(translate(@name, 'PAYL', 'payl'), 'paypal'))" \
                          "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out')] " \
                          "| //button[contains(translate(text(), 'CARD', 'card'), 'card') " \
                          "or contains(translate(@class, 'SHOPFTER', 'shopfter'), 'shop-footer')]"
@@ -211,6 +213,7 @@ class Pattern:
           "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value') " \
           "or contains(translate(@placeholder, 'SECURITYOD', 'securityod'), 'security code')] "
     CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
+                       "and not(contains(translate(@id, 'SHIPNG', 'shipng'), 'shipping'))" \
                        "or contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \

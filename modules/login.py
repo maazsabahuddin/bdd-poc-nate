@@ -18,6 +18,7 @@ class Login:
         self.web = context.web
         self.context.found_login_as_guest = False
         self.selected_login_guest_element = None
+        self.guest_iframe = None
 
     def find_login_as_guest_feature(self):
         """
@@ -25,20 +26,47 @@ class Login:
         """
         login_as_guest_dict = self.fetch_login_as_guest_elements()
         if login_as_guest_dict:
-            extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
-            if len(login_as_guest_dict[extracted_element_tag]) > 1:
-                self.selected_login_guest_element = Utils.get_required_element_related_to_guest(extracted_element_tag, login_as_guest_dict)
-                if self.selected_login_guest_element is not None:
-                    self.context.found_login_as_guest = True
-            else:
-                self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
-                self.context.found_login_as_guest = True
+            self.__get_required_element(login_as_guest_dict)
+        else:
+            self.__get_required_element_from_iframe()
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
     
+    def __get_required_element(self, login_as_guest_dict):
+        extracted_element_tag = Utils.get_required_tag(login_as_guest_dict.keys(), TagsList.POSSIBLE_LOGIN_AS_GUEST_LIST)
+        if len(login_as_guest_dict[extracted_element_tag]) > 1:
+            self.selected_login_guest_element = Utils.get_required_element_related_to_guest(extracted_element_tag, login_as_guest_dict)
+            if self.selected_login_guest_element is not None:
+                self.context.found_login_as_guest = True
+        else:
+            self.selected_login_guest_element = login_as_guest_dict[extracted_element_tag][0]
+            self.context.found_login_as_guest = True
+
+    def __get_required_element_from_iframe(self):
+        iframe_pattern = "//iframe[@id='auth-frame']"
+        iframes = self.web.finds_by_xpath_wait(iframe_pattern)
+        for iframe in iframes:
+            self.web.switch_to_frame(iframe)
+            login_as_guest_dict = self.fetch_login_as_guest_elements()
+            if login_as_guest_dict:
+                self.__get_required_element(login_as_guest_dict)
+                if self.context.found_login_as_guest:
+                    self.guest_iframe = iframe
+                    self.web.switch_to_default_content()
+                    break
+            self.web.switch_to_default_content()
+
     def click_on_login_as_guest(self):
         """
         This function performs click on "Login as Guest" web element
         """
+        if self.guest_iframe:
+            self.web.switch_to_frame(self.guest_iframe)
+            self.__click_functionality()
+            self.web.switch_to_default_content()
+        else:
+            self.__click_functionality()
+            
+    def __click_functionality(self):
         try:
             self.selected_login_guest_element.click()
             # remove when run in production

@@ -53,7 +53,10 @@ class PersonalInfo:
         if phone_elements_dict:
             if len(phone_elements_dict['input']) > 1:
                 phone_element = Utils.get_required_element('input', phone_elements_dict)
-                self.phone = phone_element if ShipUtils.validate_phone_element(phone_element) else None
+                if phone_element:
+                    self.phone = phone_element if ShipUtils.validate_phone_element(phone_element) else None
+                else:
+                    self.phone = None
             else:
                 self.phone = phone_elements_dict['input'][0] \
                     if ShipUtils.validate_phone_element(phone_elements_dict['input'][0]) else None

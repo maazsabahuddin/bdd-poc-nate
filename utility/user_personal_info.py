@@ -4,7 +4,7 @@ class UserInfo:
     FIRST_NAME = "Sean"
     LAST_NAME = "Abbott"
     COUNTRY_CODE = "1"
-    PHONE = "+13024346356"
+    PHONE = "3024346356"
     EMAIL = "seanabbott27@gmail.com"
     ADDRESS1 = "16 W Main St"
     ADDRESS2 = "Ste A"
