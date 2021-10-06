@@ -74,7 +74,7 @@ class Pattern:
                          "| //button[contains(translate(text(), 'CARD', 'card'), 'card') " \
                          "or contains(translate(@class, 'SHOPFTER', 'shopfter'), 'shop-footer')]"
 
-    ENTER_ADDRESS = "//div[contains(translate(text(), 'ENTRADS', 'entrads'), 'Enter address')]"
+    ENTER_ADDRESS = "//*[contains(translate(text(), 'ENTRADS', 'entrads'), 'enter address')]"
     FIRST_NAME = "//input[contains(translate(@name, 'FIRSTNME', 'firstnme'), 'firstname') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first-name') " \
                  "or contains(translate(@name, 'FIRSTNME', 'firstnme'), 'first_name') " \
@@ -136,7 +136,7 @@ class Pattern:
             "or contains(translate(@id, 'REGION', 'region'), 'region') " \
             "or contains(translate(@id, 'PROVINCE', 'province'), 'province') " \
             "or contains(translate(@id, 'AREA', 'area'), 'area')] | " \
-            "input[contains(translate(@name, 'STAE', 'stae'), 'state') " \
+            "//input[contains(translate(@name, 'STAE', 'stae'), 'state') " \
             "or contains(translate(@name, 'REGION', 'region'), 'region') " \
             "or contains(translate(@name, 'PROVINCE', 'province'), 'province') " \
             "or contains(translate(@name, 'AREA', 'area'), 'area')" \

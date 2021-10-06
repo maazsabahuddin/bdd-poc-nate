@@ -2,6 +2,8 @@
 import multiprocessing
 
 # Framework imports
+from selenium.common.exceptions import StaleElementReferenceException
+
 from modules.logger import logger
 from modules.promotion_pop_up import PromotionPopUp
 from selenium.common import exceptions
@@ -63,7 +65,7 @@ class Utils:
                             tag_name: [ele]
                         })
             return result_dict
-        except AttributeError as e:
+        except (AttributeError, StaleElementReferenceException) as e:
             logger.info(str(e))
             return result_dict
 

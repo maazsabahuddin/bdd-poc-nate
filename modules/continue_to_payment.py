@@ -25,7 +25,7 @@ class ContinueToPayment:
             self.payment_element.click()
         except Exception as e:
             logger.info("Element is not clickable")
-            failed_case(scenario="ContinueToPayment Button Flow", exception_message=str(e))
+            failed_case(context=self.context, scenario="ContinueToPayment Button Flow", exception_message=str(e))
 
         logger.info(f"{Timer.PROCESS_PAUSE_TIMEOUT} seconds pause timeout")
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
