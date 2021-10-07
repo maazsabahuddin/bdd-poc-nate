@@ -103,7 +103,8 @@ class Utils:
             if not attribute:
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
-            if 'ghost' in attribute or 'guest' in attribute or 'Guest' in attribute or 'btn-continue first' in attribute or 'addresses.homeDelivery.email' in attribute:
+            if 'ghost' in attribute or 'guest' in attribute or 'Guest' in attribute \
+                    or 'btn-continue first' in attribute or 'addresses.homeDelivery.email' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
         return None
@@ -177,7 +178,8 @@ class Utils:
         if list_of_elements:
             for element in list_of_elements:
                 is_hidden = element.get_attribute("aria-hidden")
-                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) and (element.is_enabled() and element.is_displayed()) and not is_hidden:
+                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) \
+                        and (element.is_enabled() and element.is_displayed()) and not is_hidden:
                     return element
         return None
 
