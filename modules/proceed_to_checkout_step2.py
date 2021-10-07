@@ -38,11 +38,11 @@ class ProceedToCheckoutStep2:
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
                 AttributeError) as e:
+            logger.info(f"Exception caught at Checkout Step 2 due to {str(e)}")
             is_overlays_found_and_close = Utils.check_overlays(context=self.context)
             if is_overlays_found_and_close:
                 self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
             else:
-                logger.info("Exception caught at Checkout Step 2")
                 logger.info("Skipping all other scenarios.")
                 _result_file.write(f"{self.context.name} - FAILED - Step Checkout Step2 - {str(e)}\n") \
                     if self.context.log == "True" else None
