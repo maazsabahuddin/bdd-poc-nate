@@ -1,6 +1,8 @@
 # Python imports
 
 # Framework imports
+import time
+
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
 # Local imports
@@ -230,6 +232,7 @@ class ShipUtils:
         :param shipping_info:
         :return:
         """
+        logger.info("Filling state attribute")
         state_element = shipping_info[constants.UserInfo.STATE]
         if not state_element:
             return
@@ -241,7 +244,8 @@ class ShipUtils:
             if element.tag_name == constants.Tags.INPUT:
                 logger.info("Filling state using input")
                 # time.sleep(Timer.ONE_SECOND_TIMEOUT)
-                element.send_keys(UserInfo.STATE_INPUT)
+                element.send_keys(UserInfo.STATE_INPUT) \
+                    if element.get_attribute("min_length") == "2" else element.send_keys(UserInfo.SHORT_STATE_INPUT)
                 break
             else:
                 logger.info("Filling state using select option")
@@ -250,3 +254,13 @@ class ShipUtils:
                     if option.get_attribute(constants.ETC.VALUE) in UserInfo.STATE_OPTIONS:
                         option.click()
                         break
+
+    @staticmethod
+    def click_manual_address_button(manual_buttons):
+        for element in manual_buttons:
+            if not element.is_enabled() or not element.is_displayed() or \
+                    "hidden" in element.get_attribute(constants.ETC.CLASS):
+                continue
+            if element.tag_name in [constants.Tags.DIV]:
+                element.click()
+                break

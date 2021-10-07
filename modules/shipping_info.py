@@ -196,9 +196,9 @@ class Shipping:
         logger.info(f"Manual Address button: {manual_address_button}")
         if manual_address_button:
             logger.info("Address button found. Clicking now")
-            manual_address_button[0].click()
-            logger.info(f"{Timer.FIVE_SECOND_TIMEOUT} seconds TIMEOUT")
-            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+            ShipUtils.click_manual_address_button(manual_address_button)
+            logger.info(f"{Timer.THREE_SECOND_TIMEOUT} seconds TIMEOUT")
+            time.sleep(Timer.THREE_SECOND_TIMEOUT)
             logger.info("TIMEOUT OVER")
         self.shipping_info[constants.UserInfo.FIRST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.FIRST_NAME)
         self.shipping_info[constants.UserInfo.LAST_NAME] = self.web.finds_by_xpath_wait(constants.Pattern.LAST_NAME)

@@ -11,6 +11,7 @@ class UserInfo:
     POSTAL_CODE = "19716"
     CITY = "Newark"
     STATE_INPUT = "Delaware"
+    SHORT_STATE_INPUT = "DE"
     STATE_OPTIONS = ["DE", "Delaware", "MA", "USLA", "LA", "IS", "NY", "Ontario"]
     COUNTRY_OPTIONS = ["US", "PK"]
 
