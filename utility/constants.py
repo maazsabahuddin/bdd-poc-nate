@@ -24,7 +24,7 @@ class TagsList:
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
-    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
     POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_TYPE_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.BUTTON, Tags.DIV, Tags.SPAN]
@@ -57,7 +57,8 @@ class Pattern:
                 "| //a[contains(translate(@href, 'CART', 'cart'),'/cart') " \
                 "or contains(translate(@class, 'SHOPINGBA', 'shopingba'), 'shopping-bag')] " \
                 "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart') " \
-                "or contains(translate(@aria-label, 'CARTONI', 'cartoni'), 'cart contain')]"
+                "or contains(translate(@aria-label, 'CARTONI', 'cartoni'), 'cart contain') " \
+                "or contains(translate(@aria-label, 'CART', 'cart'), 'cart')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -67,6 +68,7 @@ class Pattern:
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
+                         "and not(contains(translate(text(), 'SHOPING', 'shoping'), 'shopping'))" \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                          "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout') " \
                          "and not(contains(translate(@name, 'PAYL', 'payl'), 'paypal'))" \
@@ -169,7 +171,6 @@ class Pattern:
                       "or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') " \
                       "or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase') " \
                       "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now')]"
-    PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order') " \
                    "or contains(translate(text(), 'COMPLETRD', 'completrd'), 'complete order')]"
