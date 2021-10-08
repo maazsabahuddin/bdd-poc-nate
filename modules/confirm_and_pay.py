@@ -4,7 +4,7 @@ import time
 # Local imports
 from features.environment import failed_case
 from modules.logger import logger
-from utility.constants import Pattern, TagsList, Timer
+from utility.constants import Pattern, TagsList
 from utility.utilities import Utils
 
 
@@ -21,7 +21,8 @@ class ConfirmAndPay:
         if not confirm_pay_elements_dict:
             logger.info("Confirm and pay element not found..")
             return
-        required_element = Utils.get_required_element_2(confirm_pay_elements_dict, TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
+        required_element = \
+            Utils.get_required_element_2(confirm_pay_elements_dict, TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
         if required_element:
             self.is_confirm_and_pay_found = True
         self.required_element = required_element
