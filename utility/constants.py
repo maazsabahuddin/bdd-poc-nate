@@ -18,7 +18,7 @@ class TagsList:
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
     POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
-    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.DIV]
+    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
@@ -40,7 +40,8 @@ class Pattern:
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(translate(text(), 'ADD', 'add'), 'add') " \
-                     "and not(contains(translate(text(), 'WISH', 'wish'), 'wish'))" \
+                     "and not(contains(translate(text(), 'WISH', 'wish'), 'wish')) " \
+                     "and not(contains(translate(text(), 'WATCH', 'watch'), 'watch')) " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag') " \
                      "or contains(translate(@name, 'ADD', 'add'), 'add')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \

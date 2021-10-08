@@ -215,6 +215,9 @@ class Utils:
                 return element
         if not positive_elements:
             return None
+        for pE in positive_elements:
+            if 'checkout' in pE.get_attribute("innerText").lower():
+                return pE
         return positive_elements[-1]
 
     @staticmethod
