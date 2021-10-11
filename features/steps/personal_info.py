@@ -14,9 +14,7 @@ def step_impl(context):
 
 @when('personal information is required')
 def step_impl(context):
-    if context.current_obj.is_required_field_found:
-        pass
-    else:
+    if not context.current_obj.is_required_field_found:
         context.scenario.skip(reason='cannot find required fields')
 
 
