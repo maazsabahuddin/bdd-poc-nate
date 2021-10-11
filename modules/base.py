@@ -22,6 +22,13 @@ class Base:
     def open(self, url):
         try:
             self.web_driver.get(url)
+            # self.web_driver.execute_script("window.open('about:blank', 'secondtab')")
+
+            # # It is switching to second tab now
+            # self.web_driver.switch_to.window("secondtab")
+            #
+            # # In the second tab, it opens geeksforgeeks
+            # self.web_driver.get('https://www.geeksforgeeks.org/')
         except exceptions.TimeoutException as e:
             logger.info("Timeout Exception encountered.\nSite failed to load.")
             _result_file.write(f"{self.context.name} - FAILED - base.py line number 25 {str(e)}\n") \
