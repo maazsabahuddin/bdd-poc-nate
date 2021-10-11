@@ -72,16 +72,20 @@ class Utils:
     @staticmethod
     def find_parent_element_from_child(child_element, filter_list):
         """
-        This function returns parent element up to 2 level from child element
+        This function returns parent element up to 5 level from child element
         """
         try:
+            div_element = None
             current_found_element = child_element
             for _ in range(5):
                 parent_element = current_found_element.find_element_by_xpath("..")
                 if parent_element.tag_name in filter_list:
-                    return parent_element
+                    if parent_element.tag_name != Tags.DIV:
+                        return parent_element
+                    else:
+                        div_element = parent_element
                 current_found_element = parent_element
-            return None
+            return div_element
         except exceptions.NoSuchElementException:
             return None
 
@@ -99,7 +103,8 @@ class Utils:
             if not attribute:
                 attribute = element.get_attribute("outerText")
                 attribute = attribute.lower()
-            if 'guest' in attribute or 'Guest' in attribute:
+            if 'ghost' in attribute or 'guest' in attribute or 'Guest' in attribute \
+                    or 'btn-continue first' in attribute or 'addresses.homeDelivery.email' in attribute:
                 if element.is_enabled() and element.is_displayed():
                     return element
         return None
@@ -173,7 +178,8 @@ class Utils:
         if list_of_elements:
             for element in list_of_elements:
                 is_hidden = element.get_attribute("aria-hidden")
-                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) and (element.is_enabled() and element.is_displayed()) and not is_hidden:
+                if (element.tag_name == Tags.INPUT or element.tag_name == Tags.SELECT) \
+                        and (element.is_enabled() and element.is_displayed()) and not is_hidden:
                     return element
         return None
 
@@ -211,6 +217,9 @@ class Utils:
                 return element
         if not positive_elements:
             return None
+        for pE in positive_elements:
+            if 'checkout' in pE.get_attribute("innerText").lower():
+                return pE
         return positive_elements[-1]
 
     @staticmethod

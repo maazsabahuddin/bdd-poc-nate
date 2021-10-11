@@ -3,7 +3,8 @@ import time
 
 # Local imports
 from features.environment import failed_case
-from utility.constants import Pattern, TagsList, Timer
+from modules.logger import logger
+from utility.constants import Pattern, TagsList
 from utility.utilities import Utils
 
 
@@ -18,13 +19,11 @@ class ConfirmAndPay:
     def find_confirm_and_pay(self):
         confirm_pay_elements_dict = self.__extract_required_elements(Pattern.CONFIRM_AND_PAY)
         if not confirm_pay_elements_dict:
-            confirm_pay_elements_dict = self.__extract_required_elements(Pattern.PLACE_ORDER)
-        if not confirm_pay_elements_dict:
+            logger.info("Confirm and pay element not found..")
             return
-        required_tag = \
-            Utils.get_required_tag(confirm_pay_elements_dict.keys(), TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
-        required_element = Utils.get_required_element(required_tag, confirm_pay_elements_dict)
-        if required_element is not None:
+        required_element = \
+            Utils.get_required_element_2(confirm_pay_elements_dict, TagsList.POSSIBLE_CONFIRM_AND_PAY_ELEMENTS)
+        if required_element:
             self.is_confirm_and_pay_found = True
         self.required_element = required_element
 
@@ -34,9 +33,9 @@ class ConfirmAndPay:
 
     def hit_confirm_and_pay(self):
         try:
+            logger.info("Clicking on confirm and pay element")
             self.required_element.click()
-            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+            logger.info("------------> Waiting for 60secs to view response.")
+            time.sleep(60)
         except Exception as e:
-            failed_case(context=self.context,
-                        scenario="Confirm And Pay",
-                        exception_message=str(e))
+            failed_case(context=self.context, scenario="Confirm And Pay", exception_message=str(e))

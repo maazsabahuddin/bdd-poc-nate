@@ -18,13 +18,13 @@ class TagsList:
     POSSIBLE_BUY_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.SPAN]
     POSSIBLE_ADDRESS_INPUT_TAGS_LIST = [Tags.INPUT]
     POSSIBLE_VIEW_CART = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
-    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.DIV]
+    POSSIBLE_ADD_TO_TAGS_LIST = [Tags.BUTTON, Tags.INPUT, Tags.A, Tags.DIV]
     POSSIBLE_LOGIN_AS_GUEST_LIST = [Tags.BUTTON, Tags.A]
     POSSIBLE_SIGNIN_LIST = [Tags.A]
     POSSIBLE_CHECKOUT_PAGE_LIST = [Tags.H1, Tags.H2, Tags.H3, Tags.BUTTON]
     POSSIBLE_INPUT_ELEMENT = [Tags.INPUT]
     POSSIBLE_CONTINUE_BUTTON = [Tags.BUTTON, Tags.A, Tags.SPAN]
-    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A, Tags.SPAN]
+    POSSIBLE_CONFIRM_AND_PAY_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.SPAN]
     POSSIBLE_COOKIES_ELEMENTS = [Tags.BUTTON, Tags.A]
     POSSIBLE_CARD_TYPE_ELEMENTS = [Tags.INPUT, Tags.SELECT, Tags.BUTTON, Tags.DIV, Tags.SPAN]
@@ -40,7 +40,8 @@ class Pattern:
                      "or contains(translate(@value, 'ACDORT', 'acdort'), 'add to cart') " \
                      "or contains(translate(@aria-label, 'ABDGOT', 'abdgot'), 'add to bag') " \
                      "or contains(translate(text(), 'ADD', 'add'), 'add') " \
-                     "and not(contains(translate(text(), 'WISH', 'wish'), 'wish'))" \
+                     "and not(contains(translate(text(), 'WISH', 'wish'), 'wish')) " \
+                     "and not(contains(translate(text(), 'WATCH', 'watch'), 'watch')) " \
                      "or contains(normalize-space(translate(@name, 'ABDGOT', 'abdgot')), 'addtobag') " \
                      "or contains(translate(@name, 'ADD', 'add'), 'add')]"
     VIEW_CART = "//*[contains(translate(., 'VIEWBAG', 'viewbag'), 'view bag') " \
@@ -54,9 +55,11 @@ class Pattern:
                 "or contains(translate(text(), 'GOTCAR', 'gotcar'), 'go to cart') " \
                 "or contains(translate(@class, 'CARTDOPWN', 'cartdopwn'), 'cart dropdown') " \
                 "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout')] " \
-                "| //a[contains(translate(@href, 'CART', 'cart'),'cart') " \
+                "| //a[contains(translate(@href, 'CART', 'cart'),'/cart') " \
                 "or contains(translate(@class, 'SHOPINGBA', 'shopingba'), 'shopping-bag')] " \
-                "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart')]"
+                "| //button[contains(translate(text(), 'VIWECART', 'viewcart'),'view cart') " \
+                "or contains(translate(@aria-label, 'CARTONI', 'cartoni'), 'cart contain') " \
+                "or contains(translate(@aria-label, 'CART', 'cart'), 'cart')]"
     LOGIN_AS_GUEST_PATTERN = "//*[contains(translate(text(),'GUEST','guest'),'guest') " \
                              "or contains(translate(text(),'CONTINUE','continue'),'continue')]"
     SIGN_IN_PATTERN = "//*[contains(translate(text(),'SIGN','sign'),'sign-in')]"
@@ -66,8 +69,10 @@ class Pattern:
     ADDRESS_PATTERN = "//*[contains(translate(text(), 'ADRES', 'adres'), 'adres')]"
     VIEW_CART_CHECKOUT = "//*[contains(translate(text(), 'CHEKOUT', 'chekout'), 'checkout') " \
                          "or contains(translate(text(), 'CONTIUE', 'contiue'), 'continue') " \
+                         "and not(contains(translate(text(), 'SHOPING', 'shoping'), 'shopping'))" \
                          "or contains(translate(., 'PROCEDTHKU', 'procedthku'), 'proceed to checkout') " \
                          "or contains(translate(@name, 'CHEKOUT', 'chekout'), 'checkout') " \
+                         "and not(contains(translate(@name, 'PAYL', 'payl'), 'paypal'))" \
                          "or contains(translate(text(), 'CHEKOUT', 'chekout'), 'check out')] " \
                          "| //button[contains(translate(text(), 'CARD', 'card'), 'card') " \
                          "or contains(translate(@class, 'SHOPFTER', 'shopfter'), 'shop-footer')]"
@@ -167,7 +172,6 @@ class Pattern:
                       "or contains(translate(text(), 'SUBMITORDER', 'submitorder'), 'submit order') " \
                       "or contains(translate(text(), 'COMPLETPURHAS', 'completpurhas'), 'complete purchase') " \
                       "or contains(translate(text(), 'ANOPWY', 'anopwy'), 'pay now')]"
-    PLACE_ORDER_BUTTON = "//button[contains(translate(text(), 'PLACEORD', 'placeord'), 'place order')]"
     REVIEW_ORDER = "//*[contains(translate(text(), 'REVIW', 'reviw'), 'review') " \
                    "and contains(translate(text(), 'ORDE', 'orde'), 'order') " \
                    "or contains(translate(text(), 'COMPLETRD', 'completrd'), 'complete order')]"
@@ -211,6 +215,7 @@ class Pattern:
           "or contains(translate(@id, 'VERIFCATONALU', 'verifcatonalu'), 'verification_value') " \
           "or contains(translate(@placeholder, 'SECURITYOD', 'securityod'), 'security code')] "
     CARD_HOLDER_NAME = "//input[contains(translate(@id, 'NAME', 'name'), 'name') " \
+                       "and not(contains(translate(@id, 'SHIPNG', 'shipng'), 'shipping'))" \
                        "or contains(translate(@id, 'CARD', 'card'), 'card') " \
                        "or contains(translate(@name, 'HOLDER', 'holder'), 'holder') " \
                        "or contains(translate(@id, 'BILGNAME', 'bilgname'), 'billing-name') " \
@@ -238,7 +243,9 @@ class Pattern:
                                 "or contains(translate(text(), 'NOTHAKS', 'nothaks'), 'no thanks') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') "\
                                 "or contains(translate(@class, 'CLOSE', 'close'), 'close') " \
-                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle')] " \
+                                "or contains(translate(@class, 'OPENSTAGL', 'openstagl'), 'openstatetoggle') " \
+                                "or contains(translate(@id, 'CLOSEINTAR', 'closeintar'), 'closeiconcontainer') " \
+                                "or contains(text(), \"I'll pass\")] " \
                                 "| //div[contains(translate(@class, 'CLOSEMDAL', 'closemdal'), 'closemodal') " \
                                 "or contains(translate(@class, 'CLOSEBUTN', 'closebutn'), 'closebutton') " \
                                 "or contains(translate(text(), 'DECLINEA', 'declinea'), 'decline all')] " \
