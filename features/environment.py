@@ -9,6 +9,7 @@ from modules.base import Base
 from utility import constants
 from utility.constants import SkipScenario, Timer, ETC
 from app import _result_file
+from smart_proxy import smart_proxy_impl
 
 
 def before_all(context):
@@ -45,7 +46,8 @@ def before_all(context):
 
     # This context attributes is available throughout all scenarios
     logger.info("Install chrome driver or retrieve from cache.")
-    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options,
+                               desired_capabilities=smart_proxy_impl())
 
     # This will maximize the browser window
     logger.info("Maximizing chrome window.")
