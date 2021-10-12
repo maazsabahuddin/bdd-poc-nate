@@ -5,7 +5,6 @@ import time
 from selenium.common import exceptions
 
 # Local imports
-from features.environment import failed_case
 from modules.logger import logger
 from utility.constants import TagsList, Pattern, Timer
 from utility.utilities import Utils

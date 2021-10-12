@@ -5,6 +5,8 @@ import time
 from selenium.common import exceptions
 
 # Local imports
+from selenium.common.exceptions import ElementNotInteractableException
+
 from modules.logger import logger
 from utility.ship_utils import ShipUtils
 from utility.utilities import Utils
@@ -79,19 +81,23 @@ class PersonalInfo:
         return Utils.fetch_required_elements(required_elements, posible_elements_list)
 
     def fill_required_info(self, email, first_name, last_name, phone):
-        if email is not None:
-            self.email.send_keys(email)
-            self.is_data_populated = True
-        if first_name is not None:
-            self.first_name.send_keys(first_name)
-            self.is_data_populated = True
-        if last_name is not None:
-            self.last_name.send_keys(last_name)
-            self.is_data_populated = True
-        if phone is not None:
-            self.phone.send_keys(phone)
-            self.is_data_populated = True
-        time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        try:
+            if email is not None:
+                self.email.send_keys(email)
+                self.is_data_populated = True
+            if first_name is not None:
+                self.first_name.send_keys(first_name)
+                self.is_data_populated = True
+            if last_name is not None:
+                self.last_name.send_keys(last_name)
+                self.is_data_populated = True
+            if phone is not None:
+                self.phone.send_keys(phone)
+                self.is_data_populated = True
+            time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
+        except ElementNotInteractableException as e:
+            logger.info(f"Exception caught: {str(e)}")
+            self.context.scenario.skip(reason='cannot find required fields')
     
     def hit_to_proceed(self):
         if self.button is not None:
