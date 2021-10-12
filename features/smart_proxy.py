@@ -1,5 +1,10 @@
+"""
+This file is basically the implementation of smart proxy residential service.
+You can get information for HOSTNAME and PORT on your users dashboard panel.
+url: https://dashboard.smartproxy.com/welcome
+"""
+
 # Python imports
-import os
 
 # Framework Imports
 from selenium import webdriver
@@ -25,8 +30,7 @@ def smart_proxy_impl():
         logger.info("SMART PROXY FLAG IS OFF")
 
     if RUN_PROXY and not (HOSTNAME and PORT):
-        logger.info("SMART PROXY FLAG IS ON, but some parameters are missing")
-        os.abort()
+        logger.info("SMART PROXY FLAG IS ON, but hostname/port is missing. Running normal flow...")
         return
 
     prox = Proxy()
