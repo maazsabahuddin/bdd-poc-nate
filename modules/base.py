@@ -19,16 +19,25 @@ class Base:
         self.web_driver = web_driver
         self.context = context
 
+    def close_tab(self):
+        self.web_driver.close()
+
+    def open_another_tab(self, url, tab_name):
+        """
+        This function will open a new tab, switch on it and open a url.
+        :param url:
+        :param tab_name:
+        :return:
+        """
+        self.web_driver.execute_script(f"window.open('about:blank', '{tab_name}')")
+
+        # It is switching to second tab now
+        self.web_driver.switch_to.window(tab_name)
+        self.open(url=url)
+
     def open(self, url):
         try:
             self.web_driver.get(url)
-            # self.web_driver.execute_script("window.open('about:blank', 'secondtab')")
-
-            # # It is switching to second tab now
-            # self.web_driver.switch_to.window("secondtab")
-            #
-            # # In the second tab, it opens geeksforgeeks
-            # self.web_driver.get('https://www.geeksforgeeks.org/')
         except exceptions.TimeoutException as e:
             logger.info("Timeout Exception encountered.\nSite failed to load.")
             _result_file.write(f"{self.context.name} - FAILED - base.py line number 25 {str(e)}\n") \

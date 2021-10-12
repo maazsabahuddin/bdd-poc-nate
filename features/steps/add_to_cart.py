@@ -1,10 +1,10 @@
 # Framework imports
+import time
+
 from behave import *
 
 # Local imports
 from modules.add_to_cart import AddToCart
-from utility.constants import ETC
-from app import _result_file
 
 
 @given('url of product page to check add to cart')
@@ -18,7 +18,6 @@ def step_impl(context):
 def step_impl(context):
     if not context.current_obj.is_add_to_cart_found:
         context.current_obj.web.skip_all_remaining_scenarios()
-        context.scenario.skip(reason="Cannot find add to cart button.")
 
 
 @then('click on add to cart and proceed to next step')

@@ -57,7 +57,10 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    context.url = context.config.userdata[ETC.URL]
+    # context.url = context.config.userdata[ETC.URL]
+    context.url = ["https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l",
+                   "https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l",
+                   "https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l"]
     context.name = context.config.userdata.get(ETC.NAME)
     context.log = context.config.userdata.get(ETC.LOG)
     context.color = extract_user_data(context, ETC.COLOR)

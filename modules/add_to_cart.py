@@ -12,6 +12,14 @@ from utility.constants import Pattern, TagsList, Timer, ETC
 from app import _result_file
 
 
+number_config = {
+    2: 'second',
+    3: 'third',
+    4: 'fourth',
+    5: 'fifth'
+}
+
+
 class AddToCart:
 
     def __init__(self, context):
@@ -24,7 +32,16 @@ class AddToCart:
         self.required_element = None
     
     def find_add_to_(self):
-        self.web.open(self.context.url)
+
+        self.web.open(self.context.url[0])
+        for idx, site in enumerate(self.context.url[1:]):
+            self.context.web.open_another_tab(url=site, tab_name=number_config.get(idx+2)+"tab")
+
+        for tab in self.context.web.web_driver.window_handles:
+            self.context.web.web_driver.switch_to.window(tab)
+            self.context.web.web_driver.refresh()
+            time.sleep(1)
+
         self.web.scroll_page(0, 30)
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
