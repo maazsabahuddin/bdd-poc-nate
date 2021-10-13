@@ -14,9 +14,9 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 from modules.logger import logger
 
 
-HOSTNAME = ''
-PORT = ''
-RUN_PROXY = False
+HOSTNAME = 'us.smartproxy.com'
+PORT = '10000'
+RUN_PROXY = True
 
 
 def smart_proxy_impl():
