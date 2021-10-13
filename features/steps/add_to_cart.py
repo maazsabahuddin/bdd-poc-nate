@@ -23,7 +23,7 @@ def step_impl(context):
 @then('click on add to cart and proceed to next step')
 def step_impl(context):
     if context.current_obj.is_cart_flow:
-        context.current_obj.cart_flow_()
+        context.current_obj.cart_flow_(counter=0)
     else:
         context.current_obj.select_color_size()
         context.current_obj.hit_add_to_cart_element()

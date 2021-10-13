@@ -116,38 +116,46 @@ class AddToCart:
         self.required_element.click()
         time.sleep(timer)
 
-    def cart_flow_(self):
+    def cart_flow_(self, counter):
         """
-        This ....
+        This function is responsible to fetch add to cart element, click on it and perform this recursively
+        until base condition met....
         """
 
-        for tab in self.context.web.web_driver.window_handles[:len(self.context.web.web_driver.window_handles)]:
+        logger.info("Switching tab ") if counter != len(self.context.web.web_driver.window_handles) \
+            else logger.info("last tab")
 
-            self.web.scroll_page(0, 30)
+        if counter == len(self.context.web.web_driver.window_handles):
+            return
+
+        # for tab in self.context.web.web_driver.window_handles[:len(self.context.web.web_driver.window_handles)]:
+
+        self.web.scroll_page(0, 30)
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        if not add_to_dict:
+            logger.info("Add to cart element not found..")
+            return
+
+        self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+        if self.required_element:
+            self.is_add_to_cart_found = True
+            self.hit_add_to_cart_element()
+        else:
+            logger.info("finding for overlays")
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            logger.info(f"is overlay handled: {is_overlays_found_and_close}")
             time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-            add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
-            if not add_to_dict:
-                logger.info("Add to cart element not found..")
-                return
+            if is_overlays_found_and_close:
+                self.required_element = \
+                    Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+                self.is_add_to_cart_found = True if self.required_element else False
+                self.hit_add_to_cart_element() if self.is_add_to_cart_found else None
 
-            self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-            if self.required_element:
-                self.is_add_to_cart_found = True
-                self.hit_add_to_cart_element()
-            else:
-                logger.info("finding for overlays")
-                is_overlays_found_and_close = Utils.check_overlays(self.context)
-                logger.info(f"is overlay handled: {is_overlays_found_and_close}")
-                time.sleep(Timer.FIVE_SECOND_TIMEOUT)
-                if is_overlays_found_and_close:
-                    self.required_element = \
-                        Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-                    self.is_add_to_cart_found = True if self.required_element else False
-                    self.hit_add_to_cart_element() if self.is_add_to_cart_found else None
+            # if tab == self.context.web.web_driver.window_handles[-1]:
+            #     return
 
-            if tab == self.context.web.web_driver.window_handles[-1]:
-                return
+        self.context.web.web_driver.switch_to.window(self.context.web.web_driver.window_handles[counter])
+        self.context.web.web_driver.refresh()
 
-            logger.info("Switching tab ")
-            self.context.web.web_driver.switch_to.window(tab)
-            self.context.web.web_driver.refresh()
+        return self.cart_flow_(counter+1)
