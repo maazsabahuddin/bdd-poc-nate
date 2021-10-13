@@ -30,6 +30,7 @@ class AddToCart:
         self.web.scroll_page(0, 30)
 
         if len(self.context.url) > 1:
+            logger.info("Cart flow execution..")
             self.is_cart_flow = True
             for idx, site in enumerate(self.context.url[1:]):
                 self.context.web.open_another_tab(url=site, tab_name=ETC.NUMBER_CONFIG.get(idx+2)+"tab")
@@ -120,7 +121,7 @@ class AddToCart:
         This ....
         """
 
-        for tab in self.context.web.web_driver.window_handles[0:len(self.context.web.web_driver.window_handles)-1]:
+        for tab in self.context.web.web_driver.window_handles[:len(self.context.web.web_driver.window_handles)]:
 
             self.web.scroll_page(0, 30)
             time.sleep(Timer.FIVE_SECOND_TIMEOUT)
@@ -139,10 +140,14 @@ class AddToCart:
                 logger.info(f"is overlay handled: {is_overlays_found_and_close}")
                 time.sleep(Timer.FIVE_SECOND_TIMEOUT)
                 if is_overlays_found_and_close:
-                    self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+                    self.required_element = \
+                        Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
                     self.is_add_to_cart_found = True if self.required_element else False
                     self.hit_add_to_cart_element() if self.is_add_to_cart_found else None
 
-            print("Switching to tab ", tab)
+            if tab == self.context.web.web_driver.window_handles[-1]:
+                return
+
+            logger.info("Switching tab ")
             self.context.web.web_driver.switch_to.window(tab)
             self.context.web.web_driver.refresh()

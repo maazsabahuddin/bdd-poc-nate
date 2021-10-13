@@ -57,10 +57,7 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    # context.url = context.config.userdata[ETC.URL]
-    context.url = ["https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l",
-                   "https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l",
-                   "https://bombas.com/products/men-s-solid-ankle-sock-white-large-1?variant=white&size=l"]
+    context.url = extract_urls(context)
     context.name = context.config.userdata.get(ETC.NAME)
     context.log = context.config.userdata.get(ETC.LOG)
     context.color = extract_user_data(context, ETC.COLOR)
@@ -79,6 +76,12 @@ def extract_user_data(context, key):
         value = val.split(':')
         data_dict.update({value[0]: value[1].replace(".", ' ')})
     return data_dict
+
+
+def extract_urls(context):
+    print(context.config.userdata[ETC.URL])
+    print(context.config.userdata[ETC.URL].split(","))
+    return context.config.userdata[ETC.URL].split(",")
 
 
 def after_all(context):
