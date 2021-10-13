@@ -79,8 +79,11 @@ def extract_user_data(context, key):
 
 
 def extract_urls(context):
-    print(context.config.userdata[ETC.URL])
-    print(context.config.userdata[ETC.URL].split(","))
+    """
+    This function will return the list of urls by splitting them using comma separator.
+    :param context:
+    :return:
+    """
     return context.config.userdata[ETC.URL].split(",")
 
 
