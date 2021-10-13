@@ -122,14 +122,6 @@ class AddToCart:
         until base condition met....
         """
 
-        logger.info("Switching tab ") if counter != len(self.context.web.web_driver.window_handles) \
-            else logger.info("last tab")
-
-        if counter == len(self.context.web.web_driver.window_handles):
-            return
-
-        # for tab in self.context.web.web_driver.window_handles[:len(self.context.web.web_driver.window_handles)]:
-
         self.web.scroll_page(0, 30)
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
@@ -152,10 +144,15 @@ class AddToCart:
                 self.is_add_to_cart_found = True if self.required_element else False
                 self.hit_add_to_cart_element() if self.is_add_to_cart_found else None
 
-            # if tab == self.context.web.web_driver.window_handles[-1]:
-            #     return
+        counter += 1
+        logger.info("Switching tab ") if counter != len(self.context.web.web_driver.window_handles) \
+            else logger.info("All products added to cart. Proceeding now.")
 
-        self.context.web.web_driver.switch_to.window(self.context.web.web_driver.window_handles[counter])
+        if counter == len(self.context.web.web_driver.window_handles):
+            """ This is the base condition """
+            return
+
+        self.context.web.web_driver.switch_to.window(self.context.web.web_driver.window_handles[counter-1])
         self.context.web.web_driver.refresh()
 
-        return self.cart_flow_(counter+1)
+        return self.cart_flow_(counter)
