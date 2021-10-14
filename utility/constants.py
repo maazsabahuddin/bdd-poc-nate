@@ -293,6 +293,12 @@ class ETC:
     URL = "url"
     IS_CASE_FAILED = "is_case_failed"
     CLASS = "class"
+    NUMBER_CONFIG = {
+        2: 'second',
+        3: 'third',
+        4: 'fourth',
+        5: 'fifth'
+    }
 
 
 class UserInfo:

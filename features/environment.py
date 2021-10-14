@@ -59,7 +59,7 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    context.url = context.config.userdata[ETC.URL]
+    context.url = extract_urls(context)
     context.name = context.config.userdata.get(ETC.NAME)
     context.log = context.config.userdata.get(ETC.LOG)
     context.color = extract_user_data(context, ETC.COLOR)
@@ -78,6 +78,15 @@ def extract_user_data(context, key):
         value = val.split(':')
         data_dict.update({value[0]: value[1].replace(".", ' ')})
     return data_dict
+
+
+def extract_urls(context):
+    """
+    This function will return the list of urls by splitting them using comma separator.
+    :param context:
+    :return:
+    """
+    return context.config.userdata[ETC.URL].split(",")
 
 
 def after_all(context):
