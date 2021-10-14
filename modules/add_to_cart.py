@@ -22,10 +22,20 @@ class AddToCart:
         self.color_element = None
         self.size_element = None
         self.required_element = None
-    
+        self.is_cart_flow = False
+
     def find_add_to_(self):
-        self.web.open(self.context.url)
+
+        self.web.open(self.context.url[0])
         self.web.scroll_page(0, 30)
+
+        if len(self.context.url) > 1:
+            logger.info("Cart flow execution..")
+            self.is_cart_flow = True
+            for idx, site in enumerate(self.context.url[1:]):
+                self.context.web.open_another_tab(url=site, tab_name=ETC.NUMBER_CONFIG.get(idx+2)+"tab")
+            return
+
         time.sleep(Timer.FIVE_SECOND_TIMEOUT)
         add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
         if not add_to_dict:
@@ -42,8 +52,7 @@ class AddToCart:
             time.sleep(Timer.FIVE_SECOND_TIMEOUT)
             if is_overlays_found_and_close:
                 self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
-                if self.required_element:
-                    self.is_add_to_cart_found = True
+                self.is_add_to_cart_found = True if self.required_element else False
 
     @staticmethod
     def get_size_or_color_xpath(element):
@@ -106,3 +115,44 @@ class AddToCart:
     def __click_and_wait_for(self, timer):
         self.required_element.click()
         time.sleep(timer)
+
+    def cart_flow_(self, counter):
+        """
+        This function is responsible to fetch add to cart element, click on it and perform this recursively
+        until base condition met....
+        """
+
+        self.web.scroll_page(0, 30)
+        time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+        add_to_dict = self.extract_required_elements(Pattern.ADD_TO_PATTERN)
+        if not add_to_dict:
+            logger.info("Add to cart element not found..")
+            return
+
+        self.required_element = Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+        if self.required_element:
+            self.is_add_to_cart_found = True
+            self.hit_add_to_cart_element()
+        else:
+            logger.info("finding for overlays")
+            is_overlays_found_and_close = Utils.check_overlays(self.context)
+            logger.info(f"is overlay handled: {is_overlays_found_and_close}")
+            time.sleep(Timer.FIVE_SECOND_TIMEOUT)
+            if is_overlays_found_and_close:
+                self.required_element = \
+                    Utils.get_required_element_2(add_to_dict, TagsList.POSSIBLE_ADD_TO_TAGS_LIST)
+                self.is_add_to_cart_found = True if self.required_element else False
+                self.hit_add_to_cart_element() if self.is_add_to_cart_found else None
+
+        counter += 1
+        logger.info("Switching tab ") if counter != len(self.context.web.web_driver.window_handles) \
+            else logger.info("All products added to cart. Proceeding now.")
+
+        if counter == len(self.context.web.web_driver.window_handles):
+            """ This is the base condition """
+            return
+
+        self.context.web.web_driver.switch_to.window(self.context.web.web_driver.window_handles[counter-1])
+        self.context.web.web_driver.refresh()
+
+        return self.cart_flow_(counter)
