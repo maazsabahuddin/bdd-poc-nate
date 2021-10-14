@@ -15,7 +15,7 @@ from features import config
 from modules.logger import logger
 
 HOSTNAME = 'us.smartproxy.com'
-PORT = f'10000:user-{config.USERNAME}:{config.PASSWORD}'
+PORT = f'10000'  # :user-{config.USERNAME}:{config.PASSWORD}'
 RUN_PROXY = True
 
 
