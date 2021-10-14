@@ -18,9 +18,12 @@ class ProceedToCheckoutStep2:
         self.context = context
         self.web = context.web
         self.required_element = None
+        self.checkbox_element = None
 
     def find_cart_checkout(self):
+        self.web.scroll_page(0, 30)
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)
+        self.checkbox_element = self.web.finds_by_xpath_wait(Pattern.CHECKOUT_CHECKBOX)
         if not view_cart_dict:
             is_overlays_found_and_close = Utils.check_overlays(context=self.context)
             if is_overlays_found_and_close:
@@ -35,6 +38,8 @@ class ProceedToCheckoutStep2:
 
     def hit_button_to_proceed(self):
         try:
+            if self.checkbox_element:
+                self.checkbox_element[0].click()
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
                 AttributeError) as e:
