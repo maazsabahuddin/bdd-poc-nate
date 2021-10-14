@@ -38,8 +38,6 @@ class ProceedToCheckoutStep2:
 
     def hit_button_to_proceed(self):
         try:
-            if self.checkbox_element:
-                self.checkbox_element[0].click()
             self.__click_and_wait_for(Timer.PROCESS_PAUSE_TIMEOUT)
         except (exceptions.ElementNotInteractableException, exceptions.ElementClickInterceptedException,
                 AttributeError) as e:
@@ -56,5 +54,12 @@ class ProceedToCheckoutStep2:
                 self.context.web.skip_all_remaining_scenarios()
 
     def __click_and_wait_for(self, timer):
+        """
+        Click the required elements
+        :param timer:
+        :return:
+        """
+        if self.checkbox_element and not self.checkbox_element[0].get_attribute("checked"):
+            self.checkbox_element[0].click()
         self.required_element.click()
         time.sleep(timer)
