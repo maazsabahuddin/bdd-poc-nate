@@ -11,11 +11,11 @@ from selenium import webdriver
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 # Local imports
+from features import config
 from modules.logger import logger
 
-
 HOSTNAME = 'us.smartproxy.com'
-PORT = '10000'
+PORT = f'10000:user-{config.USERNAME}:{config.PASSWORD}'
 RUN_PROXY = True
 
 
