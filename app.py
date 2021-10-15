@@ -84,7 +84,7 @@ sites = {
     "Vuoriclothing": "https://vuoriclothing.com/products/we-rise-bandana-turmeric?variant=39319957569639",
     "Skinnydiplondon": "https://www.skinnydiplondon.com/collections/key-rings/products/"
                        "disney-x-skinnydip-aliens-key-charm?nosto_source=cmp&nosto=614c3f9a49ffe660b38fcc8e",
-    "Reddress": "https://www.reddress.com/products/in-demand-taupe-bag",
+    "Reddress": "https://www.reddress.com/collections/casual-tops/products/just-what-i-need-heather-grey-top",
     "Feature": "https://feature.com/collections/ambush/products/ambush-class-ring-silver-black",
     "Shopshashi": "https://shopshashi.com/products/perla-bracelet-emerald",
     "Mclabels": "https://www.mclabels.com/collections/glasses/products/oakley-black-sunglasses-48",

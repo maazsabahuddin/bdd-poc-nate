@@ -133,3 +133,5 @@ venv
 
 result.txt
 automation_result.txt
+features/smart_proxy_call.py
+features/example_selenium.py

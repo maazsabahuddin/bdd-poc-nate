@@ -32,8 +32,8 @@ class ProceedToCheckoutStep1:
             time.sleep(Timer.FIVE_SECOND_TIMEOUT)
             if is_overlays_found_and_close:
                 self.required_element = Utils.get_required_element_3(view_cart_dict, TagsList.POSSIBLE_VIEW_CART)
-                if self.required_element:
-                    self.is_checkout_found = True
+                self.is_checkout_found = True if self.required_element else False
+
         time.sleep(Timer.PROCESS_PAUSE_TIMEOUT)
 
     def extract_required_elements(self, pattern):

@@ -18,9 +18,12 @@ class ProceedToCheckoutStep2:
         self.context = context
         self.web = context.web
         self.required_element = None
+        self.checkbox_element = None
 
     def find_cart_checkout(self):
+        self.web.scroll_page(0, 30)
         view_cart_dict = self.extract_required_elements(Pattern.VIEW_CART_CHECKOUT)
+        self.checkbox_element = self.web.finds_by_xpath_wait(Pattern.CHECKOUT_CHECKBOX)
         if not view_cart_dict:
             is_overlays_found_and_close = Utils.check_overlays(context=self.context)
             if is_overlays_found_and_close:
@@ -51,5 +54,12 @@ class ProceedToCheckoutStep2:
                 self.context.web.skip_all_remaining_scenarios()
 
     def __click_and_wait_for(self, timer):
+        """
+        Click the required elements
+        :param timer:
+        :return:
+        """
+        if self.checkbox_element and not self.checkbox_element[0].get_attribute("checked"):
+            self.checkbox_element[0].click()
         self.required_element.click()
         time.sleep(timer)

@@ -9,6 +9,7 @@ from modules.base import Base
 from utility import constants
 from utility.constants import SkipScenario, Timer, ETC
 from app import _result_file
+from smart_proxy import smart_proxy_impl
 
 
 def before_all(context):
@@ -45,7 +46,8 @@ def before_all(context):
 
     # This context attributes is available throughout all scenarios
     logger.info("Install chrome driver or retrieve from cache.")
-    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options,
+                               desired_capabilities=smart_proxy_impl())
 
     # This will maximize the browser window
     logger.info("Maximizing chrome window.")
@@ -57,7 +59,8 @@ def before_all(context):
     browser.set_page_load_timeout(Timer.PAGE_LOAD_TIMEOUT)
 
     logger.info("Setting url and web object.")
-    context.url = context.config.userdata[ETC.URL]
+    context.url = extract_urls(context)
+    logger.info(f"Sites {context.url}")
     context.name = context.config.userdata.get(ETC.NAME)
     context.log = context.config.userdata.get(ETC.LOG)
     context.color = extract_user_data(context, ETC.COLOR)
@@ -76,6 +79,15 @@ def extract_user_data(context, key):
         value = val.split(':')
         data_dict.update({value[0]: value[1].replace(".", ' ')})
     return data_dict
+
+
+def extract_urls(context):
+    """
+    This function will return the list of urls by splitting them using comma separator.
+    :param context:
+    :return:
+    """
+    return context.config.userdata[ETC.URL].split(",")
 
 
 def after_all(context):
