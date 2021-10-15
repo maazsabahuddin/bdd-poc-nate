@@ -60,6 +60,7 @@ def before_all(context):
 
     logger.info("Setting url and web object.")
     context.url = extract_urls(context)
+    logger.info(f"Sites {context.url}")
     context.name = context.config.userdata.get(ETC.NAME)
     context.log = context.config.userdata.get(ETC.LOG)
     context.color = extract_user_data(context, ETC.COLOR)
