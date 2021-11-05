@@ -5,6 +5,7 @@ Naik mimics the Nate backend service, completes the ecommerce checkout flow on b
 - Selenium - Browser Automation Framework
 - Poetry - Python Dependency and Release Management
 - Behave - Behavior Driven Development (BDD) Framework
+- Smart Proxy - To avoid bot detection through residential proxies (Paid Service)
 ## Environment Setup
 - Install poetry from its [website] https://python-poetry.org/docs/#installation
 - Add tab completion script for [shell](https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh) if you want to
