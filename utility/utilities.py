@@ -33,7 +33,9 @@ class Utils:
         for element in elements_dict[tag]:
             if element.is_enabled() and element.is_displayed():
                 return element
-            elif element.is_enabled() and element.get_attribute("type") == "radio" and element.tag_name == Tags.INPUT:
+            elif element.is_enabled() and \
+                    (element.get_attribute("type") == "radio" or element.get_attribute("type") == "submit") \
+                    and element.tag_name == Tags.INPUT:
                 return element
         return None
 
